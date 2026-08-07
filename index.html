@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THRIVE · 컴포넌트 확인</title>
+    <link rel="stylesheet" href="src/styles/reset.css" />
+    <link rel="stylesheet" href="src/styles/variables.css" />
+    <link rel="stylesheet" href="src/styles/common.css" />
+    <style>
+      /* 이 데모 페이지에서만 쓰는 보조 스타일 */
+      .demo-section-label {
+        font-size: var(--fs-caption);
+        font-weight: 700;
+        color: var(--color-text-muted);
+        letter-spacing: 0.02em;
+        margin-top: var(--space-2);
+      }
+      .demo-row {
+        display: flex;
+        gap: var(--space-2);
+        flex-wrap: wrap;
+      }
+      .demo-note {
+        font-size: var(--fs-caption);
+        color: var(--color-text-muted);
+        background: var(--color-surface-subtle);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: 12px 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 앱 프레임: 본문 + 탭바 세로 스택 (헤더는 다른 팀원 담당) -->
+    <div class="app" id="app">
+      <main class="app__body">
+        <p class="demo-note">
+          컴포넌트 확인용 페이지. 헤더는 제외!
+        </p>
+
+        <!-- 1) 입력 필드 확인 -->
+        <p class="demo-section-label">1 · 입력 필드</p>
+        <div id="fields-mount" style="display: flex; flex-direction: column; gap: var(--space-4);"></div>
+        <div class="demo-row">
+          <button class="btn btn--primary" id="validate-btn">
+            오류 상태 확인
+          </button>
+          <button class="btn btn--link" id="clear-btn">오류 해제</button>
+        </div>
+
+        <!-- 2) 버튼/카드 확인 -->
+        <p class="demo-section-label">2 · 버튼 · 카드</p>
+        <button class="btn btn--primary btn--block">기본 남색 버튼</button>
+        <button class="btn btn--primary btn--block" disabled>
+          비활성 버튼
+        </button>
+        <div class="card">
+          <strong>카드 컴포넌트</strong>
+          <p class="text-muted text-caption" style="margin-top: 6px;">
+            홈·기록 화면에서 반복되는 카드 면. 보더 + 라운드 + 옅은 그림자.
+          </p>
+        </div>
+
+        <!-- 3) 탭바 확인 안내 -->
+        <p class="demo-section-label">3 · 하단 탭바</p>
+        <p class="demo-note">
+          아래 탭을 눌러 활성 상태 전환을 확인하세요. (데모라 실제 이동은 막아둠 —
+          현재 선택: <span id="active-tab-label">홈</span>)
+        </p>
+      </main>
+
+      <!-- 탭바는 JS로 mount -->
+      <div id="tabbar-mount"></div>
+    </div>
+
+    <!-- 컴포넌트 스크립트 -->
+    <script src="src/components/tab-bar.js"></script>
+    <script src="src/components/input-field.js"></script>
+
+    <!-- 데모 조립 스크립트 -->
+    <script>
+      (function () {
+        const tabbarMount = document.getElementById("tabbar-mount");
+        const fieldsMount = document.getElementById("fields-mount");
+
+        /* ---- 입력 필드 mount ---- */
+        const emailField = THRIVE.createInputField({
+          name: "email",
+          label: "이메일",
+          type: "email",
+          placeholder: "you@example.com",
+          hint: "로그인에 사용할 이메일을 입력하세요",
+          autocomplete: "email",
+        });
+        const pwField = THRIVE.createInputField({
+          name: "password",
+          label: "비밀번호",
+          type: "password",
+          placeholder: "8자 이상",
+          hint: "8자 이상 입력",
+        });
+        fieldsMount.append(emailField, pwField);
+
+        document
+          .getElementById("validate-btn")
+          .addEventListener("click", function () {
+            emailField.setError("이미 가입된 이메일입니다");
+            pwField.setError("비밀번호가 일치하지 않습니다");
+          });
+        document
+          .getElementById("clear-btn")
+          .addEventListener("click", function () {
+            emailField.clearError();
+            pwField.clearError();
+          });
+
+        /* ---- 탭바 mount (데모: 이동 막고 활성만 전환) ---- */
+        const labelMap = { record: "기록", home: "홈", mypage: "내 정보" };
+        function renderTabBar(active) {
+          const tabbar = THRIVE.createTabBar({
+            active: active,
+            onNavigate: function (key) {
+              document.getElementById("active-tab-label").textContent =
+                labelMap[key];
+              renderTabBar(key);
+            },
+          });
+          tabbarMount.replaceChildren(tabbar);
+        }
+        renderTabBar("home");
+      })();
+    </script>
+  </body>
+</html>
