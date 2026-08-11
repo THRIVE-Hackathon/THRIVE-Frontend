@@ -1,11 +1,16 @@
-/* ===== common.css : 화면 뼈대 + 공통 컴포넌트 ===== */
+/* ===== common.css : 화면 뼈대 + 공통 컴포넌트 =====
+ * 컬러/타이포 확정 PDF 반영 버전. 토큰 이름은 variables.css 참고.
+ */
 
 body {
   font-family: var(--font-sans);
-  font-size: var(--fs-body);
+  font-size: var(--fs-body-3);
+  line-height: var(--lh-body-3);
+  letter-spacing: var(--ls-body-3);
+  font-weight: var(--fw-body-3);
   color: var(--color-text);
-  background: var(--color-surface);
-  /* 데스크톱에서 402px 캔버스를 가운데 정렬해 확인하기 위한 배경 */
+  /* 앱 바깥(데스크톱 캔버스) 배경: gray-050. .app 안쪽은 surface(흰색)로 구분 */
+  background: var(--color-bg);
   display: flex;
   justify-content: center;
 }
@@ -52,7 +57,9 @@ body {
   gap: 6px;
   padding-top: 4px;
   color: var(--color-text-subtle);
-  font-size: var(--fs-caption);
+  font-size: var(--fs-caption-1);
+  line-height: var(--lh-caption-1);
+  letter-spacing: var(--ls-caption-1);
 }
 .app-tabbar__item .app-tabbar__icon {
   width: 24px;
@@ -74,7 +81,9 @@ body {
   gap: var(--space-2);
 }
 .field__label {
-  font-size: var(--fs-label);
+  font-size: var(--fs-body-3);
+  line-height: var(--lh-body-3);
+  letter-spacing: var(--ls-body-3);
   font-weight: 400;
   color: var(--color-text);
 }
@@ -85,7 +94,8 @@ body {
   background: var(--color-surface);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
-  font-size: var(--fs-body);
+  font-size: var(--fs-body-3);
+  font-family: var(--font-sans);
   color: var(--color-text);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -95,24 +105,29 @@ body {
 .field__input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(35, 46, 62, 0.12);
+  box-shadow: 0 0 0 3px var(--color-opacity-black-100);
 }
 .field__msg {
   min-height: 18px;                /* 오류 노출 시 레이아웃 흔들림 방지 */
-  font-size: var(--fs-caption);
+  font-size: var(--fs-caption-1);
+  line-height: var(--lh-caption-1);
+  letter-spacing: var(--ls-caption-1);
   color: var(--color-text-muted);
 }
 .field__msg--error {
   color: var(--color-danger);
 }
+.field__msg.is-ok {
+  color: var(--color-success);
+}
 .field.has-error .field__input {
   border-color: var(--color-danger);
 }
 .field.has-error .field__input:focus {
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+  box-shadow: 0 0 0 3px rgba(218, 57, 68, 0.12); /* color-red-500 12% */
 }
 
-/* ---------- 버튼 (화면에서 반복되는 남색/링크 버튼) ---------- */
+/* ---------- 버튼 (화면에서 반복되는 버튼) ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -120,7 +135,8 @@ body {
   height: 48px;
   padding: 0 20px;
   border-radius: var(--radius-md);
-  font-size: var(--fs-body);
+  font-size: var(--fs-body-3);
+  font-family: var(--font-sans);
   font-weight: 600;
   transition: background-color 0.15s ease, opacity 0.15s ease;
 }
@@ -164,8 +180,49 @@ body {
 
 /* ---------- 유틸 ---------- */
 .text-muted { color: var(--color-text-muted); }
-.text-caption { font-size: var(--fs-caption); }
+.text-caption {
+  font-size: var(--fs-caption-1);
+  line-height: var(--lh-caption-1);
+  letter-spacing: var(--ls-caption-1);
+}
 
+/* ---------- 타이포 유틸 (typo.pdf 스케일, 필요한 화면에서 바로 사용) ---------- */
+.text-title-1 {
+  font-size: var(--fs-title-1);
+  line-height: var(--lh-title-1);
+  letter-spacing: var(--ls-title-1);
+  font-weight: var(--fw-title-1);
+}
+.text-heading-1 {
+  font-size: var(--fs-heading-1);
+  line-height: var(--lh-heading-1);
+  letter-spacing: var(--ls-heading-1);
+  font-weight: var(--fw-heading-1);
+}
+.text-heading-2 {
+  font-size: var(--fs-heading-2);
+  line-height: var(--lh-heading-2);
+  letter-spacing: var(--ls-heading-2);
+  font-weight: var(--fw-heading-2);
+}
+.text-heading-3 {
+  font-size: var(--fs-heading-3);
+  line-height: var(--lh-heading-3);
+  letter-spacing: var(--ls-heading-3);
+  font-weight: var(--fw-heading-3);
+}
+.text-body-1 {
+  font-size: var(--fs-body-1);
+  line-height: var(--lh-body-1);
+  letter-spacing: var(--ls-body-1);
+  font-weight: var(--fw-body-1);
+}
+.text-body-2 {
+  font-size: var(--fs-body-2);
+  line-height: var(--lh-body-2);
+  letter-spacing: var(--ls-body-2);
+  font-weight: var(--fw-body-2);
+}
 
 /* ------------- 셀렉트 --------------
  * .field__input 과 동일한 형태로 맞춤. 화살표는 커스텀(SVG)으로 통일
@@ -177,15 +234,16 @@ body {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
-  font-size: var(--fs-body);
+  font-size: var(--fs-body-3);
+  font-family: var(--font-sans);
   color: var(--color-text);
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  /* 커스텀 화살표(chevron, --color-text-muted 계열) */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  /* 커스텀 화살표(chevron). stroke = color-gray-500(#686c72) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23686c72' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 16px 16px;
@@ -193,7 +251,7 @@ body {
 .field__select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(35, 46, 62, 0.12);
+  box-shadow: 0 0 0 3px var(--color-opacity-black-100);
 }
 /* 미선택(placeholder) 상태는 옅은 색으로
  * required + 빈 값 = :invalid 이므로 별도 JS 없이 placeholder 색 적용 */
@@ -205,5 +263,5 @@ body {
   border-color: var(--color-danger);
 }
 .field.has-error .field__select:focus {
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+  box-shadow: 0 0 0 3px rgba(218, 57, 68, 0.12);
 }
