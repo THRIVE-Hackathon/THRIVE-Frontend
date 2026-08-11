@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THRIVE · 로그인</title>
+    <!-- 경로는 repo 구조(src/pages/auth/) 기준 상대경로 -->
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/variables.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/auth.css" />
+  </head>
+  <body>
+    <!-- 인증 화면: 헤더/탭바 없음 (명세서 "A 인증 — 탭바 없음") -->
+    <div class="app" id="app">
+      <main class="app__body">
+        <div>
+          <h1 class="auth-title">로그인</h1>
+        </div>
+
+        <!--
+          [Django 연동 지점]
+          - action        : 로그인 처리 URL (예: {% url 'auth:login' %})
+          - data-demo="true": 서버 미연동 상태에서 실제 POST를 막고 검증만 확인.
+                              Django 연동 시 이 속성만 제거하면 폼이 그대로 POST됨.
+        -->
+        <form
+          class="auth-form"
+          method="post"
+          action="/auth/login/"
+          novalidate
+          data-auth="login"
+          data-demo="true"
+        >
+          <!-- [Django] 아래 hidden input을 {% csrf_token %} 으로 치환 -->
+          <input type="hidden" name="csrfmiddlewaretoken" value="" data-csrf />
+
+          <!--
+            [Django] 서버 재렌더 시 이메일 오류를 아래 data-field 요소에
+            data-server-error="이메일 형식이 올바르지 않습니다" 로 주입하면
+            auth-form.js 가 자동으로 오류 스타일을 적용함.
+            (또는 .field 에 has-error, .field__msg 에 문구 직접 렌더링)
+          -->
+          <div class="field" data-field="email">
+            <label class="field__label" for="login-email">이메일</label>
+            <input
+              class="field__input"
+              id="login-email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              value=""
+              required
+            />
+            <p class="field__msg"></p>
+          </div>
+
+          <!-- FA102 비밀번호 마스킹: type="password" -->
+          <div class="field" data-field="password">
+            <label class="field__label" for="login-password">비밀번호</label>
+            <input
+              class="field__input"
+              id="login-password"
+              name="password"
+              type="password"
+              placeholder="비밀번호"
+              autocomplete="current-password"
+              required
+            />
+            <p class="field__msg"></p>
+          </div>
+
+          <!--
+            FA103 예외: 계정 없음 · 비밀번호 불일치는
+            "이메일 또는 비밀번호가 올바르지 않습니다" 로 통합 안내.
+            [Django] 서버 오류는 아래 요소의 data-server-error 로 주입.
+          -->
+          <p class="auth-form__error" role="alert" data-server-error=""></p>
+
+          <button class="btn btn--primary btn--block" type="submit">로그인</button>
+        </form>
+
+        <!-- FA104 회원가입 이동 -->
+        <p class="auth-alt">
+          계정이 없으신가요?
+          <a class="btn--link" href="./signup.html">계정 생성</a>
+        </p>
+
+        <div class="card">
+          <span class="auth-note__label">참고</span>
+          <p class="auth-note">실패하면 이메일과 비밀번호를 다시 확인해주세요.</p> 
+        </div>
+      </main>
+    </div>
+
+    <script src="../../scripts/auth-form.js"></script>
+  </body>
+</html>

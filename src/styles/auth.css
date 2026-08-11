@@ -1,0 +1,107 @@
+/* ===== auth.css : 인증 화면(로그인 · 회원가입) 전용 스타일 =====
+ * common.css / variables.css 를 수정하지 않기 위한 별도 파일.
+ * 인증 화면은 하단 탭바가 없음(명세서: "A 인증 — 탭바 없음").
+ */
+
+/* ---------- 화면 제목 ---------- */
+.auth-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+.auth-subtitle {
+  color: var(--color-text-muted);
+  font-size: var(--fs-body);
+}
+
+/* ---------- 폼 ---------- */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* 서버 통합 오류(계정 없음 · 비밀번호 불일치 등, FA103 예외) */
+.auth-form__error {
+  font-size: var(--fs-caption);
+  color: var(--color-danger);
+}
+
+/* 데모 모드 안내(서버 미연동 시) */
+.auth-form__demo {
+  color: var(--color-text-muted);
+}
+
+/* ---------- 필드 메시지 노출 규칙 ----------
+ * 요청: 입력 전(중립)에는 렌더링하지 않고,
+ *       틀림(빨강) · 맞음(초록)일 때만 드러남.
+ * → 메시지 요소가 비어 있으면(:empty) 공간도 차지하지 않고 숨김.
+ *   JS가 중립 상태에서 textContent 를 "" 로 비우면 자동으로 사라짐.
+ * (common.css 의 min-height:18px 예약을 여기서 해제)
+ */
+.auth-form .field__msg,
+.auth-form__error {
+  min-height: 0;
+}
+.auth-form .field__msg:empty,
+.auth-form__error:empty {
+  display: none;
+}
+
+/* 충족(초록). 오류(빨강, .field__msg--error)는 common.css 에 이미 있음. */
+.field__msg.is-ok {
+  color: #16a34a;
+}
+
+/* ---------- 회원가입: 약관 동의 ---------- */
+.auth-agree {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.auth-agree__title {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--color-text);
+}
+.auth-agree__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-body);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.auth-agree__row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* ---------- 하단 안내(계정 없으신가요? 등) ---------- */
+.auth-alt {
+  text-align: center;
+  font-size: var(--fs-caption);
+  color: var(--color-text-muted);
+}
+.auth-alt .btn--link {
+  margin-left: var(--space-1);
+  font-size: var(--fs-label);
+}
+
+/* ---------- 참고 카드 라벨 ---------- */
+.auth-note__label {
+  display: block;
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+.auth-note {
+  text-align: left;
+  font-size: var(--fs-caption);
+  color: var(--color-text-muted);
+}
