@@ -1,4 +1,4 @@
-/* ===== auth.css : 인증 화면(로그인 · 회원가입) 전용 스타일 =====
+/* ===== auth.css : 인증 화면(로그인 · 회원가입 · 프로필 입력) 전용 스타일 =====
  * common.css / variables.css 를 수정하지 않기 위한 별도 파일.
  * 인증 화면은 하단 탭바가 없음(명세서: "A 인증 — 탭바 없음").
  */
@@ -13,6 +13,19 @@
 .auth-subtitle {
   color: var(--color-text-muted);
   font-size: var(--fs-body);
+}
+
+/* 제목 + 수집 목적(부제)을 한 덩어리로 묶어 간격을 좁게 (프로필 A3) */
+.auth-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.auth-head .auth-caption {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-text);
 }
 
 /* ---------- 폼 ---------- */
@@ -34,11 +47,14 @@
 }
 
 /* ---------- 필드 메시지 노출 규칙 ----------
- * 요청: 입력 전(중립)에는 렌더링하지 않고,
- *       틀림(빨강) · 맞음(초록)일 때만 드러남.
- * → 메시지 요소가 비어 있으면(:empty) 공간도 차지하지 않고 숨김.
- *   JS가 중립 상태에서 textContent 를 "" 로 비우면 자동으로 사라짐.
+ * 요청: 입력 전(중립)에는 렌더링하지 않고
+ *       틀림(빨강) / 맞음(초록)일 때만 드러남
+ * → 메시지 요소가 비어 있으면(:empty) 공간도 차지하지 않고 숨김
+ *   JS가 중립 상태에서 textContent 를 "" 로 비우면 자동으로 사라짐
  * (common.css 의 min-height:18px 예약을 여기서 해제)
+ *
+ * 예외: 프로필 화면의 안내 힌트('2~10자' / '필수 항목입니다')는
+ *       빈 값이 아니라 항상 렌더링됨(중립=회색). :empty 규칙에 걸리지 않음
  */
 .auth-form .field__msg,
 .auth-form__error {
@@ -49,9 +65,14 @@
   display: none;
 }
 
-/* 충족(초록). 오류(빨강, .field__msg--error)는 common.css 에 이미 있음. */
+/* 충족(초록). 오류(빨강, .field__msg--error)는 common.css에 있음 */
 .field__msg.is-ok {
   color: #16a34a;
+}
+
+/* 중립(힌트)일 때만 진한 색. 오류(빨강)/충족(초록)은 각 규칙이 이김 */
+.field .field__msg:not(.field__msg--error):not(.is-ok) {
+    color: var(--color-primary);
 }
 
 /* ---------- 회원가입: 약관 동의 ---------- */
