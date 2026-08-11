@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THRIVE · 회원가입</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/variables.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/auth.css" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <main class="app__body">
+        <h1 class="auth-title">회원가입</h1>
+
+        <!--
+          [Django 연동 지점]
+          - action: 회원가입 처리 URL (예: {% url 'auth:signup' %})
+          - 성공 시 서버는 A3 프로필 입력으로 리다이렉트 (명세서 A2 예외 처리)
+          - data-demo 제거 시 실제 POST
+        -->
+        <form
+          class="auth-form"
+          method="post"
+          action="/auth/signup/"
+          novalidate
+          data-auth="signup"
+          data-demo="true"
+        >
+          <!-- [Django] {% csrf_token %} 으로 치환 -->
+          <input type="hidden" name="csrfmiddlewaretoken" value="" data-csrf />
+
+          <!-- FA201 이메일 형식 / FA202 중복(서버) -->
+          <div class="field" data-field="email">
+            <label class="field__label" for="signup-email">이메일</label>
+            <input
+              class="field__input"
+              id="signup-email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              value=""
+              required
+            />
+            <!--
+              [Django] 중복 이메일이면 이 요소에
+              data-server-error="이미 가입된 이메일입니다" 주입
+            -->
+            <p class="field__msg"></p>
+          </div>
+
+          <!-- FA203 비밀번호 8자 이상, 실시간 조건 표시 -->
+          <div class="field" data-field="password">
+            <label class="field__label" for="signup-password">비밀번호 (8자 이상)</label>
+            <input
+              class="field__input"
+              id="signup-password"
+              name="password"
+              type="password"
+              placeholder="비밀번호 입력"
+              autocomplete="new-password"
+              required
+            />
+            <!-- 실시간 힌트 전용 요소 (auth-form.js 가 문구/상태 갱신).
+                 입력 전에는 비워 두어 렌더링되지 않게 함. -->
+            <p class="field__msg" data-pw-hint></p>
+          </div>
+
+          <!-- FA204 비밀번호 확인 일치 검사 -->
+          <div class="field" data-field="password-confirm">
+            <label class="field__label" for="signup-password2">비밀번호 확인</label>
+            <input
+              class="field__input"
+              id="signup-password2"
+              name="password_confirm"
+              type="password"
+              placeholder="비밀번호 다시 입력"
+              autocomplete="new-password"
+              required
+            />
+            <p class="field__msg"></p>
+          </div>
+
+          <!-- FA205 약관 동의(필수 1건) + 전문 보기 -->
+          <div class="auth-agree">
+            <p class="auth-agree__title">개인정보 수집·이용 동의</p>
+            <label class="auth-agree__row">
+              <input type="checkbox" name="agree_privacy" value="on" required />
+              <span>개인정보 수집·이용에 동의합니다 (필수)</span>
+            </label>
+            <!-- [Django] 전문 URL (예: {% url 'policy:privacy' %}) -->
+            <a class="btn--link" href="/policy/privacy/" target="_blank" rel="noopener">
+              전문 보기
+            </a>
+          </div>
+
+          <!--
+            FA206 계정 생성. 명세서 예외:
+            - 비밀번호 8자 미만 / 불일치 / 동의 미체크 → 버튼 비활성 유지
+            (auth-form.js 가 조건 충족 시에만 활성화)
+          -->
+          <button class="btn btn--primary" type="submit" disabled>가입 완료</button>
+        </form>
+      </main>
+    </div>
+
+    <script src="../../scripts/auth-form.js"></script>
+  </body>
+</html>
