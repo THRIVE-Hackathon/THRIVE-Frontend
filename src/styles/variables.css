@@ -38,17 +38,17 @@
 
   /* --- 라운드 --- */
   --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 
   /* --- 타이포 --- */
   --font-sans: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
     "Malgun Gothic", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
   --fs-title: 18px;   /* 헤더 제목 */
   --fs-lg: 16px;
-  --fs-body: 15px;
+  --fs-body: 14px;
   --fs-label: 14px;   /* 인풋 라벨 */
-  --fs-caption: 13px; /* 힌트·오류 문구 */
+  --fs-caption: 11px; /* 힌트·오류 문구 */
 
   /* --- 그림자 --- */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
