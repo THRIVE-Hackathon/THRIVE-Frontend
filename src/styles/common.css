@@ -1,5 +1,5 @@
 /* ===== common.css : 화면 뼈대 + 공통 컴포넌트 =====
- * 컬러/타이포 확정 반영 버전. 토큰 이름은 variables.css 참고
+ * 컬러/타이포 확정 PDF 반영 버전. 토큰 이름은 variables.css 참고.
  */
 
 body {
@@ -36,9 +36,9 @@ body {
   margin-top: var(--space-4);
 }
 
-/* ---------- 상단 헤더 ----------
+/* ---------- 상단 헤더 (Header.pdf) ----------
  * 3분할 그리드: [좌 슬롯] [가운데 제목] [우 슬롯]
- * 좌/우 슬롯 폭을 동일하게 고정 -> 제목이 항상 화면 정중앙 정렬.
+ * 좌/우 슬롯 폭을 동일하게 고정 → 제목이 항상 화면 정중앙 정렬.
  * 좌: 뒤로가기(옵션), 우: 닫기 X(옵션). 둘 다 없으면 빈 슬롯이 자리만 유지.
  */
 .app-header {
@@ -90,9 +90,12 @@ body {
 .app-tabbar {
   flex: 0 0 var(--tabbar-height);
   height: var(--tabbar-height);
+  /* 16px 상단 / 40px 하단(홈 인디케이터 안전영역). 좌우는 아이템별로 flex가 나눠 가짐 */
+  padding: 16px 24px 40px 24px;
   display: flex;
   border-top: 1px solid var(--color-border);
   background: var(--color-surface);
+  box-sizing: border-box;
 }
 
 .app-tabbar__item {
@@ -100,17 +103,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* 위 padding(16px) 기준으로 정렬, 컨테이너가 이미 세로 위치를 잡아줌 */
   gap: 6px;
-  padding-top: 4px;
   color: var(--color-text-subtle);  /* 비활성: gray-400 (#989da3) */
   font-size: var(--fs-caption-1);
   line-height: var(--lh-caption-1);
   letter-spacing: var(--ls-caption-1);
 }
 .app-tabbar__item .app-tabbar__icon {
-  width: 26px;
-  height: 26px;
+  width: 24px;   /* 아이콘 SVG의 실제 viewBox(24x24)와 동일하게 맞춤 */
+  height: 24px;
+  flex: 0 0 24px; /* flex 자식으로 눌려서 찌그러지지 않도록 고정 */
   color: currentColor;             /* 아이콘은 fill=currentColor 로 색 상속 */
 }
 .app-tabbar__label {
@@ -121,11 +124,11 @@ body {
   font-weight: 600;
 }
 
-/* ---------- 홀더 / 선택 트리거----------
+/* ---------- 홀더 / 선택 트리거 (Holder.pdf · TextHolder.pdf) ----------
  * 탭하면 선택 화면(공항/도시 등)을 여는 버튼형 필드.
  * 두 가지 상태:
  *   기본(빈 값)  : gray-100 테두리 + gray-400 플레이스홀더 텍스트
- *   채워짐(선택됨): violet-200 테두리 + gray-900 텍스트(SemiBold) -> .is-filled
+ *   채워짐(선택됨): violet-200 테두리 + gray-900 텍스트(SemiBold)  → .is-filled
  */
 .holder {
   display: flex;
