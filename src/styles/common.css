@@ -1,5 +1,5 @@
 /* ===== common.css : 화면 뼈대 + 공통 컴포넌트 =====
- * 컬러/타이포 확정 PDF 반영 버전. 토큰 이름은 variables.css 참고.
+ * 컬러/타이포 확정 반영 버전. 토큰 이름은 variables.css 참고
  */
 
 body {
@@ -9,7 +9,6 @@ body {
   letter-spacing: var(--ls-body-3);
   font-weight: var(--fw-body-3);
   color: var(--color-text);
-  /* 앱 바깥(데스크톱 캔버스) 배경: gray-050. .app 안쪽은 surface(흰색)로 구분 */
   background: var(--color-bg);
   display: flex;
   justify-content: center;
@@ -33,13 +32,61 @@ body {
   overflow-y: auto;
   padding: var(--page-padding-y) var(--page-padding-x);
 }
-
-/* 본문 안 요소 간 기본 세로 간격 */
 .app__body > * + * {
   margin-top: var(--space-4);
 }
 
-/* ---------- 하단 탭바 ---------- */
+/* ---------- 상단 헤더 ----------
+ * 3분할 그리드: [좌 슬롯] [가운데 제목] [우 슬롯]
+ * 좌/우 슬롯 폭을 동일하게 고정 -> 제목이 항상 화면 정중앙 정렬.
+ * 좌: 뒤로가기(옵션), 우: 닫기 X(옵션). 둘 다 없으면 빈 슬롯이 자리만 유지.
+ */
+.app-header {
+  flex: 0 0 var(--header-height);
+  height: var(--header-height);
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  padding: 0 var(--space-2);
+  background: var(--color-surface);
+}
+.app-header--bordered {
+  border-bottom: 1px solid var(--color-border);
+}
+.app-header__title {
+  grid-column: 2;
+  text-align: center;
+  font-size: var(--fs-heading-2);   /* 18px */
+  line-height: var(--lh-heading-2);
+  letter-spacing: var(--ls-heading-2);
+  font-weight: var(--fw-heading-2); /* Bold */
+  color: var(--color-text);
+  /* 길면 말줄임 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 좌/우 아이콘 버튼(44x44 탭 타깃) */
+.app-header__btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+}
+.app-header__btn:hover {
+  background: var(--color-gray-050);
+}
+.app-header__btn--back  { grid-column: 1; justify-self: start; }
+.app-header__btn--close { grid-column: 3; justify-self: end; }
+.app-header__btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ---------- 하단 탭바 (TabBar.pdf) ---------- */
 .app-tabbar {
   flex: 0 0 var(--tabbar-height);
   height: var(--tabbar-height);
@@ -56,22 +103,70 @@ body {
   justify-content: center;
   gap: 6px;
   padding-top: 4px;
-  color: var(--color-text-subtle);
+  color: var(--color-text-subtle);  /* 비활성: gray-400 (#989da3) */
   font-size: var(--fs-caption-1);
   line-height: var(--lh-caption-1);
   letter-spacing: var(--ls-caption-1);
 }
 .app-tabbar__item .app-tabbar__icon {
-  width: 24px;
-  height: 24px;
-  color: currentColor;
+  width: 26px;
+  height: 26px;
+  color: currentColor;             /* 아이콘은 fill=currentColor 로 색 상속 */
 }
 .app-tabbar__label {
   line-height: 1;
 }
 .app-tabbar__item.is-active {
-  color: var(--color-primary);
+  color: var(--color-accent);       /* 활성: violet-600 (#693fcf) */
   font-weight: 600;
+}
+
+/* ---------- 홀더 / 선택 트리거----------
+ * 탭하면 선택 화면(공항/도시 등)을 여는 버튼형 필드.
+ * 두 가지 상태:
+ *   기본(빈 값)  : gray-100 테두리 + gray-400 플레이스홀더 텍스트
+ *   채워짐(선택됨): violet-200 테두리 + gray-900 텍스트(SemiBold) -> .is-filled
+ */
+.holder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);       /* gray-100 (#dbdfe5) */
+  border-radius: var(--radius-lg);             /* 12px */
+  font-size: var(--fs-body-2);                 /* 16px */
+  font-family: var(--font-sans);
+  color: var(--color-text-subtle);             /* 플레이스홀더: gray-400 */
+  text-align: left;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.holder__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 오른쪽 chevron (기본은 회색 gray-400) */
+.holder__chevron {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-subtle);
+}
+/* 채워짐(활성) 상태 */
+.holder.is-filled {
+  border-color: var(--color-accent-subtle);    /* violet-200 (#d9b9ff) */
+  color: var(--color-text);                     /* gray-900 검은 텍스트 */
+  font-weight: 600;
+}
+.holder:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* ---------- 입력 필드 ---------- */
@@ -108,7 +203,7 @@ body {
   box-shadow: 0 0 0 3px var(--color-opacity-black-100);
 }
 .field__msg {
-  min-height: 18px;                /* 오류 노출 시 레이아웃 흔들림 방지 */
+  min-height: 18px;
   font-size: var(--fs-caption-1);
   line-height: var(--lh-caption-1);
   letter-spacing: var(--ls-caption-1);
@@ -124,10 +219,10 @@ body {
   border-color: var(--color-danger);
 }
 .field.has-error .field__input:focus {
-  box-shadow: 0 0 0 3px rgba(218, 57, 68, 0.12); /* color-red-500 12% */
+  box-shadow: 0 0 0 3px rgba(218, 57, 68, 0.12);
 }
 
-/* ---------- 버튼 (화면에서 반복되는 버튼) ---------- */
+/* ---------- 버튼 ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -186,7 +281,7 @@ body {
   letter-spacing: var(--ls-caption-1);
 }
 
-/* ---------- 타이포 유틸 (typo.pdf 스케일, 필요한 화면에서 바로 사용) ---------- */
+/* ---------- 타이포 유틸 (typo.pdf 스케일) ---------- */
 .text-title-1 {
   font-size: var(--fs-title-1);
   line-height: var(--lh-title-1);
@@ -224,8 +319,8 @@ body {
   font-weight: var(--fw-body-2);
 }
 
-/* ------------- 셀렉트 --------------
- * .field__input 과 동일한 형태로 맞춤. 화살표는 커스텀(SVG)으로 통일
+/* ------------- 셀렉트 -------------
+ * .field__input 과 동일한 형태. 화살표는 커스텀(SVG)으로 통일
  */
 .field__select {
   width: 100%;
@@ -242,7 +337,6 @@ body {
   -moz-appearance: none;
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  /* 커스텀 화살표(chevron). stroke = color-gray-500(#686c72) */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23686c72' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -253,12 +347,9 @@ body {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px var(--color-opacity-black-100);
 }
-/* 미선택(placeholder) 상태는 옅은 색으로
- * required + 빈 값 = :invalid 이므로 별도 JS 없이 placeholder 색 적용 */
 .field__select:invalid {
   color: var(--color-text-subtle);
 }
-/* 오류 상태(공통 .field.has-error 와 정합) */
 .field.has-error .field__select {
   border-color: var(--color-danger);
 }
