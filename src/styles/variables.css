@@ -1,12 +1,10 @@
 /* ===== variables.css : 디자인 토큰 =====
- * 컬러 파운데이션/타이포 파운데이션 확정본 기준으로 정리
- *
  * 구조:
  *   1) Primitive  : 원본 팔레트/스케일 그대로
  *   2) Semantic   : 화면에서 실제로 쓰는 의미 단위 토큰
  *      (Primitive 값이 바뀌어도 Semantic 매핑만 여기서 수정하면 전체 반영됨)
  *
- * 폰트: 오프라인 대응을 위해 자체 호스팅으로 전환 → fonts.css 참조
+ * 폰트: 오프라인 대응을 위해 자체 호스팅으로 전환 -> fonts.css 참조.
  */
 @import url("./fonts.css");
 
@@ -36,6 +34,7 @@
   --color-gray-800: #313234;
   --color-gray-900: #1d1e20;
 
+  /* 브랜드 포인트 컬러(violet). 활성 탭·활성 홀더 테두리 등 강조에 사용 */
   --color-violet-050: #f9f5ff;
   --color-violet-100: #ebdbff;
   --color-violet-200: #d9b9ff;
@@ -82,8 +81,8 @@
   --color-on-primary: var(--color-base-000);
 
   /* 강조(Accent) — violet 계열. "선택됨"을 나타낼 때 */
-  --color-accent: var(--color-violet-600);
-  --color-accent-subtle: var(--color-violet-200);
+  --color-accent: var(--color-violet-600);        /* 활성 탭 아이콘·라벨 (TabBar.pdf #693fcf) */
+  --color-accent-subtle: var(--color-violet-200); /* 활성 홀더 테두리 (TextHolder.pdf #d9b9ff) */
 
   /* 링크·상태 컬러 */
   --color-link: var(--color-gray-500);
@@ -94,7 +93,7 @@
   /* --- 레이아웃 --- */
   --app-width: 402px;
   --header-height: 56px;
-  --tabbar-height: 80px;
+  --tabbar-height: 102px;
   --page-padding-x: 24px;
   --page-padding-y: 20px;
 
@@ -107,16 +106,16 @@
   --space-6: 32px;
 
   /* --- 라운드 --- */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 
   /* --- 그림자 --- */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-frame: 0 8px 40px rgba(0, 0, 0, 0.08);
 
   /* ============================================================
-   * 3) Typography
+   * 3) Typography — typo.pdf 확정 스케일
    * ============================================================ */
   --font-sans: "SUIT Variable", "SUIT", -apple-system, BlinkMacSystemFont,
     "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Segoe UI", Roboto,
