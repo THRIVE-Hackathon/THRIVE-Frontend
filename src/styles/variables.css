@@ -1,15 +1,14 @@
 /* ===== variables.css : 디자인 토큰 =====
- * 컬러 파운데이션(color.pdf) · 타이포 파운데이션 확정본 기준으로 정리
+ * 컬러 파운데이션/타이포 파운데이션 확정본 기준으로 정리
  *
  * 구조:
- *   1) Primitive  : PDF에 정의된 원본 팔레트/스케일 그대로
+ *   1) Primitive  : 원본 팔레트/스케일 그대로
  *   2) Semantic   : 화면에서 실제로 쓰는 의미 단위 토큰
  *      (Primitive 값이 바뀌어도 Semantic 매핑만 여기서 수정하면 전체 반영됨)
  *
- * SUIT 폰트: 로컬에 없다면 아래 @import 사용(웹폰트 CDN).
- * 사내/오프라인 환경이면 이 줄을 지우고 자체 호스팅 @font-face로 교체.
+ * 폰트: 오프라인 대응을 위해 자체 호스팅으로 전환 → fonts.css 참조
  */
-@import url("https://cdn.jsdelivr.net/gh/sunn-us/SUIT@2/fonts/variable/woff2/SUIT-Variable.css");
+@import url("./fonts.css");
 
 :root {
   /* ============================================================
@@ -37,7 +36,6 @@
   --color-gray-800: #313234;
   --color-gray-900: #1d1e20;
 
-  /* 브랜드 포인트 컬러. 지금 화면엔 아직 안 쓰이지만 배지/강조 요소용으로 미리 등록 */
   --color-violet-050: #f9f5ff;
   --color-violet-100: #ebdbff;
   --color-violet-200: #d9b9ff;
@@ -65,9 +63,9 @@
    * ============================================================ */
 
   /* 배경 */
-  --color-bg: var(--color-gray-050);         /* 앱 바깥 배경(데스크톱에서 402px 캔버스 바깥) */
-  --color-surface: var(--color-base-000);    /* 카드·헤더·인풋 배경 */
-  --color-surface-subtle: var(--color-gray-050); /* 참고 박스 등 옅은 면 */
+  --color-bg: var(--color-gray-050);
+  --color-surface: var(--color-base-000);
+  --color-surface-subtle: var(--color-gray-050);
 
   /* 텍스트 */
   --color-text: var(--color-gray-900);
@@ -78,25 +76,29 @@
   --color-border: var(--color-gray-100);
   --color-border-strong: var(--color-gray-200);
 
-  /* 버튼/활성 상태 (기존 남색 계열 → gray-900/800으로 매핑, 톤 거의 동일) */
+  /* 버튼/활성 상태 (남색 계열 → gray-900/800) */
   --color-primary: var(--color-gray-900);
   --color-primary-hover: var(--color-gray-800);
   --color-on-primary: var(--color-base-000);
 
+  /* 강조(Accent) — violet 계열. "선택됨"을 나타낼 때 */
+  --color-accent: var(--color-violet-600);
+  --color-accent-subtle: var(--color-violet-200);
+
   /* 링크·상태 컬러 */
   --color-link: var(--color-gray-500);
   --color-danger: var(--color-red-500);
-  --color-success: var(--color-green-500);   /* 필드 "충족(초록)" 상태용. auth.css의 하드코딩 #16a34a는 이 토큰으로 교체 권장 */
-  --color-focus: var(--color-blue-500);      /* 키보드 포커스 링 */
+  --color-success: var(--color-green-500);
+  --color-focus: var(--color-blue-500);
 
-  /* --- 레이아웃 (변경 없음) --- */
+  /* --- 레이아웃 --- */
   --app-width: 402px;
   --header-height: 56px;
   --tabbar-height: 80px;
   --page-padding-x: 24px;
   --page-padding-y: 20px;
 
-  /* --- 간격 스케일 (변경 없음) --- */
+  /* --- 간격 스케일 --- */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -104,17 +106,17 @@
   --space-5: 24px;
   --space-6: 32px;
 
-  /* --- 라운드 (변경 없음) --- */
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  /* --- 라운드 --- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
 
-  /* --- 그림자 (변경 없음) --- */
+  /* --- 그림자 --- */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-frame: 0 8px 40px rgba(0, 0, 0, 0.08);
 
   /* ============================================================
-   * 3) Typography — typo.pdf 확정 스케일
+   * 3) Typography
    * ============================================================ */
   --font-sans: "SUIT Variable", "SUIT", -apple-system, BlinkMacSystemFont,
     "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Segoe UI", Roboto,
@@ -124,29 +126,29 @@
   --fs-title-1: 26px;
   --lh-title-1: 36px;
   --ls-title-1: -0.3px;
-  --fw-title-1: 800; /* ExtraBold */
+  --fw-title-1: 800;
 
   /* Heading */
   --fs-heading-1: 22px;
   --lh-heading-1: 32px;
   --ls-heading-1: -0.3px;
-  --fw-heading-1: 700; /* Bold */
+  --fw-heading-1: 700;
 
   --fs-heading-2: 18px;
   --lh-heading-2: 28px;
   --ls-heading-2: -0.3px;
-  --fw-heading-2: 700; /* Bold */
+  --fw-heading-2: 700;
 
   --fs-heading-3: 16px;
   --lh-heading-3: 24px;
   --ls-heading-3: -0.3px;
-  --fw-heading-3: 600; /* SemiBold */
+  --fw-heading-3: 600;
 
   /* Body */
   --fs-body-1: 18px;
   --lh-body-1: 28px;
   --ls-body-1: -0.6px;
-  --fw-body-1: 400; /* Regular */
+  --fw-body-1: 400;
 
   --fs-body-2: 16px;
   --lh-body-2: 24px;
@@ -164,15 +166,7 @@
   --ls-caption-1: -0.3px;
   --fw-caption-1: 400;
 
-  /* --- 기존 변수명 별칭 (하위 호환) ---
-   * common.css / auth.css 등이 이 이름들을 그대로 참조 중이라
-   * 이름은 유지하고 값만 확정 스케일에 맞춰 재매핑함.
-   *   --fs-title  (18px, 미사용) → heading-2 크기로 정리
-   *   --fs-lg     (16px, 미사용) → heading-3 크기로 정리
-   *   --fs-body   (14px) → body-3 와 정확히 일치
-   *   --fs-label  (14px) → body-3 기준
-   *   --fs-caption(11px) → 12px(caption-1)로 보정 (파운데이션 확정치)
-   */
+  /* --- 기존 변수명 별칭 (하위 호환) --- */
   --fs-title: var(--fs-heading-2);
   --fs-lg: var(--fs-heading-3);
   --fs-body: var(--fs-body-3);

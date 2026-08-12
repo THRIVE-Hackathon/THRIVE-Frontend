@@ -5,19 +5,18 @@
  *
  * 옵션:
  *   active     {"record"|"home"|"mypage"}  현재 활성 탭 (기본 "home")
- *   onNavigate {function(key, href)}       이동 가로채기(옵션).
- *              지정하면 기본 링크 이동을 막고 콜백만 실행. (SPA/데모용)
+ *   onNavigate {function(key, href)}       이동 가로채기(옵션, SPA/데모용)
  *
  * href 경로는 실제 폴더 구조가 정해지면 아래 TABS만 수정하면 됨.
  */
 (function () {
   const NS = (window.THRIVE = window.THRIVE || {});
 
-  // 명세서 탭 순서: 기록 · 홈 · 내 정보
+  // 명세서 탭 순서: 기록 · 메인 · 설정
   const TABS = [
     { key: "record", label: "기록", href: "../record/trip-list.html", icon: iconRecord },
-    { key: "home", label: "홈", href: "../home/index.html", icon: iconHome },
-    { key: "mypage", label: "내 정보", href: "../mypage/profile.html", icon: iconUser },
+    { key: "home",   label: "메인", href: "../home/index.html",       icon: iconHome },
+    { key: "mypage", label: "설정", href: "../mypage/profile.html",   icon: iconSettings },
   ];
 
   NS.createTabBar = function createTabBar(opts) {
@@ -57,28 +56,25 @@
     return nav;
   };
 
-  /* --- 아이콘(24px, currentColor로 활성/비활성 색 상속) --- */
+  /* --- 아이콘(채움형, 26px, fill=currentColor로 활성/비활성 색 상속) --- */
   function iconHome() {
     return (
-      '<svg class="app-tabbar__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
-      '<path d="M3 10.5L12 3l9 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<path d="M5 9.5V20h14V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<svg class="app-tabbar__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+      '<path d="M11.34 3.3 3.64 9.6a1 1 0 0 0-.37.77V20a1 1 0 0 0 1 1H9v-5.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1V21h4.73a1 1 0 0 0 1-1v-9.63a1 1 0 0 0-.37-.77l-7.7-6.3a1 1 0 0 0-1.26 0Z"/>' +
       "</svg>"
     );
   }
   function iconRecord() {
     return (
-      '<svg class="app-tabbar__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
-      '<rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/>' +
-      '<path d="M9 8h6M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>' +
+      '<svg class="app-tabbar__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+      '<path fill-rule="evenodd" clip-rule="evenodd" d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14a1.5 1.5 0 0 1-1.5 1.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Zm3 4.25a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2H9Z"/>' +
       "</svg>"
     );
   }
-  function iconUser() {
+  function iconSettings() {
     return (
-      '<svg class="app-tabbar__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
-      '<circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"/>' +
-      '<path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>' +
+      '<svg class="app-tabbar__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+      '<path fill-rule="evenodd" clip-rule="evenodd" d="M5 3.5h14A1.5 1.5 0 0 1 20.5 5v14a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19V5A1.5 1.5 0 0 1 5 3.5Zm7 3a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm-4 9.6c0-2.24 1.98-3.6 4-3.6s4 1.36 4 3.6v.4H8v-.4Z"/>' +
       "</svg>"
     );
   }
