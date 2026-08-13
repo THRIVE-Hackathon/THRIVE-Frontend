@@ -82,8 +82,9 @@
   --color-disabled: var(--color-gray-100);
 
   /* 강조(Accent) — violet 계열. "선택됨"을 나타낼 때 */
-  --color-accent: var(--color-violet-600);        /* 활성 탭 아이콘·라벨 (TabBar.pdf #693fcf) */
-  --color-accent-subtle: var(--color-violet-200); /* 활성 홀더 테두리 (TextHolder.pdf #d9b9ff) */
+  --color-accent: var(--color-violet-600);        
+  --color-accent-subtle: var(--color-violet-200);
+  --color-accent-target: var(--color-violet-700);
 
   /* 링크·상태 컬러 */
   --color-link: var(--color-gray-500);
@@ -105,6 +106,7 @@
   --space-4: 16px;
   --space-5: 24px;
   --space-6: 32px;
+  --space-7: 40px;
 
   /* --- 라운드 --- */
   --radius-sm: 6px;
