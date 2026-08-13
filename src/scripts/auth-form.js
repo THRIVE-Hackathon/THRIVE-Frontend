@@ -117,37 +117,71 @@
     var pwInput = inputOf(pwField);
     var formError = form.querySelector(".auth-form__error");
 
-    // FA101 이메일 형식
+    // 통합 오류 문구(FA103 예외 + 클라이언트 형식/필수 검증 공통).
+    // 디자인: 필드마다 따로 표시하지 않고 비밀번호 필드 아래 한 줄로만 노출.
+    var COMBINED_ERROR_TEXT = "이메일과 비밀번호를 다시 확인해주세요.";
+
+    function showCombinedError() {
+      if (formError) formError.textContent = COMBINED_ERROR_TEXT;
+    }
+    function clearCombinedError() {
+      if (!formError) return;
+      formError.textContent = "";
+      formError.removeAttribute("data-server-error");
+    }
+    // 필드 아래 텍스트는 남기지 않고 테두리만 빨강으로 표시(경고 문구는 통합 안내가 담당)
+    function markFieldError(fieldEl) {
+      if (fieldEl) fieldEl.classList.add("has-error");
+    }
+    function clearFieldErrorClass(fieldEl) {
+      if (fieldEl) fieldEl.classList.remove("has-error");
+    }
+
+    // FA101 이메일 형식: 로그인 화면은 "올바른 이메일입니다" 같은 실시간 확인(초록) 표시를 하지 않는다.
+    // 입력 중엔 항상 중립(메시지 숨김·테두리 기본)이고, 오류는 통합 안내(비밀번호 아래)에서만 다룬다.
     if (emailInput) {
       emailInput.addEventListener("input", function () {
-        refreshEmail(emailField, emailInput);
+        clearFieldMsg(emailField);
+        clearFieldErrorClass(emailField);
+        clearCombinedError();
       });
       emailInput.addEventListener("blur", function () {
         var v = emailInput.value.trim();
         if (v && !EMAIL_RE.test(v)) {
-          setFieldError(emailField, "이메일 형식이 올바르지 않습니다");
+          markFieldError(emailField);
         }
+      });
+    }
+    if (pwInput) {
+      pwInput.addEventListener("input", function () {
+        clearFieldErrorClass(pwField);
+        clearCombinedError();
       });
     }
 
     form.addEventListener("submit", function (e) {
       var ok = true;
-      if (formError) {
-        formError.textContent = "";
-        formError.removeAttribute("data-server-error");
-      }
+      clearCombinedError();
 
       var emailVal = emailInput ? emailInput.value.trim() : "";
-      if (!EMAIL_RE.test(emailVal)) {
-        setFieldError(emailField, "이메일 형식이 올바르지 않습니다");
+      var emailValid = EMAIL_RE.test(emailVal);
+      var pwValid = !!(pwInput && pwInput.value);
+
+      if (!emailValid) {
+        markFieldError(emailField);
         ok = false;
+      } else {
+        clearFieldErrorClass(emailField);
       }
-      if (pwInput && !pwInput.value) {
-        setFieldError(pwField, "비밀번호를 입력하세요");
+      if (!pwValid) {
+        markFieldError(pwField);
         ok = false;
+      } else {
+        clearFieldErrorClass(pwField);
       }
 
       if (!ok) {
+        showCombinedError();
         e.preventDefault();
         return;
       }
@@ -281,6 +315,13 @@
       }
       if (form.dataset.demo === "true") {
         e.preventDefault();
+        // 데모: data-next(예: profile.html)가 있으면 A3로 이동만 시연.
+        // (서버 연동 시엔 data-demo 제거 → 서버가 A3로 리다이렉트)
+        var next = form.getAttribute("data-next");
+        if (next) {
+          window.location.href = next;
+          return;
+        }
         demoNotice(
           form,
           "검증 통과(데모). 서버 연동 시 data-demo 제거하면 이 폼이 그대로 POST됩니다."

@@ -10,23 +10,51 @@
     <link rel="stylesheet" href="../../styles/auth.css" />
   </head>
   <body>
+    <!-- 인증 화면(A2): 헤더 O(회원가입 + 닫기), 탭바 없음 -->
     <div class="app" id="app">
-      <main class="app__body">
-        <h1 class="auth-title">회원가입</h1>
+      <!-- 헤더: 가운데 제목 + 우측 닫기(X). common.css .app-header 재사용 -->
+      <header class="app-header">
+        <h1 class="app-header__title">회원가입</h1>
+        <!-- 닫기: 가입 취소 → 로그인으로. [Django] 필요 시 서버 라우트로 교체 -->
+        <a
+          class="app-header__btn app-header__btn--close"
+          href="./login.html"
+          aria-label="닫기"
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M6 6l12 12M18 6L6 18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </a>
+      </header>
+
+      <main class="app__body app__body--signup">
+        <!-- 2단계 진행바: 1/2 (이메일·비밀번호 단계) -->
+        <div class="auth-steps" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="2" aria-label="회원가입 1/2 단계">
+          <span class="auth-steps__dot is-active"></span>
+          <span class="auth-steps__dot"></span>
+        </div>
 
         <!--
           [Django 연동 지점]
-          - action: 회원가입 처리 URL (예: {% url 'auth:signup' %})
-          - 성공 시 서버는 A3 프로필 입력으로 리다이렉트 (명세서 A2 예외 처리)
-          - data-demo 제거 시 실제 POST
+          - action        : 회원가입 처리 URL (예: {% url 'auth:signup' %})
+          - 성공 시 서버는 A3 프로필 입력으로 리다이렉트 (명세서 A2 예외: 가입 성공 → A3)
+          - data-next     : 데모 모드에서 JS가 이동시킬 다음 화면(A3). 서버 연동 시 미사용.
+          - data-demo="true": 서버 미연동 상태에서 실제 POST를 막고 A3 이동만 시연.
+                              Django 연동 시 이 속성만 제거하면 폼이 그대로 POST됨.
         -->
         <form
-          class="auth-form"
+          class="auth-form auth-form--signup auth-form--tall"
           method="post"
           action="/auth/signup/"
           novalidate
           data-auth="signup"
           data-demo="true"
+          data-next="./profile.html"
         >
           <!-- [Django] {% csrf_token %} 으로 치환 -->
           <input type="hidden" name="csrfmiddlewaretoken" value="" data-csrf />
@@ -39,32 +67,31 @@
               id="signup-email"
               name="email"
               type="email"
-              placeholder="you@example.com"
+              placeholder="E-mail@email.com"
               autocomplete="email"
               value=""
               required
             />
             <!--
               [Django] 중복 이메일이면 이 요소에
-              data-server-error="이미 가입된 이메일입니다" 주입
+              data-server-error="이미 가입된 이메일입니다" 주입 (FA202 예외)
             -->
             <p class="field__msg"></p>
           </div>
 
           <!-- FA203 비밀번호 8자 이상, 실시간 조건 표시 -->
           <div class="field" data-field="password">
-            <label class="field__label" for="signup-password">비밀번호 (8자 이상)</label>
+            <label class="field__label" for="signup-password">비밀번호</label>
             <input
               class="field__input"
               id="signup-password"
               name="password"
               type="password"
-              placeholder="비밀번호 입력"
+              placeholder="8자 이상"
               autocomplete="new-password"
               required
             />
-            <!-- 실시간 힌트 전용 요소 (auth-form.js 가 문구/상태 갱신).
-                 입력 전에는 비워 두어 렌더링되지 않게 함. -->
+            <!-- 실시간 힌트 전용 요소(auth-form.js). 입력 전엔 비워 두어 숨김 -->
             <p class="field__msg" data-pw-hint></p>
           </div>
 
@@ -76,7 +103,7 @@
               id="signup-password2"
               name="password_confirm"
               type="password"
-              placeholder="비밀번호 다시 입력"
+              placeholder="8자 이상"
               autocomplete="new-password"
               required
             />
@@ -85,23 +112,26 @@
 
           <!-- FA205 약관 동의(필수 1건) + 전문 보기 -->
           <div class="auth-agree">
-            <p class="auth-agree__title">개인정보 수집·이용 동의</p>
             <label class="auth-agree__row">
-              <input type="checkbox" name="agree_privacy" value="on" required />
+              <!-- 실제 체크박스는 화면에서 숨기고(접근성/폼전송 유지), .auth-agree__box 로 시각 표현 -->
+              <input
+                class="auth-agree__input"
+                type="checkbox"
+                name="agree_privacy"
+                value="on"
+                required
+              />
+              <span class="auth-agree__box" aria-hidden="true"></span>
               <span>개인정보 수집·이용에 동의합니다 (필수)</span>
             </label>
-            <!-- [Django] 전문 URL (예: {% url 'policy:privacy' %}) -->
-            <a class="btn--link" href="/policy/privacy/" target="_blank" rel="noopener">
-              전문 보기
-            </a>
           </div>
 
           <!--
-            FA206 계정 생성. 명세서 예외:
-            - 비밀번호 8자 미만 / 불일치 / 동의 미체크 → 버튼 비활성 유지
+            FA206 계정 생성. 명세 예외:
+            - 비밀번호 8자 미만 / 불일치 / 동의 미체크 → [다음] 비활성 유지
             (auth-form.js 가 조건 충족 시에만 활성화)
           -->
-          <button class="btn btn--primary" type="submit" disabled>가입 완료</button>
+          <button class="btn btn--primary btn--block" type="submit" disabled>다음</button>
         </form>
       </main>
     </div>

@@ -4,36 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>THRIVE · 프로필 작성</title>
-    <!-- 경로는 repo 구조(src/pages/auth/) 기준 상대경로 (login/signup 과 동일) -->
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/variables.css" />
     <link rel="stylesheet" href="../../styles/common.css" />
     <link rel="stylesheet" href="../../styles/auth.css" />
   </head>
   <body>
-    <!-- 인증 화면(A3): 헤더/탭바 없음 (명세서 "A 인증 — 탭바 없음") -->
+    <!-- 인증 화면(A3): 헤더 O(회원가입 + 닫기), 탭바 없음 -->
     <div class="app" id="app">
-      <main class="app__body">
-        <!-- 제목 + 수집 목적(FA304: 왜 묻는지를 화면에 직접 적는다) -->
-        <div class="auth-head">
-          <h1 class="auth-title">프로필 작성</h1>
-          <p class="auth-caption">
-            리포트에서 같은 연령대와 비교해 보여드리기 위해 수집합니다
-          </p>
-        </div>
+      <header class="app-header">
+        <h1 class="app-header__title">회원가입</h1>
+        <a
+          class="app-header__btn app-header__btn--close"
+          href="./login.html"
+          aria-label="닫기"
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M6 6l12 12M18 6L6 18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </a>
+      </header>
 
+      <main class="app__body app__body--profile">
+        <!-- 2단계 진행바: 2/2 (프로필 단계) -->
+        <div class="auth-steps" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="2" aria-label="회원가입 2/2 단계">
+          <span class="auth-steps__dot"></span>
+          <span class="auth-steps__dot is-active"></span>
+        </div>
+        
         <!--
           [Django 연동 지점]
           - action        : 프로필 저장 처리 URL (예: {% url 'auth:profile' %})
-          - 성공 시 서버는 Profile 생성 후 홈(index.html)으로 리다이렉트
-                            (명세서 FA305: Profile 생성 후 홈으로 이동)
-          - data-home     : 데모 모드(서버 미연동)에서 JS가 이동시킬 홈 경로.
-                            Django 연동 시엔 서버가 리다이렉트하므로 사용되지 않음.
+          - 성공 시 서버는 Profile 생성 후 홈(index.html)으로 리다이렉트 (FA305)
+          - data-home     : 데모 모드에서 JS가 이동시킬 홈 경로. 서버 연동 시 미사용.
           - data-demo="true": 서버 미연동 상태에서 실제 POST를 막고 홈 이동만 시연.
                               Django 연동 시 이 속성만 제거하면 폼이 그대로 POST됨.
         -->
         <form
-          class="auth-form"
+          class="auth-form auth-form--profile auth-form--tall"
           method="post"
           action="/auth/profile/"
           novalidate
@@ -41,14 +54,10 @@
           data-demo="true"
           data-home="../../../index.html"
         >
-          <!-- [Django] 아래 hidden input을 {% csrf_token %} 으로 치환 -->
+          <!-- [Django] {% csrf_token %} 으로 치환 -->
           <input type="hidden" name="csrfmiddlewaretoken" value="" data-csrf />
 
-          <!--
-            FA301 닉네임 입력: 2~10자로 제한.
-            [Django] 서버 오류는 아래 data-field 요소에
-            data-server-error="문구" 로 주입하면 profile-form.js 가 자동 표시.
-          -->
+          <!-- FA301 닉네임: 2~10자 -->
           <div class="field" data-field="nickname">
             <label class="field__label" for="profile-nickname">닉네임</label>
             <input
@@ -56,51 +65,56 @@
               id="profile-nickname"
               name="nickname"
               type="text"
-              placeholder="닉네임을 입력해주세요"
+              placeholder="2자 이상"
               autocomplete="nickname"
               maxlength="10"
               value=""
               required
             />
-            <!-- 평소엔 '2~10자' 안내, 입력에 따라 초록/빨강으로 갱신 -->
-            <p class="field__msg" data-hint>2~10자</p>
+            <p class="field__msg"></p>
           </div>
 
-          <!-- FA302 성별 선택 -->
+          <!-- FA302 성별: 여성 / 남성 (세그먼트 토글). 선택값은 hidden input으로 전송 -->
           <div class="field" data-field="gender">
-            <label class="field__label" for="profile-gender">성별</label>
-            <select class="field__select" id="profile-gender" name="gender" required>
-              <option value="" selected disabled>select...</option>
-              <option value="female">여성</option>
-              <option value="male">남성</option>
-              <option value="na">응답 안 함</option>
-            </select>
-            <p class="field__msg" data-hint>필수 항목입니다</p>
+            <span class="field__label">성별</span>
+            <div class="segmented" role="radiogroup" aria-label="성별">
+              <button type="button" class="segmented__btn" data-value="female" aria-pressed="false">여성</button>
+              <button type="button" class="segmented__btn" data-value="male" aria-pressed="false">남성</button>
+            </div>
+            <input type="hidden" name="gender" value="" data-gender-value />
+            <p class="field__msg"></p>
           </div>
 
           <!--
-            FA303 연령대 선택: 4개 구간 중 선택.
-            ※ 구간 경계는 명세서에 열거돼 있지 않아 아래 4구간으로 임시 설정.
-              팀 확정 후 option 값/라벨만 바꾸면 됨. (value는 서버 저장용 코드)
+            FA303 나이 입력.
+            ※ 목업(loginjoin2)은 '나이' 자유 입력. 명세 FA303은 '연령대 4구간'을 요구하므로
+              서버(Django)에서 입력된 나이를 연령대 구간으로 매핑해 Profile.연령대에 저장한다.
           -->
-          <div class="field" data-field="age-group">
-            <label class="field__label" for="profile-age">연령대</label>
-            <select class="field__select" id="profile-age" name="age_group" required>
-              <option value="" selected disabled>select...</option>
-              <option value="20s">20대 이하</option>
-              <option value="30s">30대</option>
-              <option value="40s">40대</option>
-              <option value="50s_plus">50대 이상</option>
-            </select>
-            <p class="field__msg" data-hint>필수 항목입니다</p>
+          <div class="field" data-field="age">
+            <label class="field__label" for="profile-age">나이</label>
+            <input
+              class="field__input"
+              id="profile-age"
+              name="age"
+              type="number"
+              inputmode="numeric"
+              min="1"
+              max="120"
+              placeholder="입력"
+              required
+            />
+            <p class="field__msg"></p>
           </div>
 
+          <!-- 미완성 제출 시 하단 통합 안내(디자인의 "*필수 입력란입니다."). 평소엔 숨김 -->
+          <p class="auth-form__error" role="alert" data-server-error=""></p>
+
           <!--
-            FA305 프로필 저장 → 홈 이동.
-            명세서 예외: 닉네임 미입력 / 항목 미선택 → 버튼 비활성 유지.
+            FA305 프로필 저장 → 홈 이동. 명세 예외:
+            닉네임 미입력 / 항목 미선택 → [완료] 비활성 유지
             (profile-form.js 가 세 조건 충족 시에만 활성화)
           -->
-          <button class="btn btn--primary" type="submit" disabled>프로필 완료</button>
+          <button class="btn btn--primary btn--block" type="submit" disabled>완료</button>
         </form>
       </main>
     </div>
