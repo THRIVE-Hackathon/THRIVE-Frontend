@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THRIVE · 회복 리포트</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/variables.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/home.css" />
+  </head>
+  <body>
+    <!--
+      회복 리포트(main-done-result) — 루틴 종료 시 노출되는 모달형 전체화면.
+      상단 헤더 + X, 하단 고정 '확인' 버튼. 하단 탭바 없음.
+      [Django] 점수/추이/요소분석/요약문은 전부 뷰 컨텍스트에서 주입.
+               설문 응답은 폼 POST → 저장 후 홈 리다이렉트.
+    -->
+    <div class="app" id="app">
+      <div id="header-mount"></div>
+
+      <main class="app__body">
+        <!-- [Django] data-user → {{ user.nickname }} -->
+        <h1 class="report-title text-title-1">
+          <span data-user>유저</span>님, 회복 루틴이 종료되어<br />리포트가
+          생성되었어요.
+        </h1>
+
+        <!-- ============ 회복 점수 요약 ============ -->
+        <section class="home-section">
+          <h2 class="home-section__title text-heading-1">회복 점수 요약</h2>
+
+          <!-- [Django] data-final-score → {{ report.final_score }},
+                        data-goal-percent → {{ report.goal_percent }} -->
+          <div class="report-summary">
+            <div class="report-score"><span data-final-score>78</span>점</div>
+            <p class="report-summary__caption">
+              목표를 <span data-goal-percent>86</span>% 달성했어요.
+            </p>
+          </div>
+
+          <!--
+            점수 추이 (예측 → 직후 → 최종).
+            [Django] 아래 SVG 좌표(cx/폴리라인)는 서버가 점수로 계산해 주입하거나,
+                     recovery-report.js 가 data-* 값으로 다시 그리게 할 수 있음.
+                     지금은 예측 68 / 직후 74 / 최종 78 기준 정적 렌더.
+          -->
+          <!--
+            점수 추이 SVG.
+            [정렬] x 좌표는 아래 3열 범례(예측·직후·최종) 의 중심과 정확히 일치시킨다.
+                   범례가 repeat(3, 1fr) 이므로 각 열 중심은 폭의 1/6, 1/2, 5/6.
+                   viewBox 폭 320 기준 → x = 53.33 / 160 / 266.67.
+            [데이터 연동] cx/cy·폴리라인 좌표는 recovery-report.js 가 로드 시
+                   data-predicted-score/-immediate-score/-final-score 값을 읽어
+                   자동으로 다시 계산해 그린다(FS701). 아래 값은 JS 미동작 시 폴백.
+                   범위(min/max)를 서버가 지정하려면 data-min·data-max 를 준다.
+          -->
+          <div class="trend-card">
+            <svg
+              class="trend-chart"
+              viewBox="0 0 320 100"
+              role="img"
+              aria-label="점수 추이: 예측 68점, 직후 74점, 최종 78점"
+            >
+              <!-- 연결선 -->
+              <polyline
+                points="53.33,66.67 160,46.67 266.67,33.33"
+                fill="none"
+                stroke="var(--color-gray-300)"
+                stroke-width="2"
+              />
+              <!-- 예측 지점 -->
+              <circle cx="53.33" cy="66.67" r="10" fill="var(--color-violet-200)" />
+              <!-- 직후 지점 -->
+              <circle cx="160" cy="46.67" r="10" fill="var(--color-violet-400)" />
+              <!-- 최종 지점 (별) — Star.svg. 바깥 <g> 는 recovery-report.js 의
+                   redrawTrend() 가 위치를 다시 잡을 때 사용하므로 유지.
+                   안쪽 path 는 translate(-12,-11) 로 별 중심을 g 원점에 맞춤. -->
+              <g transform="translate(266.67,33.33)" fill="var(--color-violet-500)">
+                <path
+                  transform="translate(-12,-11)"
+                  d="M10.9841 0.560024C11.4376 -0.186675 12.5624 -0.186674 13.0159 0.560025L16.1735 5.759C16.3396 6.03253 16.618 6.22648 16.9406 6.29348L23.0722 7.56683C23.9528 7.74971 24.3004 8.77564 23.7001 9.42001L19.5199 13.9065C19.3 14.1425 19.1937 14.4564 19.2269 14.7713L19.8589 20.7573C19.9497 21.617 19.0397 22.251 18.2151 21.9026L12.4741 19.4764C12.172 19.3488 11.828 19.3488 11.5259 19.4764L5.78489 21.9026C4.96034 22.251 4.05032 21.617 4.14109 20.7573L4.77307 14.7713C4.80632 14.4564 4.69999 14.1425 4.48007 13.9065L0.299942 9.42001C-0.300426 8.77564 0.0471687 7.74971 0.927817 7.56683L7.05942 6.29348C7.38202 6.22648 7.66039 6.03253 7.82652 5.75899L10.9841 0.560024Z"
+                />
+              </g>
+            </svg>
+            <div class="trend-legend">
+              <div class="trend-legend__col">
+                <div class="trend-legend__name">예측</div>
+                <div class="trend-legend__score">
+                  <span data-predicted-score>68</span>점
+                </div>
+              </div>
+              <div class="trend-legend__col">
+                <div class="trend-legend__name">직후</div>
+                <div class="trend-legend__score">
+                  <span data-immediate-score>74</span>점
+                </div>
+              </div>
+              <div class="trend-legend__col">
+                <div class="trend-legend__name">최종</div>
+                <div class="trend-legend__score">
+                  <span data-final-score>78</span>점
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 요소별 분석 ============ -->
+        <section class="home-section">
+          <h2 class="home-section__title text-heading-1">요소별 분석</h2>
+
+          <!-- [Django] {% for f in report.factors %} 로 반복. delta/상태/percent 주입 -->
+          <div class="factor-card">
+            <div class="factor">
+              <div class="factor__head">
+                <span class="factor__label">수면·리듬</span>
+                <span class="factor__delta">+ 2점 <small>(회복됨)</small></span>
+              </div>
+              <div class="bar"><span class="bar__fill" style="width: 62%"></span></div>
+            </div>
+            <div class="factor">
+              <div class="factor__head">
+                <span class="factor__label">순환</span>
+                <span class="factor__delta">+ 9점 <small>(회복됨)</small></span>
+              </div>
+              <div class="bar"><span class="bar__fill" style="width: 90%"></span></div>
+            </div>
+            <div class="factor">
+              <div class="factor__head">
+                <span class="factor__label">수면·리듬</span>
+                <span class="factor__delta">− 2점 <small>(지연됨)</small></span>
+              </div>
+              <div class="bar"><span class="bar__fill" style="width: 78%"></span></div>
+            </div>
+            <div class="factor">
+              <div class="factor__head">
+                <span class="factor__label">피부</span>
+                <span class="factor__delta">+ 0점 <small>(지연됨)</small></span>
+              </div>
+              <div class="bar"><span class="bar__fill" style="width: 84%"></span></div>
+            </div>
+          </div>
+
+          <!-- [Django] {{ report.summary_text }} -->
+          <p class="report-note">
+            수면·리듬 회복과 피부 회복이 다소 늦어졌지만, 기내 수분 관리가 잘
+            이루어졌어요.
+          </p>
+        </section>
+
+        <!-- ============ 설문조사 ============ -->
+        <section class="home-section">
+          <h2 class="home-section__title text-heading-1">설문조사</h2>
+          <p class="survey__question">
+            이번 회복 루틴에서 일정 차질도는 어느 정도였나요?
+          </p>
+
+          <!--
+            [Django] 설문 응답 폼. 제출은 하단 '확인' 버튼과 함께 처리.
+            아래 form 은 확인 버튼(폼 밖, form 속성으로 연결)까지 하나의 제출 단위.
+          -->
+          <form
+            id="survey-form"
+            class="survey"
+            method="post"
+            action="/home/report/survey/"
+            data-demo="true"
+            data-home="../../../index.html"
+          >
+            <input type="hidden" name="csrfmiddlewaretoken" value="" data-csrf />
+            <div class="survey__grid" role="radiogroup" aria-label="일정 차질도">
+              <label class="survey-option">
+                <input class="survey-option__input" type="radio" name="disruption" value="none" />
+                <span class="survey-option__box">문제 없음</span>
+              </label>
+              <label class="survey-option">
+                <input class="survey-option__input" type="radio" name="disruption" value="most_done" />
+                <span class="survey-option__box">대부분의 일정 수행</span>
+              </label>
+              <label class="survey-option">
+                <input class="survey-option__input" type="radio" name="disruption" value="half_done" />
+                <span class="survey-option__box">절반 정도 수행</span>
+              </label>
+              <label class="survey-option">
+                <input class="survey-option__input" type="radio" name="disruption" value="most_canceled" checked />
+                <span class="survey-option__box">대부분의 일정 취소</span>
+              </label>
+            </div>
+          </form>
+        </section>
+
+        <!-- 면책 안내 -->
+        <p class="disclaimer" style="margin-top: var(--space-5)">
+          <svg class="disclaimer__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg>
+          <span>이 점수는 의학적 진단이 아닌 참고 지표입니다.</span>
+        </p>
+
+        <!-- 하단 고정 확인 버튼 (설문 폼 제출) -->
+        <div class="report-actions">
+          <button
+            class="btn btn--primary btn--block btn--home"
+            type="submit"
+            form="survey-form"
+          >
+            확인
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../components/header.js"></script>
+    <script src="../../scripts/recovery-report.js"></script>
+    <script>
+      document.getElementById("header-mount").append(
+        THRIVE.createHeader({
+          title: "회복 리포트",
+          onClose: function () {
+            window.location.href = "../../../index.html";
+          },
+        })
+      );
+    </script>
+  </body>
+</html>
