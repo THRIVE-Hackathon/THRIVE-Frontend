@@ -228,7 +228,7 @@ body {
   height: 60px;
   padding: 0 20px;
   border-radius: var(--radius-lg);
-  font-size: var(--fs-body-3);
+  font-size: var(--fs-heading-2);
   font-family: var(--font-sans);
   font-weight: 600;
   transition: background-color 0.15s ease, opacity 0.15s ease;
