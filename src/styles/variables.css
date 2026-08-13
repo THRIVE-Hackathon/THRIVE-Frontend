@@ -75,10 +75,11 @@
   --color-border: var(--color-gray-100);
   --color-border-strong: var(--color-gray-200);
 
-  /* 버튼/활성 상태 (남색 계열 → gray-900/800) */
+  /* 버튼/활성 상태 (violet) */
   --color-primary: var(--color-violet-500);
   --color-primary-hover: var(--color-violet-600);
   --color-on-primary: var(--color-base-000);
+  --color-disabled: var(--color-gray-100);
 
   /* 강조(Accent) — violet 계열. "선택됨"을 나타낼 때 */
   --color-accent: var(--color-violet-600);        
