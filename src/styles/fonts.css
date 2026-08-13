@@ -1,7 +1,6 @@
 /* ===== fonts.css =====
  *
  * [폰트 파일 준비]
- *   SUIT 공식 배포처: https://sun.fo/suit  (또는 github.com/sunn-us/SUIT)
  *   아래 파일을 내려받아 이 CSS 기준 상대경로 `../fonts/` 폴더에 넣음
  *
  *   1) 가변 폰트 1개만 쓰는 경우(권장, 용량↓):
@@ -19,7 +18,7 @@
   font-family: "SUIT Variable";
   src:
     local("SUIT Variable"),
-    url("../fonts/SUITE-Variable.woff2") format("woff2-variations");
+    url("../fonts/SUIT-Variable.woff2") format("woff2-variations");
   font-weight: 100 900;   /* 가변 축 전체 */
   font-style: normal;
   font-display: swap;
@@ -31,28 +30,28 @@
  */
 @font-face {
   font-family: "SUIT";
-  src: local("SUIT Regular"), url("../fonts/SUITE-Regular.woff2") format("woff2");
+  src: local("SUIT Regular"), url("../fonts/SUIT-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "SUIT";
-  src: local("SUIT SemiBold"), url("../fonts/SUITE-SemiBold.woff2") format("woff2");
+  src: local("SUIT SemiBold"), url("../fonts/SUIT-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "SUIT";
-  src: local("SUIT Bold"), url("../fonts/SUITE-Bold.woff2") format("woff2");
+  src: local("SUIT Bold"), url("../fonts/SUIT-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "SUIT";
-  src: local("SUIT ExtraBold"), url("../fonts/SUITE-ExtraBold.woff2") format("woff2");
+  src: local("SUIT ExtraBold"), url("../fonts/SUIT-ExtraBold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
