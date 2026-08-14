@@ -13,9 +13,9 @@
   const NS = (window.THRIVE = window.THRIVE || {});
 
   const TABS = [
-    { key: "record", label: "기록", href: "../record/trip-list.html", icon: iconRecord },
-    { key: "home",   label: "메인", href: "../home/index.html",       icon: iconHome },
-    { key: "mypage", label: "설정", href: "../mypage/profile.html",   icon: iconAccount },
+    { key: "record", label: "기록", href: "../THRIVE-Frontend/src/pages/record/record.html", icon: iconRecord },
+    { key: "home",   label: "메인", href: "../../../index.html",       icon: iconHome },
+    { key: "mypage", label: "설정", href: "../THRIVE-Frontend/src/pages/mypage/profile.html",   icon: iconAccount },
   ];
 
   NS.createTabBar = function createTabBar(opts) {
