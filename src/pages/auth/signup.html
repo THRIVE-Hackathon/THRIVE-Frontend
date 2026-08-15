@@ -21,14 +21,7 @@
           href="./login.html"
           aria-label="닫기"
         >
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M6 6l12 12M18 6L6 18"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
+          <span class="svg-icon svg-icon--close"></span>
         </a>
       </header>
 
@@ -72,8 +65,7 @@
               value=""
               required
             />
-            <!--
-              [Django] 중복 이메일이면 이 요소에
+            <!-- 이메일이면 이 요소에
               data-server-error="이미 가입된 이메일입니다" 주입 (FA202 예외)
             -->
             <p class="field__msg"></p>
@@ -85,7 +77,7 @@
             <input
               class="field__input"
               id="signup-password"
-              name="password"
+              name="password1"
               type="password"
               placeholder="8자 이상"
               autocomplete="new-password"
@@ -101,7 +93,7 @@
             <input
               class="field__input"
               id="signup-password2"
-              name="password_confirm"
+              name="password2"
               type="password"
               placeholder="8자 이상"
               autocomplete="new-password"
@@ -113,11 +105,10 @@
           <!-- FA205 약관 동의(필수 1건) + 전문 보기 -->
           <div class="auth-agree">
             <label class="auth-agree__row">
-              <!-- 실제 체크박스는 화면에서 숨기고(접근성/폼전송 유지), .auth-agree__box 로 시각 표현 -->
               <input
                 class="auth-agree__input"
                 type="checkbox"
-                name="agree_privacy"
+                name="terms_agreed"
                 value="on"
                 required
               />
@@ -129,7 +120,6 @@
           <!--
             FA206 계정 생성. 명세 예외:
             - 비밀번호 8자 미만 / 불일치 / 동의 미체크 → [다음] 비활성 유지
-            (auth-form.js 가 조건 충족 시에만 활성화)
           -->
           <button class="btn btn--primary btn--block" type="submit" disabled>다음</button>
         </form>
