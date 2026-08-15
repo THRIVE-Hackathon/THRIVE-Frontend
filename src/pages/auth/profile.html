@@ -19,14 +19,7 @@
           href="./login.html"
           aria-label="닫기"
         >
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M6 6l12 12M18 6L6 18"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
+          <span class="svg-icon svg-icon--close"></span>
         </a>
       </header>
 
@@ -87,8 +80,6 @@
 
           <!--
             FA303 나이 입력.
-            ※ 목업(loginjoin2)은 '나이' 자유 입력. 명세 FA303은 '연령대 4구간'을 요구하므로
-              서버(Django)에서 입력된 나이를 연령대 구간으로 매핑해 Profile.연령대에 저장한다.
           -->
           <div class="field" data-field="age">
             <label class="field__label" for="profile-age">나이</label>
@@ -110,9 +101,7 @@
           <p class="auth-form__error" role="alert" data-server-error=""></p>
 
           <!--
-            FA305 프로필 저장 → 홈 이동. 명세 예외:
-            닉네임 미입력 / 항목 미선택 → [완료] 비활성 유지
-            (profile-form.js 가 세 조건 충족 시에만 활성화)
+            FA305 프로필 저장 / 홈 이동
           -->
           <button class="btn btn--primary btn--block" type="submit" disabled>완료</button>
         </form>
