@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THRIVE · 여정 등록</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/variables.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/record.css" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <div id="header-mount"></div>
+      <main class="app__body">
+        <h1 class="text-title-1">여정 등록</h1>
+        <p class="text-caption text-muted">1 / 2단계</p>
+
+        <div class="field">
+          <label class="field__label">출발 도시</label>
+          <select class="field__select" required>
+            <option value="" disabled selected>Select...</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="field__label">도착 도시</label>
+          <select class="field__select" required>
+            <option value="" disabled selected>Select...</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="field__label">경유 여부</label>
+          <label><input type="radio" name="via" checked /> 경유 없음</label>
+          <label><input type="radio" name="via" /> 경유 있음</label>
+        </div>
+
+        <div class="field">
+          <label class="field__label">대기 시간 입력</label>
+          <select class="field__select" required>
+            <option value="" disabled selected>Select...</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn btn--primary btn--block" onclick="location.href='./condition-survey.html'">다음</button>
+        <p class="text-caption text-muted">총 비행시간이 6시간 미만인 여정은 등록 불가</p>
+      </main>
+    </div>
+    <script src="../../components/header.js"></script>
+    <script>
+      document.getElementById("header-mount").append(
+        THRIVE.createHeader({
+          title: "여정 등록",
+          onClose: function () { window.location.href = "./record.html"; },
+        })
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THRIVE · 착륙 확인 완료</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/variables.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/record.css" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <div id="header-mount"></div>
+      <main class="app__body">
+        <h1 class="text-title-1">착륙 확인 완료</h1>
+
+        <section>
+          <p class="text-caption text-muted">예상 점수 vs 실측 점수</p>
+          <div class="score-compare">
+            <div class="score-compare__col">
+              <div class="score-compare__label">예상</div>
+              <div class="score-compare__value">62점</div>
+            </div>
+            <div class="score-compare__col">
+              <div class="score-compare__label">실측</div>
+              <div class="score-compare__value">71점</div>
+            </div>
+          </div>
+          <p class="score-summary__note">기내에서 수분 보충과 보습을 꾸준히 실천한 덕분에 예상보다 회복이 잘 나타납니다.</p>
+        </section>
+
+        <section class="score-summary">
+          <p class="score-summary__label">최종 컨디션 · 목표 점수</p>
+          <p class="score-summary__value">88점</p>
+          <p class="score-summary__note">지금부터 회복 루틴을 실천하면 목표에 도달할 수 있습니다.</p>
+          <button type="button" class="btn btn--dark btn--block" onclick="location.href='./report.html'">회복 계획 보기</button>
+        </section>
+
+        <p class="disclaimer">
+          <svg class="disclaimer__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg>
+          <span>이 점수는 의학적 진단이 아닌 참고 지표입니다</span>
+        </p>
+      </main>
+    </div>
+    <script src="../../components/header.js"></script>
+    <script>
+      document.getElementById("header-mount").append(
+        THRIVE.createHeader({
+          title: "착륙 확인 완료",
+          onClose: function () { window.location.href = "./record.html"; },
+        })
+      );
+    </script>
+  </body>
+</html>

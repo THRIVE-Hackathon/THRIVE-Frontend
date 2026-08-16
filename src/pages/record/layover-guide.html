@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THRIVE · 레이오버 가이드</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/variables.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/record.css" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <div id="header-mount"></div>
+      <main class="app__body">
+        <h1 class="text-title-1">레이오버 가이드</h1>
+        <p class="text-caption text-muted">대기 시간을 회복에 활용하세요</p>
+        <p class="text-caption text-muted">1~3시간 대기 구간 최적 행동</p>
+
+        <div class="trip-list">
+          <div class="trip-card">
+            <div class="trip-card__main">
+              <strong class="text-heading-3">터미널 걷기 15분</strong>
+              <p class="text-caption text-muted">순환을 돕고 장시간 착석으로 굳은 다리를 풀어줍니다</p>
+            </div>
+          </div>
+          <div class="trip-card">
+            <div class="trip-card__main">
+              <strong class="text-heading-3">물 500ml 마시기</strong>
+              <p class="text-caption text-muted">기내 건조로 손실된 수분을 보충합니다</p>
+            </div>
+          </div>
+          <div class="trip-card">
+            <div class="trip-card__main">
+              <strong class="text-heading-3">세안대 보습</strong>
+              <p class="text-caption text-muted">얼굴과 손에 수분크림을 공급해 피부 긴장을 완화합니다</p>
+            </div>
+          </div>
+          <div class="trip-card">
+            <div class="trip-card__main">
+              <strong class="text-heading-3">서있기 10분</strong>
+              <p class="text-caption text-muted">장시간 앉은 자세로 뭉친 신체에 도움이 됩니다</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="disclaimer">
+          <svg class="disclaimer__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg>
+          <span>이 가이드는 의학적 정보가 아닌 참고 지표입니다</span>
+        </p>
+      </main>
+    </div>
+    <script src="../../components/header.js"></script>
+    <script>
+      document.getElementById("header-mount").append(
+        THRIVE.createHeader({
+          title: "레이오버 가이드",
+          onClose: function () { history.back(); },
+        })
+      );
+    </script>
+  </body>
+</html>
