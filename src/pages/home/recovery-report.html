@@ -9,14 +9,18 @@
     <link rel="stylesheet" href="../../styles/common.css" />
     <link rel="stylesheet" href="../../styles/home.css" />
     <link rel="stylesheet" href="../../styles/record.css" />
+    <link rel="stylesheet" href="../../styles/icons.css" />
   </head>
   <body>
     <!--
       ============================================================
-      회복 리포트 (통합) -> 백엔드 reports/detail.html
+      회복 리포트 (통합) → 백엔드 reports/detail.html
       ============================================================
       · report.html(지난 리포트 조회) + recovery-report.html(종료 직후·설문) 을
-        하나로 합류한 기준 파일입니다.
+        하나로 합류한 기준 파일입니다. 두 화면의 차이는 딱 두 군데뿐입니다:
+          (A) 최상단 타이틀      (조회=날짜 / 신규=인사문구)
+          (B) '일정 차질도' 섹션 (조회=응답 결과 표시 / 신규=설문 폼)
+        나머지 블록(여정카드·점수요약·추이·요소분석·면책)은 두 상태 공통 = 완전 동일.
       · [Django] 분기는 {% if result %} … {% else %} … {% endif %} 로 처리.
         result 는 TripResult(설문 응답) 객체. 있으면 '조회', 없으면 '설문'.
       · data-list : 닫기(X) 시 이동할 기록 목록 경로. 연동 시 {% url 'trips:list' %}.
@@ -51,7 +55,7 @@
                 <span class="trip-card__code" data-origin-code>BKK</span>
                 <span class="trip-card__city" data-origin-city>수완나품</span>
               </span>
-              <svg class="trip-card__arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <span class="trip-card__arrow svg-icon svg-icon--next" aria-hidden="true"></span>
               <span class="trip-card__point">
                 <span class="trip-card__code" data-dest-code>ICN</span>
                 <span class="trip-card__city" data-dest-city>인천</span>
@@ -142,7 +146,7 @@
           <div class="factor-card">
             <!--
               [Django] {% for item in score_breakdown_items %}
-              반복 렌더
+              ↓↓↓ 아래 .factor 하나가 '대표(정답) 1개'입니다. 이 블록만 반복 렌더하세요.
               주입 필드:
                 · item.label                 → 요소명(수면·리듬/순환/수분/피부)
                 · item.score                 → +N점 / −N점 (부호 포함)
@@ -159,7 +163,7 @@
             <!-- [Django] {% endfor %} -->
           </div>
 
-          <!-- [Django] 요약 문구 -> {{ report_note }} 등 -->
+          <!-- [Django] 요약 문구 → {{ report_note }} 등 -->
           <p class="report-note" data-report-note>모든 관리가 잘 이루어졌어요.</p>
         </section>
 
@@ -172,7 +176,7 @@
             착륙 다음 날, 계획했던 일을 얼마나 하셨나요?
           </p>
           <div class="survey-result" data-survey-result>일부를 줄이거나 짧게 했어요</div>
-          <!-- [Django] data-survey-result -> {{ result.selected_answer }} -->
+          <!-- [Django] data-survey-result → {{ result.selected_answer }} -->
 
           <!-- ─────────── [Django] {% else %} 신규 상태: 설문 폼 ───────────
           <p class="survey__question">착륙 다음 날, 계획했던 일을 얼마나 하셨나요?</p>
@@ -189,7 +193,11 @@
             <div class="survey__grid" role="radiogroup" aria-label="일정 차질도">
 
               [Django] {% for value, label in form.disruption_score.field.choices %}
-              반복 렌더
+              ↓↓↓ 아래 survey-option 하나가 '대표(정답) 1개'입니다. 이 블록만 반복 렌더하세요.
+              name 은 반드시 "disruption_score", value 는 0~5 (총 6개):
+                0 평소처럼 다 했어요 / 1 힘들었지만 계획대로 했어요 /
+                2 일부를 줄이거나 짧게 했어요 / 3 하루치 일정을 미뤘어요 /
+                4 하루를 통째로 쉬었어요 / 5 이틀 이상 영향을 받았어요
               <label class="survey-option">
                 <input class="survey-option__input" type="radio" name="disruption_score" value="{{ value }}" />
                 <span class="survey-option__box">{{ label }}</span>
