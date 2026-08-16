@@ -12,29 +12,13 @@
   </head>
   <body>
     <!--
-      지난 회복 리포트(record/report) — 저장된 리포트를 다시 보는 화면.
-      회복 리포트(home/recovery-report)의 구조·컴포넌트를 그대로 재사용하되,
-      "생성 시점"이 아니라 "과거 조회"이므로 아래만 다르다:
-        · 상단 헤더 제목 "지난 회복 리포트", 닫기(X) → 기록 목록으로(history.back)
-        · 인사말 대신 여정 날짜 타이틀 + 여정 요약 카드(.trip-card)
-        · 설문조사는 입력 폼이 아니라 저장된 응답을 읽기전용(.survey-result)으로 표시
-        · 하단 '확인' 액션 바 없음 / 탭바 없음(모달형 전체화면)
-
-      점수 추이 SVG 는 recovery-report.js 의 redrawTrend() 가 data-*-score 값을
-      읽어 다시 그린다(회복 리포트와 동일 로직 재사용). 설문 폼이 없으므로
-      recovery-report.js 의 폼 제출 로직은 자동으로 건너뛴다.
-
-      [Django] 날짜·노선·점수·추이·요소분석·요약문·설문응답은 전부 뷰 컨텍스트에서 주입.
-    -->
-    <!--
-      data-list : 기록 목록(기록 탭) 경로. 닫기(X) 시 이 위치로 돌아간다.
-                  [Django] data-list="{% url 'record:list' %}" 로 주입.
+      지난 회복 리포트(record/report) — 저장된 리포트를 다시 보는 화면
+      [Django] 날짜/노선/점수/추이/요소분석/요약문/설문응답은 전부 뷰 컨텍스트에서 주입.
     -->
     <div class="app" id="app" data-list="./record.html">
       <div id="header-mount"></div>
 
       <main class="app__body">
-        <!-- [Django] {{ report.trip.date }} (예: 26년 09월 17일) -->
         <h1 class="record-report__date text-title-1">26년 09월 17일</h1>
 
         <!-- 여정 요약 카드 (기록 리스트와 동일 컴포넌트) -->
@@ -63,8 +47,6 @@
         <section class="home-section">
           <h2 class="home-section__title text-heading-1">회복 점수 요약</h2>
 
-          <!-- [Django] data-final-score → {{ report.final_score }},
-                        data-goal-percent → {{ report.goal_percent }} -->
           <div class="report-summary">
             <div class="report-score"><span data-final-score>89</span>점</div>
             <p class="report-summary__caption">
@@ -73,9 +55,7 @@
           </div>
 
           <!--
-            점수 추이 SVG (예측 → 직후 → 최종).
-            좌표는 recovery-report.js 가 data-predicted/-immediate/-final-score 로
-            로드 시 자동 계산해 다시 그린다. 아래 값은 JS 미동작 시 폴백.
+            점수 추이 SVG (예측 → 직후 → 최종)
           -->
           <div class="trend-card">
             <svg
@@ -158,7 +138,6 @@
             </div>
           </div>
 
-          <!-- [Django] {{ report.summary_text }} -->
           <p class="report-note">모든 관리가 잘 이루어졌어요.</p>
         </section>
 
@@ -166,8 +145,7 @@
         <section class="home-section">
           <h2 class="home-section__title text-heading-1">설문조사</h2>
 
-          <!-- [Django] 저장된 설문 응답을 문장 + 결과 박스로 노출.
-                        {{ report.survey_label }} → '문제 없음' 등 -->
+          <!-- 저장된 설문 응답을 문장 + 결과 박스로 노출 -->
           <p class="survey__question">
             회복 루틴에서 일정 차질도 ‘문제 없음’이었어요.
           </p>
@@ -189,7 +167,7 @@
         var app = document.getElementById("app");
         // 닫기(X) → 항상 기록 목록(기록 탭)으로 이동.
         // (history.back 은 새로고침·딥링크 시 목록으로 못 돌아갈 수 있어 명시 경로 사용)
-        // 경로는 JS에 하드코딩하지 않고 app[data-list] 값을 쓴다 → Django에서 그대로 주입 가능.
+        // 경로는 JS에 하드코딩하지 않고 app[data-list] 값을 씀 -> Django에서 그대로 주입 가능.
         var listUrl = app.dataset.list || "./record.html";
         document.getElementById("header-mount").append(
           THRIVE.createHeader({
