@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../styles/variables.css" />
     <link rel="stylesheet" href="../../styles/common.css" />
     <link rel="stylesheet" href="../../styles/record.css" />
+    <link rel="stylesheet" href="../../styles/icons.css" />
   </head>
   <body>
     <!--
@@ -23,9 +24,9 @@
           주입 필드:
             · active_trip.origin_airport.iata_code / .city_name
             · active_trip.destination_airport.iata_code / .city_name
-            · active_trip.departure_at            -> 출발일시
-            · active_trip.total_flight_minutes    -> 시간 환산(div_minutes_to_hours)
-            · active_trip.get_layover_count_display -> 경유
+            · active_trip.departure_at            → 출발일시
+            · active_trip.total_flight_minutes    → 시간 환산(div_minutes_to_hours)
+            · active_trip.get_layover_count_display → 경유
           링크: 카드 클릭 시 {% url 'trips:home' %}
         -->
         <section>
@@ -39,9 +40,7 @@
               </div>
 
               <span class="flight-card__plane" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M2.5 19h19v2h-19v-2zm19.57-9.36c-.21-.8-1.04-1.28-1.84-1.06L14.92 10 8 3.57 6.09 4.08l4.15 7.19-4.98 1.33-1.97-1.54-1.45.39 2.59 4.49L21 11.49c.81-.23 1.28-1.05 1.07-1.85z"/>
-                </svg>
+                <span class="svg-icon svg-icon--flight"></span>
               </span>
 
               <div class="flight-card__point">
@@ -68,13 +67,13 @@
           <div class="trip-list">
             <!--
               [Django] {% for trip in past_trips %}
-              아래 trip-card 블록만 반복 렌더
+              ↓↓↓ 아래 trip-card 하나가 '대표(정답) 1개'입니다. 이 블록만 반복 렌더하세요.
               주입 필드:
-                · href                                 -> {% url 'reports:detail' trip.id %}
+                · href                                 → {% url 'reports:detail' trip.id %}
                 · trip.origin_airport.iata_code/.city_name
                 · trip.destination_airport.iata_code/.city_name
-                · trip.created_at                      -> 날짜(m.d 등)
-                · trip.total_flight_minutes            -> 시간 환산
+                · trip.created_at                      → 날짜(m.d 등)
+                · trip.total_flight_minutes            → 시간 환산
                 · 상태/메타 라인 마지막칸:
                     {% if trip.result %}{{ trip.result.selected_answer }}
                     {% elif trip.is_report_required %}리포트 작성 필요
@@ -92,7 +91,7 @@
                     <span class="trip-card__code" data-origin-code>BKK</span>
                     <span class="trip-card__city" data-origin-city>수완나품</span>
                   </span>
-                  <svg class="trip-card__arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                  <span class="trip-card__arrow svg-icon svg-icon--next" aria-hidden="true"></span>
                   <span class="trip-card__point">
                     <span class="trip-card__code" data-dest-code>ICN</span>
                     <span class="trip-card__city" data-dest-city>인천</span>
