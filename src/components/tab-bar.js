@@ -20,11 +20,11 @@
     mypage: "/accounts/profile/",
   };
  
-  const TABS = [
-    { key: "record", label: "기록", icon: iconRecord },
-    { key: "home", label: "메인", icon: iconHome },
-    { key: "mypage", label: "설정", icon: iconAccount },
-  ];
+ const TABS = [
+  { key: "record", label: "기록", href: "/src/pages/record/record.html", icon: iconRecord },
+  { key: "home",   label: "메인", href: "/index.html", icon: iconHome },
+  { key: "mypage", label: "설정", href: "/src/pages/mypage/profile.html", icon: iconAccount },
+];
 
   NS.createTabBar = function createTabBar(opts) {
     opts = opts || {};

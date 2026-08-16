@@ -13,33 +13,40 @@
     <div class="app" id="app">
       <div id="header-mount"></div>
       <main class="app__body">
-        <h1 class="text-title-1">프로필 수정</h1>
 
         <div class="field">
           <label class="field__label">닉네임</label>
-          <input class="field__input" type="text" />
+          <input class="field__input" type="text" value="유저" />
         </div>
 
-        <div class="field">
-          <label class="field__label">성별</label>
-          <select class="field__select" required>
-            <option value="" disabled selected>Select...</option>
-          </select>
+        <div class="profile-row">
+          <div class="field">
+            <label class="field__label">성별</label>
+            <button type="button" class="field__select field__select--btn" id="gender-trigger" style="text-align:left;">
+              <span id="gender-value">여성</span>
+            </button>
+          </div>
+          <div class="field">
+            <label class="field__label">나이</label>
+            <input class="field__input" type="text" inputmode="numeric" pattern="[0-9]*" value="28" />
+          </div>
         </div>
 
-        <div class="field">
-          <label class="field__label">연령대</label>
-          <select class="field__select" required>
-            <option value="" disabled selected>Select...</option>
-          </select>
-        </div>
-        <p class="text-caption text-muted">연령대는 통계 비교를 위해 활용됩니다</p>
-
-        <div style="display:flex; gap: var(--space-3);">
-          <button type="button" class="btn" style="background: var(--color-gray-050); color: var(--color-text); flex:1;" onclick="history.back()">취소</button>
-          <button type="button" class="btn btn--dark" style="flex:1;">저장</button>
-        </div>
+        <button type="button" class="btn btn--primary btn--block" id="profile-save">저장</button>
       </main>
+
+      <!-- 성별 선택 바텀시트 -->
+      <div id="gender-sheet" class="sheet-overlay" hidden>
+        <div class="sheet">
+          <div class="sheet__handle"></div>
+          <h2 class="text-heading-3">성별</h2>
+          <div class="sheet__options">
+            <button type="button" class="sheet__option is-selected" data-gender="여성">여성</button>
+            <button type="button" class="sheet__option" data-gender="남성">남성</button>
+          </div>
+          <button type="button" class="btn btn--primary btn--block" id="gender-confirm">확인</button>
+        </div>
+      </div>
     </div>
     <script src="../../components/header.js"></script>
     <script>
@@ -49,6 +56,38 @@
           onClose: function () { window.location.href = "./profile.html"; },
         })
       );
+
+      var sheet = document.getElementById("gender-sheet");
+      var genderValue = document.getElementById("gender-value");
+      var selected = "여성";
+
+      document.getElementById("gender-trigger").addEventListener("click", function () {
+        sheet.hidden = false;
+      });
+
+      document.querySelectorAll(".sheet__option").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".sheet__option").forEach(function (b) {
+            b.classList.remove("is-selected");
+          });
+          btn.classList.add("is-selected");
+          selected = btn.dataset.gender;
+        });
+      });
+
+      document.getElementById("gender-confirm").addEventListener("click", function () {
+        genderValue.textContent = selected;
+        sheet.hidden = true;
+      });
+
+      // 바텀시트 바깥(어두운 배경) 클릭하면 닫기
+      sheet.addEventListener("click", function (e) {
+        if (e.target === sheet) sheet.hidden = true;
+      });
+
+      document.getElementById("profile-save").addEventListener("click", function () {
+        window.location.href = "./profile.html";
+      });
     </script>
   </body>
 </html>

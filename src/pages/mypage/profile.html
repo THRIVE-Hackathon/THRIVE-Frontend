@@ -10,30 +10,32 @@
     <link rel="stylesheet" href="../../styles/mypage.css" />
   </head>
   <body>
-    <!-- data-home : 홈 경로. tab-bar.js가 record.html에서 쓰던 방식과 동일 -->
     <div class="app" id="app" data-home="../../../index.html">
       <main class="app__body">
         <h1 class="text-title-1">내 정보</h1>
 
-        <div class="profile-card">
-          <div class="profile-card__avatar"></div>
-          <div class="profile-card__info">
-            <p class="profile-card__name">여행자닉네임</p>
-            <p class="profile-card__meta">여성 · 30대</p>
-          </div>
-          <a class="btn--link" href="./profile-edit.html">프로필 수정</a>
+        <section class="profile-hero">
+          <p class="profile-hero__name">유저님</p>
+          <p class="profile-hero__meta">여성 · 28세</p>
+          <a class="btn btn--tonal btn--block" href="./profile-edit.html">프로필 수정</a>
+        </section>
+
+        <div class="stat-list">
+          <div class="stat-row"><span>누적 여정</span><span class="stat-row__value">4회</span></div>
+          <div class="stat-row"><span>느린 회복 요소</span><span class="stat-row__value">수면·리듬 파트</span></div>
         </div>
 
         <section>
-          <h2 class="text-heading-1">회복 통계</h2>
-          <div class="stat-box">
-            <div class="stat-row"><span>누적 마일</span><span class="stat-row__value">7회</span></div>
-            <div class="stat-row"><span>평균 회복 지필도</span><span class="stat-row__value">2.4점</span></div>
-            <div class="stat-row"><span>취약하게 느낀 요소</span><span class="stat-row__value">수면 부족</span></div>
+          <h2 class="text-heading-1">계정 설정</h2>
+          <div class="settings-list">
+            <a href="./privacy-policy.html">개인정보처리방침</a>
+            <a href="./service-intro.html">서비스처리방침</a>
+            <a href="#">알림 설정</a>
+            <a href="./account-settings.html">계정 설정</a>
           </div>
         </section>
 
-        <a class="btn btn--dark btn--block" href="./account-settings.html">계정 설정</a>
+        <a href="#" id="logout-link" class="logout-link">로그아웃</a>
       </main>
     </div>
     <script src="../../components/tab-bar.js"></script>
