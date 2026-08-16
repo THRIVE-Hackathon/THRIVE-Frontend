@@ -3,55 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>THRIVE · 홈 (비행 후)</title>
-    <!-- 경로는 repo 구조(src/pages/home/) 기준 상대경로 -->
+    <title>THRIVE · 회복 계획 (비행 후)</title>
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/variables.css" />
     <link rel="stylesheet" href="../../styles/common.css" />
     <link rel="stylesheet" href="../../styles/home.css" />
+    <link rel="stylesheet" href="../../styles/icons.css" />
   </head>
   <body>
     <!--
       ============================================================
-      홈 · 비행 후(main-done)
+      회복 계획 · 비행 후 (백엔드 recovery/plan.html 에 대응)
       ============================================================
-      [Django 서버 렌더링 연동 지점 요약]  ※ 자세한 계약은 backend-notes.md 참고
-        · 이 파일은 Django 템플릿(home/index.html)으로 그대로 옮겨 쓰는 걸 전제로 함.
-        · {{ ... }} 로 표기한 자리는 뷰 컨텍스트에서 주입.
-        · 체크리스트는 순수 HTML <form> 이라 JS 없이도 제출/저장 가능(점진적 향상).
-          JS(home.js)는 즉시 토글 · 카운터 · (옵션)자동저장으로 UX만 향상.
-        · data-demo="true" 인 동안엔 실제 POST 없이 화면만 동작. 연동 시 속성 제거.
+      · 이 파일은 순수 HTML(디자인 미리보기)입니다. 표시된 숫자/항목은 샘플입니다.
+      · [Django] 주석 = 실제 연동 시 그 자리에 들어갈 서버 템플릿 코드.
+      · 실제 템플릿은 base.html 을 extends 하며, <head>/탭바/스크립트 로딩은 base 가 담당.
     -->
     <div class="app" id="app">
-      <!-- ▼▼▼ [교체 예정] 상단 여정 단계 탭 (비행 전 / 비행 중 / 비행 후) ▼▼▼
-             다른 팀원의 상단 탭 컴포넌트로 교체될 수 있는 영역.
-             교체 시: 이 주석 블록 + home.css 의 `.stage-tab` 블록만 들어내면 됨.
-             활성 단계는 서버가 클래스로 지정 -->
-        <nav class="stage-tab" aria-label="여정 단계">
-          <span class="stage-tab__item" aria-label="비행 전">
-            <!-- IconFlight (이륙) -->
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.7422 11.6729L7.10648 15.0478C6.7385 15.1446 6.38512 15.1228 6.04634 14.9824C5.70756 14.842 5.43845 14.6111 5.239 14.2897L3.21727 10.9184C3.08229 10.7081 3.06108 10.4838 3.15366 10.2455C3.24624 10.0071 3.41796 9.85796 3.66882 9.79816L4.10616 9.68539C4.23167 9.65432 4.35322 9.65044 4.4708 9.67374C4.58855 9.69704 4.69759 9.75109 4.79793 9.83591L7.04381 11.7267L10.6015 10.7931L6.73182 5.61514C6.53113 5.34859 6.48244 5.05788 6.58573 4.74302C6.68918 4.42816 6.90696 4.22538 7.23906 4.13466L7.63888 4.0361C7.77977 3.99541 7.92936 3.98912 8.08764 4.01723C8.24608 4.04535 8.38324 4.11253 8.49912 4.21878L14.9101 9.64065L18.8801 8.57771C19.3054 8.46183 19.7095 8.51558 20.0924 8.73895C20.4755 8.96247 20.7249 9.28688 20.8408 9.71218C20.9567 10.1376 20.9089 10.5418 20.6975 10.9247C20.486 11.3076 20.1675 11.557 19.7422 11.6729ZM5.15465 20C4.95629 20 4.79024 19.9331 4.6565 19.7992C4.52261 19.6654 4.45566 19.4994 4.45566 19.301C4.45566 19.1026 4.52261 18.9366 4.6565 18.8029C4.79024 18.669 4.95629 18.602 5.15465 18.602H19.6006C19.7989 18.602 19.965 18.669 20.0987 18.8029C20.2326 18.9366 20.2996 19.1026 20.2996 19.301C20.2996 19.4994 20.2326 19.6654 20.0987 19.7992C19.965 19.9331 19.7989 20 19.6006 20H5.15465Z" fill="var(--color-cyan-200)"/></svg>
-          </span>
-          <span class="stage-tab__item" aria-label="비행 중">
-            <!-- IconPlane (순항) -->
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.9101 10.7547L4.83657 8.15353C4.51419 8.0145 4.3198 7.77979 4.25341 7.44942C4.18685 7.11888 4.27789 6.82929 4.52651 6.58067L4.83657 6.26149C4.94616 6.1519 5.076 6.07278 5.22607 6.02415C5.3763 5.97551 5.53205 5.96415 5.69332 5.99007L14.1943 7.47989L17.1883 4.47073C17.5072 4.15203 17.8961 3.99268 18.3551 3.99268C18.8142 3.99268 19.203 4.15203 19.5217 4.47073C19.8406 4.78943 20 5.17836 20 5.63753C20 6.09654 19.8406 6.4854 19.5217 6.8041L16.5274 9.81302L18.0026 18.2994C18.0284 18.4606 18.0194 18.6188 17.9757 18.7738C17.9321 18.9288 17.8554 19.0612 17.7458 19.1707L17.4266 19.4659C17.178 19.7146 16.886 19.8081 16.5507 19.7467C16.2154 19.6851 15.9781 19.4931 15.8389 19.1707L13.2526 13.0879L10.5556 15.7702L11.0743 18.7553C11.1002 18.8846 11.0953 19.0098 11.0596 19.1309C11.0239 19.2522 10.9593 19.3596 10.8657 19.4532L10.5316 19.7779C10.3446 19.9651 10.121 20.0377 9.86065 19.9958C9.60035 19.9541 9.40556 19.8169 9.27629 19.5842L7.57984 16.4275L4.42308 14.731C4.19045 14.6018 4.05326 14.407 4.0115 14.1467C3.96959 13.8864 4.04222 13.6627 4.22941 13.4757L4.55411 13.1416C4.6477 13.048 4.75514 12.9819 4.87641 12.9431C4.99752 12.9044 5.12271 12.8979 5.25198 12.9237L8.22227 13.437L10.9101 10.7547Z" fill="var(--color-cyan-200)"/></svg>
-          </span>
-          <span class="stage-tab__item is-active" aria-current="step" aria-label="비행 후">
-            <!-- IconLand (착륙) -->
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.70588 20C4.50588 20 4.33827 19.9353 4.20306 19.806C4.06769 19.6767 4 19.5165 4 19.3254C4 19.1342 4.06769 18.9741 4.20306 18.845C4.33827 18.7159 4.50588 18.6513 4.70588 18.6513H19.2941C19.4941 18.6513 19.6617 18.7159 19.7969 18.8453C19.9323 18.9746 20 19.1348 20 19.3259C20 19.5171 19.9323 19.6772 19.7969 19.8062C19.6617 19.9354 19.4941 20 19.2941 20H4.70588ZM18.0108 16.5041L5.22894 13.0028C4.85733 12.9001 4.55961 12.7044 4.33576 12.4157C4.11192 12.1269 4 11.8003 4 11.436V7.65623C4 7.41421 4.10133 7.22051 4.304 7.07515C4.50682 6.92994 4.73435 6.88865 4.98659 6.95129L5.42165 7.06391C5.54776 7.10138 5.65608 7.15877 5.74659 7.2361C5.8371 7.31328 5.9029 7.41241 5.944 7.53349L6.90871 10.2258L10.4544 11.1975L9.79553 4.99339C9.75443 4.67285 9.86604 4.41059 10.1304 4.20664C10.3947 4.00253 10.6885 3.94963 11.0118 4.04794L11.4191 4.15831C11.5613 4.19517 11.687 4.26591 11.796 4.37051C11.9049 4.47511 11.9849 4.59514 12.0362 4.73062L14.7965 12.3992L18.8254 13.5095C19.1628 13.6129 19.443 13.8003 19.6659 14.0717C19.8886 14.3432 20 14.6535 20 15.0025C20 15.4549 19.8066 15.8552 19.4198 16.2033C19.0331 16.5514 18.5635 16.6517 18.0108 16.5041Z" fill="var(--color-cyan-500)"/></svg>
-            <span>비행 후</span>
-          </span>
-        </nav>
-        <!-- ▲▲▲ [교체 예정] 여기까지 ▲▲▲ -->
+      <!-- [Django] 상단 헤더 없음(프론트 기준). base 의 app_header 블록 미override -->
+
+      <!-- ============ 여정 단계 탭 (비행 후 활성) ============ -->
+      <nav class="stage-tab" aria-label="여정 단계">
+        <span class="stage-tab__item" aria-label="비행 전">
+          <span class="svg-icon svg-icon--flight" aria-hidden="true"></span>
+        </span>
+        <span class="stage-tab__item" aria-label="비행 중">
+          <span class="svg-icon svg-icon--plane" aria-hidden="true"></span>
+        </span>
+        <span class="stage-tab__item is-active" aria-current="step" aria-label="비행 후">
+          <span class="svg-icon svg-icon--land" aria-hidden="true"></span>
+          <span>비행 후</span>
+        </span>
+      </nav>
 
       <main class="app__body">
-        <!-- 인사말: 닉네임 / 남은 시간은 서버 주입.
-             [Django] data-user → {{ user.nickname }}, data-remaining-hours → {{ remaining_hours }} -->
+        <!-- 인사말: 닉네임 + 남은 시간 -->
+        <!-- [Django] 유저 → {{ request.user.profile.nickname }} , 68 → {{ remaining_hours }} -->
         <h1 class="home-greeting text-title-1">
           <span data-user>유저</span>님, 회복 루틴 종료까지<br />
-          <span class="home-greeting__accent"
-            ><span data-remaining-hours>68</span>시간</span
-          >
+          <span class="home-greeting__accent"><span data-remaining-hours>68</span>시간</span>
           남았어요.
         </h1>
 
@@ -59,219 +49,110 @@
         <section class="home-section">
           <h2 class="home-section__title text-heading-1">회복 루틴</h2>
 
-          <!-- 현재 점수 / 목표.
-               [Django] data-current-score → {{ routine.current_score }},
-                        data-target-score  → {{ routine.target_score }} -->
+          <!-- [Django] 74 → {{ trip.current_score }} , 84 → {{ trip.target_score }} -->
           <p class="routine-score">
-            <span class="routine-score__value"
-              ><span data-current-score class="data-current">74</span>점</span
-            >
-            <span class="routine-score__target"
-              >/ 목표 <span data-target-score>84</span>점</span
-            >
+            <span class="routine-score__value"><span data-current-score>74</span>점</span>
+            <span class="routine-score__target">/ 목표 <span data-target-score>84</span>점</span>
           </p>
-          <p class="routine-caption">
-            비행 중 관리를 통해 100점을 달성할 수 있어요.
-          </p>
+          <p class="routine-caption">오늘 완료한 루틴은 회복 점수에 반영됩니다.</p>
 
           <!--
-            체크리스트(순수 폼). 저장 방식 2가지 모두 지원:
-              (A) JS 자동저장: 각 항목 변경 시 home.js 가 data-save-url 로 개별 POST
-              (B) JS 미동작(폴백): 이 폼을 통째로 제출 → 서버가 상태 저장 후 재렌더
-            [Django] {% for task in routine.tasks %} ... {% endfor %} 로 반복 렌더 권장.
-          -->
-          <form
-            class="routine"
-            method="post"
-            action="/home/routine/save/"
-            data-demo="true"
-            data-save-url="/home/routine/task/"
-          >
-            <!-- [Django] 아래 hidden 을 {% csrf_token %} 으로 치환 -->
-            <input type="hidden" name="csrfmiddlewaretoken" value="" data-csrf />
+            회복 루틴 목록
+            · 식별: data-item-id (백엔드 RecoveryItem pk)
+            · 저장: home.js 가 /recovery/{trip.id}/items/sync/ 로 변경분 배치 전송
+            · 토글: 체크박스 디자인(.routine-check)  · 카운터: .recovery-btn/.recovery-count
 
-            <ul class="routine-list">
-              <!-- 체크형 항목 (checked 여부는 서버가 결정) -->
-              <li class="routine-item">
+            [Django] <ul ... data-trip-id="{{ trip.id }}">
+                     {% for item in items %}
+                       item.mode == "counter" → 카운터 형태 / else → 토글 형태
+                       data-item-id="{{ item.id }}"
+                       토글 checked = {% if item.status == 'completed' %}checked{% endif %}
+                       카운터 숫자 = {{ item.count }}
+                       라벨 = {{ item.title }}
+                     {% endfor %}
+            아래 6개 항목은 미리보기용 샘플(실데이터 아님).
+          -->
+          <div class="routine">
+            <ul class="routine-list" id="recovery-list" data-trip-id="1">
+              <!-- ── 토글 항목 (item.mode == "toggle") ── -->
+              <li class="routine-item" data-item-id="101" data-mode="toggle">
                 <label class="routine-check">
-                  <input
-                    class="routine-check__input"
-                    type="checkbox"
-                    name="task_skin_moisture"
-                    value="1"
-                    checked
-                  />
+                  <input class="routine-check__input" type="checkbox" value="1" checked />
                   <span class="routine-item__label">피부 보습하기</span>
                   <span class="routine-check__box" aria-hidden="true"></span>
                 </label>
               </li>
-
-              <li class="routine-item">
+              <li class="routine-item" data-item-id="102" data-mode="toggle">
                 <label class="routine-check">
-                  <input
-                    class="routine-check__input"
-                    type="checkbox"
-                    name="task_sleep_6h"
-                    value="1"
-                  />
+                  <input class="routine-check__input" type="checkbox" value="1" />
                   <span class="routine-item__label">6시간 취침하기</span>
                   <span class="routine-check__box" aria-hidden="true"></span>
                 </label>
               </li>
-
-              <li class="routine-item">
+              <li class="routine-item" data-item-id="103" data-mode="toggle">
                 <label class="routine-check">
-                  <input
-                    class="routine-check__input"
-                    type="checkbox"
-                    name="task_walk"
-                    value="1"
-                  />
+                  <input class="routine-check__input" type="checkbox" value="1" />
                   <span class="routine-item__label">가볍게 산책하기</span>
                   <span class="routine-check__box" aria-hidden="true"></span>
                 </label>
               </li>
-
-              <li class="routine-item">
+              <li class="routine-item" data-item-id="104" data-mode="toggle">
                 <label class="routine-check">
-                  <input
-                    class="routine-check__input"
-                    type="checkbox"
-                    name="task_sunlight"
-                    value="1"
-                  />
+                  <input class="routine-check__input" type="checkbox" value="1" />
                   <span class="routine-item__label">햇빛 쬐기</span>
                   <span class="routine-check__box" aria-hidden="true"></span>
                 </label>
               </li>
 
-              <!--
-                카운터형 항목. 표시 숫자 + 폼 전송용 hidden 을 home.js 가 동기화.
-                data-min / data-max 로 경계 지정(없으면 min 0).
-              -->
-              <li class="routine-item routine-item--counter">
+              <!-- ── 카운터 항목 (item.mode == "counter") ── -->
+              <li class="routine-item routine-item--counter" data-item-id="105" data-mode="counter">
                 <span class="routine-item__label">물 100ml 마시기</span>
-                <div
-                  class="counter"
-                  data-counter
-                  data-name="count_water"
-                  data-min="0"
-                  data-max="20"
-                >
-                  <button
-                    type="button"
-                    class="counter__btn"
-                    data-step="-1"
-                    aria-label="물 마시기 횟수 줄이기"
-                  >
-                    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15.6667 8.99982C16.219 8.99982 16.6668 9.44769 16.6668 9.99998C16.6667 10.5522 16.2189 11.0001 15.6667 11.0001H4.33366C3.78143 11.0001 3.33358 10.5522 3.3335 9.99998C3.3335 9.44769 3.78137 8.99982 4.33366 8.99982H15.6667Z" fill="var(--color-gray-400)"/></svg>
+                <div class="counter">
+                  <button type="button" class="counter__btn recovery-btn" data-step="-1" data-action="decrement" aria-label="물 100ml 마시기 줄이기">
+                    <span class="svg-icon svg-icon--minus" aria-hidden="true"></span>
                   </button>
-                  <span class="counter__value">
-                    <span class="counter__num" data-count>4</span
-                    ><span class="counter__unit">회</span>
-                  </span>
-                  <button
-                    type="button"
-                    class="counter__btn"
-                    data-step="1"
-                    aria-label="물 마시기 횟수 늘리기"
-                  >
-                    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10.0002 3.33331C10.5524 3.33331 11.0003 3.78119 11.0003 4.33348V8.99982H15.6667C16.219 8.99982 16.6668 9.44769 16.6668 9.99998C16.6668 10.5523 16.219 11.0001 15.6667 11.0001H11.0003V15.6665C11.0003 16.2188 10.5524 16.6666 10.0002 16.6666C9.44788 16.6666 9 16.2188 9 15.6665V11.0001H4.33366C3.78137 11.0001 3.3335 10.5523 3.3335 9.99998C3.3335 9.44769 3.78137 8.99982 4.33366 8.99982H9V4.33348C9 3.78119 9.44788 3.33331 10.0002 3.33331Z" fill="var(--color-violet-900)"/></svg>
+                  <span class="counter__value"><strong class="counter__num recovery-count">4</strong><span class="counter__unit">회</span></span>
+                  <button type="button" class="counter__btn recovery-btn" data-step="1" data-action="increment" aria-label="물 100ml 마시기 늘리기">
+                    <span class="svg-icon svg-icon--plus" aria-hidden="true"></span>
                   </button>
-                  <input type="hidden" name="count_water" value="4" data-count-input />
                 </div>
               </li>
-
-              <li class="routine-item routine-item--counter">
+              <li class="routine-item routine-item--counter" data-item-id="106" data-mode="counter">
                 <span class="routine-item__label">팔·다리 스트레칭하기</span>
-                <div
-                  class="counter"
-                  data-counter
-                  data-name="count_stretch"
-                  data-min="0"
-                  data-max="20"
-                >
-                  <button
-                    type="button"
-                    class="counter__btn"
-                    data-step="-1"
-                    aria-label="스트레칭 횟수 줄이기"
-                  >
-                    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15.6667 8.99982C16.219 8.99982 16.6668 9.44769 16.6668 9.99998C16.6667 10.5522 16.2189 11.0001 15.6667 11.0001H4.33366C3.78143 11.0001 3.33358 10.5522 3.3335 9.99998C3.3335 9.44769 3.78137 8.99982 4.33366 8.99982H15.6667Z" fill="var(--color-gray-400)"/></svg>
+                <div class="counter">
+                  <button type="button" class="counter__btn recovery-btn" data-step="-1" data-action="decrement" aria-label="팔·다리 스트레칭하기 줄이기">
+                    <span class="svg-icon svg-icon--minus" aria-hidden="true"></span>
                   </button>
-                  <span class="counter__value">
-                    <span class="counter__num" data-count>2</span
-                    ><span class="counter__unit">회</span>
-                  </span>
-                  <button
-                    type="button"
-                    class="counter__btn"
-                    data-step="1"
-                    aria-label="스트레칭 횟수 늘리기"
-                  >
-                    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10.0002 3.33331C10.5524 3.33331 11.0003 3.78119 11.0003 4.33348V8.99982H15.6667C16.219 8.99982 16.6668 9.44769 16.6668 9.99998C16.6668 10.5523 16.219 11.0001 15.6667 11.0001H11.0003V15.6665C11.0003 16.2188 10.5524 16.6666 10.0002 16.6666C9.44788 16.6666 9 16.2188 9 15.6665V11.0001H4.33366C3.78137 11.0001 3.3335 10.5523 3.3335 9.99998C3.3335 9.44769 3.78137 8.99982 4.33366 8.99982H9V4.33348C9 3.78119 9.44788 3.33331 10.0002 3.33331Z" fill="var(--color-violet-900)"/></svg>
+                  <span class="counter__value"><strong class="counter__num recovery-count">2</strong><span class="counter__unit">회</span></span>
+                  <button type="button" class="counter__btn recovery-btn" data-step="1" data-action="increment" aria-label="팔·다리 스트레칭하기 늘리기">
+                    <span class="svg-icon svg-icon--plus" aria-hidden="true"></span>
                   </button>
-                  <input type="hidden" name="count_stretch" value="2" data-count-input />
                 </div>
               </li>
             </ul>
+          </div>
 
-            <!-- JS 미동작 폴백용 제출 버튼 (JS 동작 시 home.js 가 숨김) -->
-            <noscript>
-              <button class="btn btn--primary btn--block" type="submit">
-                루틴 저장
-              </button>
-            </noscript>
-          </form>
-
-          <!-- CTA 묶음: 오늘 컨디션 기록 + 캘린더 내보내기 (상·하단 16px / 간격 16px) -->
+          <!-- CTA: 오늘 컨디션 기록 + 캘린더(서버 링크) -->
           <div class="routine-cta">
-            <!-- 오늘 컨디션 기록 → 컨디션 기록 화면 이동 -->
-            <a
-              class="btn btn--primary btn--block btn--home"
-              href="src/pages/home/condition-record.html"
-              >오늘 컨디션 기록</a
-            >
-            <!--
-              회복 가이드 캘린더 내보내기 (FS506 / FS206 · P0 · ".ics 파일을 생성한다")
-              [Django 연동]
-                · href 를 서버 엔드포인트로 교체: href="{% url 'home:export_calendar' trip.id %}"
-                  또는 data-ics-url 로 지정. 서버는 RecoveryItem 들을 VEVENT 로 만든
-                  text/calendar 응답을 Content-Disposition: attachment 로 내려준다.
-                · data-demo 제거 시 home.js 는 이 URL 로 이동/다운로드시킨다.
-              [데모(JS)] data-demo 인 동안엔 home.js 가 화면의 루틴 항목을 읽어
-                  클라이언트에서 .ics 를 즉석 생성해 다운로드한다(연동 전 시연용).
-                  각 항목에 data-ics-start(예 "2026-08-14T15:00")·data-ics-duration(분)
-                  을 주면 그 시각으로, 없으면 다음 정각부터 1시간 간격으로 자동 배치.
-            -->
-            <a
-              class="home-export btn--link"
-              href="#"
-              data-export
-              data-ics-url="/home/calendar/export.ics"
-              data-ics-title="THRIVE 회복 가이드"
-              data-ics-filename="thrive-recovery.ics"
-              >회복 가이드 캘린더로 내보내기</a
-            >
+            <!-- [Django] href="{% url 'recovery:daily_condition' trip.id %}" -->
+            <a class="btn btn--primary btn--block btn--home" href="./condition-record.html">오늘 컨디션 기록</a>
+            <!-- [Django] href="{% url 'trips:calendar' trip.id %}" (서버가 .ics 생성) -->
+            <a class="home-export btn--link" href="#">회복 가이드 캘린더로 내보내기</a>
           </div>
         </section>
 
-        <!-- ============ 컨디션 점수 ============ -->
+        <!-- ============ 컨디션 점수 (프론트 디자인 유지) ============ -->
         <section class="home-section">
           <h2 class="home-section__title text-heading-1">컨디션 점수</h2>
 
-          <!-- 현재 vs 목표 -->
+          <!-- [Django] 74 → {{ trip.current_score }} , 84 → {{ trip.target_score }} -->
           <div class="score-compare">
-            <!-- [Django] 데모값 74 / 84 → {{ routine.current_score }} / {{ routine.target_score }} -->
             <div class="score-compare__col">
               <div class="score-compare__num score-compare__num--current">74</div>
-              <div class="score-compare__cap score-compare__cap--current">
-                현재
-              </div>
+              <div class="score-compare__cap score-compare__cap--current">현재</div>
             </div>
             <div class="score-compare__plane" aria-hidden="true">
-              <!-- IconFlight (이륙) · 카드용 청록 -->
-              <svg viewBox="0 0 24 24" fill="none"><path d="M19.7422 11.6729L7.10648 15.0478C6.7385 15.1446 6.38512 15.1228 6.04634 14.9824C5.70756 14.842 5.43845 14.6111 5.239 14.2897L3.21727 10.9184C3.08229 10.7081 3.06108 10.4838 3.15366 10.2455C3.24624 10.0071 3.41796 9.85796 3.66882 9.79816L4.10616 9.68539C4.23167 9.65432 4.35322 9.65044 4.4708 9.67374C4.58855 9.69704 4.69759 9.75109 4.79793 9.83591L7.04381 11.7267L10.6015 10.7931L6.73182 5.61514C6.53113 5.34859 6.48244 5.05788 6.58573 4.74302C6.68918 4.42816 6.90696 4.22538 7.23906 4.13466L7.63888 4.0361C7.77977 3.99541 7.92936 3.98912 8.08764 4.01723C8.24608 4.04535 8.38324 4.11253 8.49912 4.21878L14.9101 9.64065L18.8801 8.57771C19.3054 8.46183 19.7095 8.51558 20.0924 8.73895C20.4755 8.96247 20.7249 9.28688 20.8408 9.71218C20.9567 10.1376 20.9089 10.5418 20.6975 10.9247C20.486 11.3076 20.1675 11.557 19.7422 11.6729ZM5.15465 20C4.95629 20 4.79024 19.9331 4.6565 19.7992C4.52261 19.6654 4.45566 19.4994 4.45566 19.301C4.45566 19.1026 4.52261 18.9366 4.6565 18.8029C4.79024 18.669 4.95629 18.602 5.15465 18.602H19.6006C19.7989 18.602 19.965 18.669 20.0987 18.8029C20.2326 18.9366 20.2996 19.1026 20.2996 19.301C20.2996 19.4994 20.2326 19.6654 20.0987 19.7992C19.965 19.9331 19.7989 20 19.6006 20H5.15465Z" fill="var(--color-cyan-500)"/></svg>
+              <span class="svg-icon svg-icon--flight" aria-hidden="true"></span>
             </div>
             <div class="score-compare__col">
               <div class="score-compare__num">84</div>
@@ -280,52 +161,37 @@
           </div>
 
           <!--
-            요소별 점수 바.
-            [Django] {% for f in factors %} 로 반복. width 는 서버가 % 로 계산해 주입:
-              style="width: {{ f.percent }}%"
+            요소별 점수 바 그래프 (디자인 유지 · 현재 정적 샘플)
+            [Django] 이 화면 컨텍스트에 factors 데이터가 아직 없음.
+                     연동 시: {% for f in factors %} 반복,
+                     라벨 {{ f.label }} / 점수 {{ f.delta }} / style="width: {{ f.percent }}%"
           -->
           <div class="factor-card">
             <div class="factor">
-              <div class="factor__head">
-                <span class="factor__label">수면·리듬</span>
-                <span class="factor__delta">+ 2점</span>
-              </div>
+              <div class="factor__head"><span class="factor__label">수면·리듬</span><span class="factor__delta">+ 2점</span></div>
               <div class="bar"><span class="bar__fill" style="width: 62%"></span></div>
             </div>
             <div class="factor">
-              <div class="factor__head">
-                <span class="factor__label">순환</span>
-                <span class="factor__delta">+ 9점</span>
-              </div>
+              <div class="factor__head"><span class="factor__label">순환</span><span class="factor__delta">+ 9점</span></div>
               <div class="bar"><span class="bar__fill" style="width: 90%"></span></div>
             </div>
             <div class="factor">
-              <div class="factor__head">
-                <span class="factor__label">수면·리듬</span>
-                <span class="factor__delta">− 2점</span>
-              </div>
+              <div class="factor__head"><span class="factor__label">수분</span><span class="factor__delta">− 2점</span></div>
               <div class="bar"><span class="bar__fill" style="width: 78%"></span></div>
             </div>
             <div class="factor">
-              <div class="factor__head">
-                <span class="factor__label">피부</span>
-                <span class="factor__delta">+ 0점</span>
-              </div>
+              <div class="factor__head"><span class="factor__label">피부</span><span class="factor__delta">+ 0점</span></div>
               <div class="bar"><span class="bar__fill" style="width: 84%"></span></div>
             </div>
           </div>
 
-          <!-- 계산 근거 접이식 -->
           <details class="calc-toggle">
             <summary class="calc-toggle__summary">
               <span>이 점수는 어떻게 계산되었나요?</span>
-              <!-- IconMore (아래 방향 시브런) -->
-              <svg class="calc-toggle__chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M9.28459 13.076C9.67979 13.4192 10.3205 13.4192 10.7157 13.076L16.3684 8.16697C17.0059 7.61334 16.5544 6.66671 15.6528 6.66671H4.3475C3.44593 6.66671 2.99442 7.61334 3.63192 8.16698L9.28459 13.076Z" fill="var(--color-gray-300)"/></svg>
+              <span class="calc-toggle__chevron svg-icon svg-icon--down" aria-hidden="true"></span>
             </summary>
             <div class="calc-toggle__body">
-              <!-- [Django] {{ score_explanation }} 로 문구 주입 -->
-              수면·리듬, 순환, 피부 등 요소별 지표를 여정 정보와 함께 종합해
-              계산한 참고 점수입니다.
+              수면·리듬, 순환, 피부 등 요소별 지표를 여정 정보와 함께 종합해 계산한 참고 점수입니다.
             </div>
           </details>
         </section>
@@ -333,22 +199,20 @@
         <!-- 하단 면책 안내 -->
         <p class="disclaimer">
           <svg class="disclaimer__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg>
-          <span
-            >이 점수는 여정 정보 기반 참고 지표입니다. 의학적 진단이 아니며 개인
-            건강 상태에 따라 실제 회복 정도는 다를 수 있습니다.</span
-          >
+          <span>이 점수는 여정 정보 기반 참고 지표입니다. 의학적 진단이 아니며 개인 건강 상태에 따라 실제 회복 정도는 다를 수 있습니다.</span>
         </p>
       </main>
 
-      <!-- 하단 탭바: JS 로 mount (active="home") -->
+      <!-- 하단 탭바: 미리보기용 JS mount. [Django] 실제로는 base.html 이 서버에서 렌더 -->
       <div id="tabbar-mount"></div>
     </div>
 
     <!-- 컴포넌트 & 스크립트 -->
-    <script src="src/components/tab-bar.js"></script>
-    <script src="src/scripts/home.js"></script>
+    <script src="../../components/tab-bar.js"></script>
+    <!-- [Django] {% static 'js/home.js' %} (plan.html 의 {% block scripts %} 에서 로드) -->
+    <script src="../../scripts/home.js"></script>
     <script>
-      // 하단 탭바 mount (실제 이동경로는 tab-bar.js 의 TABS 에서 관리)
+      // [Django] 이 mount 블록은 미리보기 전용. 실제 탭바는 base.html 이 서버 렌더.
       document
         .getElementById("tabbar-mount")
         .append(THRIVE.createTabBar({ active: "home" }));
