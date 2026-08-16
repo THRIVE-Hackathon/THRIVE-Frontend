@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THRIVE · 내 정보</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/variables.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/mypage.css" />
+  </head>
+  <body>
+    <!-- data-home : 홈 경로. tab-bar.js가 record.html에서 쓰던 방식과 동일 -->
+    <div class="app" id="app" data-home="../../../index.html">
+      <main class="app__body">
+        <h1 class="text-title-1">내 정보</h1>
+
+        <div class="profile-card">
+          <div class="profile-card__avatar"></div>
+          <div class="profile-card__info">
+            <p class="profile-card__name">여행자닉네임</p>
+            <p class="profile-card__meta">여성 · 30대</p>
+          </div>
+          <a class="btn--link" href="./profile-edit.html">프로필 수정</a>
+        </div>
+
+        <section>
+          <h2 class="text-heading-1">회복 통계</h2>
+          <div class="stat-box">
+            <div class="stat-row"><span>누적 마일</span><span class="stat-row__value">7회</span></div>
+            <div class="stat-row"><span>평균 회복 지필도</span><span class="stat-row__value">2.4점</span></div>
+            <div class="stat-row"><span>취약하게 느낀 요소</span><span class="stat-row__value">수면 부족</span></div>
+          </div>
+        </section>
+
+        <a class="btn btn--dark btn--block" href="./account-settings.html">계정 설정</a>
+      </main>
+    </div>
+    <script src="../../components/tab-bar.js"></script>
+    <script>
+      (function () {
+        var app = document.getElementById("app");
+        var tabbar = THRIVE.createTabBar({ active: "mypage" });
+        var homeTab = tabbar.querySelector('a[data-key="home"]');
+        if (homeTab && app.dataset.home) homeTab.setAttribute("href", app.dataset.home);
+        app.append(tabbar);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THRIVE · 프로필 수정</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/variables.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/mypage.css" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <div id="header-mount"></div>
+      <main class="app__body">
+        <h1 class="text-title-1">프로필 수정</h1>
+
+        <div class="field">
+          <label class="field__label">닉네임</label>
+          <input class="field__input" type="text" />
+        </div>
+
+        <div class="field">
+          <label class="field__label">성별</label>
+          <select class="field__select" required>
+            <option value="" disabled selected>Select...</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="field__label">연령대</label>
+          <select class="field__select" required>
+            <option value="" disabled selected>Select...</option>
+          </select>
+        </div>
+        <p class="text-caption text-muted">연령대는 통계 비교를 위해 활용됩니다</p>
+
+        <div style="display:flex; gap: var(--space-3);">
+          <button type="button" class="btn" style="background: var(--color-gray-050); color: var(--color-text); flex:1;" onclick="history.back()">취소</button>
+          <button type="button" class="btn btn--dark" style="flex:1;">저장</button>
+        </div>
+      </main>
+    </div>
+    <script src="../../components/header.js"></script>
+    <script>
+      document.getElementById("header-mount").append(
+        THRIVE.createHeader({
+          title: "프로필 수정",
+          onClose: function () { window.location.href = "./profile.html"; },
+        })
+      );
+    </script>
+  </body>
+</html>
