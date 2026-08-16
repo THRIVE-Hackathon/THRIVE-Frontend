@@ -4,20 +4,6 @@
  */
 
 /* ============================================================
- * -1) 색상 오버라이드 — record 관련 화면은 전부 무채색으로 통일
- *     (common.css 의 --color-primary/--color-accent 등을 이 화면 안에서만 덮어씀.
- *      common.css 원본은 건드리지 않아 다른 화면(로그인 등) 색상엔 영향 없음)
- * ============================================================ */
-.app {
-  --color-primary: var(--color-gray-900);
-  --color-primary-hover: var(--color-gray-800);
-  --color-accent: var(--color-gray-900);
-  --color-accent-subtle: var(--color-gray-200);
-  --color-accent-target: var(--color-gray-700);
-  --color-link: var(--color-gray-500);
-}
-
-/* ============================================================
  * 0) 섹션 제목 (기록 리스트)
  * ============================================================ */
 .record-section__title {
@@ -69,7 +55,7 @@
   text-overflow: ellipsis;
 }
 .flight-card__plane {
-  color: var(--color-gray-700);
+  color: var(--color-cyan-500);
   display: inline-flex;
 }
 .flight-card__plane svg {
@@ -84,8 +70,8 @@
   gap: var(--space-2);
   margin: 0 0 var(--space-3);
   padding: var(--space-3);
-  background: var(--color-gray-050);
-  color: var(--color-gray-700);
+  background: var(--color-violet-100);
+  color: var(--color-violet-700);
   font-size: 13px;
   line-height: 20px;
   letter-spacing: -0.4px;
@@ -93,7 +79,7 @@
   text-align: center;
 }
 .flight-card__sep {
-  color: var(--color-gray-300);
+  color: var(--color-violet-300);
   font-weight: 400;
 }
 
@@ -113,7 +99,7 @@
   transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 a.trip-card:hover {
-  border-color: var(--color-gray-300);
+  border-color: var(--color-accent-subtle);
 }
 a.trip-card:active {
   background: var(--color-surface-subtle);
@@ -154,7 +140,7 @@ a.trip-card:active {
   flex: 0 0 auto;
   width: 16px;
   height: 16px;
-  color: var(--color-gray-900);
+  color: var(--color-primary);
   align-self: center;
 }
 .trip-card__meta {
@@ -191,7 +177,7 @@ a.trip-card:active {
   line-height: 1.1;
   font-weight: 800;
   letter-spacing: -0.5px;
-  color: var(--color-gray-900);
+  color: var(--color-accent);
 }
 
 /* ============================================================
@@ -211,8 +197,8 @@ a.trip-card:active {
   min-height: 56px;
   padding: 0 var(--space-4);
   border-radius: var(--radius-lg);
-  background: var(--color-gray-100);
-  color: var(--color-gray-900);
+  background: var(--color-violet-200);
+  color: var(--color-violet-900);
   font-size: var(--fs-body-2);
   line-height: var(--lh-body-2);
   letter-spacing: var(--ls-body-2);
@@ -257,7 +243,7 @@ a.trip-card:active {
 }
 
 /* ============================================================
- * 6) 라디오 그룹 (기준값 설문 · 경유 여부) — 무채색
+ * 6) 라디오 그룹 (기준값 설문 · 경유 여부)
  * ============================================================ */
 .field label:has(input[type="radio"]) {
   display: flex;
@@ -270,7 +256,7 @@ a.trip-card:active {
 .field input[type="radio"] {
   width: 18px;
   height: 18px;
-  accent-color: var(--color-gray-900);
+  accent-color: var(--color-accent);
 }
 
 /* ============================================================
@@ -282,7 +268,7 @@ a.trip-card:active {
 }
 
 /* ============================================================
- * 8) 예상/실측 점수 화면 공용 — 무채색, 박스형
+ * 8) 예상/실측 점수 화면 공용 — 박스형
  * ============================================================ */
 .score-summary {
   background: var(--color-surface-subtle);
@@ -297,7 +283,7 @@ a.trip-card:active {
 .score-summary__value {
   font-size: 40px;
   font-weight: 800;
-  color: var(--color-gray-900);
+  color: var(--color-accent);
   line-height: 1.2;
 }
 .score-summary__meta {
@@ -329,7 +315,7 @@ a.trip-card:active {
   display: flex;
   justify-content: space-between;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: var(--color-text);
   margin-bottom: var(--space-2);
 }
 .factor-row__bar {
@@ -341,7 +327,7 @@ a.trip-card:active {
 .factor-row__bar-fill {
   display: block;
   height: 100%;
-  background: var(--color-gray-900);
+  background: var(--color-primary);
 }
 
 .breakdown-box {
@@ -355,7 +341,7 @@ a.trip-card:active {
 }
 .breakdown-box__title {
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: var(--color-text);
   margin-bottom: var(--space-1);
 }
 .breakdown-row {
@@ -385,16 +371,9 @@ a.trip-card:active {
 .score-compare__value {
   font-size: 32px;
   font-weight: 800;
-  color: var(--color-gray-900);
+  color: var(--color-accent);
 }
 
-.btn--dark {
-  background: var(--color-gray-900);
-  color: var(--color-base-000);
-}
-.btn--dark:hover {
-  background: var(--color-gray-800);
-}
 .btn--sm {
   display: block;
   width: fit-content;
