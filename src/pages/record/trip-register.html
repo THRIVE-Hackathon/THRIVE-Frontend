@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../styles/variables.css" />
     <link rel="stylesheet" href="../../styles/common.css" />
     <link rel="stylesheet" href="../../styles/record.css" />
+    <link rel="stylesheet" href="../../styles/icons.css" />
   </head>
   <body>
     <div class="app" id="app">
@@ -178,8 +179,13 @@
       });
 
       document.getElementById("trip-confirm").addEventListener("click", function () {
-        window.location.href = "./record.html";
+        // [변경] 등록 완료 → 비행 전 홈(expected-score.html, 헤더 수정 버전)으로 이동
+        window.location.href = "./expected-score.html";
       });
     </script>
+
+    <!-- 라우팅 테스트용 임시 스위처 (연동 후 이 두 줄 제거) -->
+    <script>window.THRIVE_ROOT = "../../../index.html";</script>
+    <script src="../../components/state-switcher.js"></script>
   </body>
 </html>

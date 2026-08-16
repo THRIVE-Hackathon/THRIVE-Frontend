@@ -7,11 +7,35 @@
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/variables.css" />
     <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/home.css" />
     <link rel="stylesheet" href="../../styles/record.css" />
+    <link rel="stylesheet" href="../../styles/icons.css" />
   </head>
   <body>
+    <!--
+      ============================================================
+      홈 · 비행 전 (expected-score) — 라우팅 상태 thrive_trip_status="before"
+      ============================================================
+      [수정 사항] 팀원분이 넣었던 상단 헤더(X 닫기)를 제거했습니다.
+        이 화면은 모달이 아니라 '비행 전' 상태의 홈 탭 그 자체라서,
+        main-done.html(비행 후 홈)과 동일하게 상단은 여정 단계 탭(stage-tab),
+        하단은 탭바(app-tabbar)를 쓰는 구조로 맞췄습니다.
+    -->
     <div class="app" id="app">
-      <div id="header-mount"></div>
+      <!-- ============ 여정 단계 탭 (비행 전 활성) — main-done.html 과 동일 패턴 ============ -->
+      <nav class="stage-tab" aria-label="여정 단계">
+        <span class="stage-tab__item is-active" aria-current="step" aria-label="비행 전">
+          <span class="svg-icon svg-icon--flight" aria-hidden="true"></span>
+          <span>비행 전</span>
+        </span>
+        <span class="stage-tab__item" aria-label="비행 중">
+          <span class="svg-icon svg-icon--plane" aria-hidden="true"></span>
+        </span>
+        <span class="stage-tab__item" aria-label="비행 후">
+          <span class="svg-icon svg-icon--land" aria-hidden="true"></span>
+        </span>
+      </nav>
+
       <main class="app__body">
         <h1 class="text-title-1">착륙 시 예상 점수</h1>
 
@@ -62,15 +86,20 @@
         </p>
         <p class="text-caption text-muted">다운로드 실패 시, 재시도 요청.</p>
       </main>
+
+      <!-- 하단 탭바 mount 자리 -->
+      <div id="tabbar-mount"></div>
     </div>
-    <script src="../../components/header.js"></script>
+
+    <script src="../../components/tab-bar.js"></script>
     <script>
-      document.getElementById("header-mount").append(
-        THRIVE.createHeader({
-          title: "예상 회복 점수",
-          onClose: function () { window.location.href = "./record.html"; },
-        })
-      );
+      document
+        .getElementById("tabbar-mount")
+        .append(THRIVE.createTabBar({ active: "home" }));
     </script>
+
+    <!-- 라우팅 테스트용 임시 스위처 (연동 후 이 두 줄 제거) -->
+    <script>window.THRIVE_ROOT = "../../../index.html";</script>
+    <script src="../../components/state-switcher.js"></script>
   </body>
 </html>
