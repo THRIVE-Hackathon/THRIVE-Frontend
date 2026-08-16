@@ -146,7 +146,7 @@
           <div class="factor-card">
             <!--
               [Django] {% for item in score_breakdown_items %}
-              ↓↓↓ 아래 .factor 하나가 '대표(정답) 1개'입니다. 이 블록만 반복 렌더하세요.
+              ↓↓↓ 아래 .factor 하나당 항목 1개입니다. 이 블록만 반복 렌더하는 형태로 수정이 가능합니다.
               주입 필드:
                 · item.label                 → 요소명(수면·리듬/순환/수분/피부)
                 · item.score                 → +N점 / −N점 (부호 포함)
@@ -156,6 +156,27 @@
             <div class="factor">
               <div class="factor__head">
                 <span class="factor__label" data-factor-label>수면·리듬</span>
+                <span class="factor__delta"><span data-factor-score>+ 4점</span> <small data-factor-state>(회복됨)</small></span>
+              </div>
+              <div class="bar"><span class="bar__fill" style="width: 88%"></span></div>
+            </div>
+            <div class="factor">
+              <div class="factor__head">
+                <span class="factor__label" data-factor-label>순환</span>
+                <span class="factor__delta"><span data-factor-score>+ 4점</span> <small data-factor-state>(회복됨)</small></span>
+              </div>
+              <div class="bar"><span class="bar__fill" style="width: 88%"></span></div>
+            </div>
+            <div class="factor">
+              <div class="factor__head">
+                <span class="factor__label" data-factor-label>수면·리듬</span>
+                <span class="factor__delta"><span data-factor-score>+ 4점</span> <small data-factor-state>(회복됨)</small></span>
+              </div>
+              <div class="bar"><span class="bar__fill" style="width: 88%"></span></div>
+            </div>
+            <div class="factor">
+              <div class="factor__head">
+                <span class="factor__label" data-factor-label>피부</span>
                 <span class="factor__delta"><span data-factor-score>+ 4점</span> <small data-factor-state>(회복됨)</small></span>
               </div>
               <div class="bar"><span class="bar__fill" style="width: 88%"></span></div>

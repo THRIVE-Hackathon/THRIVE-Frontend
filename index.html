@@ -3,61 +3,124 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>THRIVE · 홈 (비행 후)</title>
-    <!-- 경로는 repo 구조(src/pages/home/) 기준 상대경로 -->
-    <link rel="stylesheet" href="src/styles/reset.css" />
-    <link rel="stylesheet" href="src/styles/variables.css" />
-    <link rel="stylesheet" href="src/styles/common.css" />
-    <link rel="stylesheet" href="src/styles/home.css" />
-    <link rel="stylesheet" href="src/styles/icons.css" />
+    <title>THRIVE</title>
+    <link rel="stylesheet" href="./src/styles/reset.css" />
+    <link rel="stylesheet" href="./src/styles/variables.css" />
+    <link rel="stylesheet" href="./src/styles/common.css" />
+    <link rel="stylesheet" href="./src/styles/home.css" />
+    <link rel="stylesheet" href="./src/styles/icons.css" />
+
+    <!--
+      home.css 에 정의돼 있을 수도, 없을 수도 있는 클래스에 기대지 않도록
+      이 화면 전용 스타일을 여기 소량 내장합니다(다른 화면 스타일과 충돌 없음).
+    -->
+    <style>
+      .home-empty {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 48px;
+        min-height: calc(100vh - var(--tabbar-height, 96px));
+      }
+      .home-empty__title-box {
+        display: flex;
+        gap: var(--space-4);
+        flex-direction: column;
+      }
+      .home-empty__title-icon {
+        object-fit: contain;
+        width: 48px;
+        height: 48px;
+        margin-top: 2px;
+        color: var(--color-cyan-400);
+      }
+      .home-empty__title {
+        font-size: 26px;
+        font-weight: 800;
+        text-align: left;
+      }
+      .home-empty__points {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+      }
+      .home-empty__points li {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-3);
+        font-size: var(--fs-body-1);
+        line-height: 1.5;
+        color: var(--color-text, #1a1a1a);
+      }
+      .home-empty__point-icon {
+        flex: 0 0 auto;
+        width: 22px;
+        height: 22px;
+        margin-top: 2px;
+        color: var(--color-accent, #693fcf);
+      }
+    </style>
   </head>
   <body>
     <!--
       ============================================================
-      홈 : 현재는 비행 후 페이지 확인을 위해 해당 페이지 코드가 붙어있습니다.
+      홈 · 여정 없음 (등록 유도)
       ============================================================
+      디자인: main-before-default.pdf 기준
     -->
     <div class="app" id="app">
-      <!-- 상단 여정 단계 탭 (비행 후) -->
-        <nav class="stage-tab" aria-label="여정 단계">
-          <span class="stage-tab__item" aria-label="비행 전">
-            <!-- IconFlight (이륙) -->
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.7422 11.6729L7.10648 15.0478C6.7385 15.1446 6.38512 15.1228 6.04634 14.9824C5.70756 14.842 5.43845 14.6111 5.239 14.2897L3.21727 10.9184C3.08229 10.7081 3.06108 10.4838 3.15366 10.2455C3.24624 10.0071 3.41796 9.85796 3.66882 9.79816L4.10616 9.68539C4.23167 9.65432 4.35322 9.65044 4.4708 9.67374C4.58855 9.69704 4.69759 9.75109 4.79793 9.83591L7.04381 11.7267L10.6015 10.7931L6.73182 5.61514C6.53113 5.34859 6.48244 5.05788 6.58573 4.74302C6.68918 4.42816 6.90696 4.22538 7.23906 4.13466L7.63888 4.0361C7.77977 3.99541 7.92936 3.98912 8.08764 4.01723C8.24608 4.04535 8.38324 4.11253 8.49912 4.21878L14.9101 9.64065L18.8801 8.57771C19.3054 8.46183 19.7095 8.51558 20.0924 8.73895C20.4755 8.96247 20.7249 9.28688 20.8408 9.71218C20.9567 10.1376 20.9089 10.5418 20.6975 10.9247C20.486 11.3076 20.1675 11.557 19.7422 11.6729ZM5.15465 20C4.95629 20 4.79024 19.9331 4.6565 19.7992C4.52261 19.6654 4.45566 19.4994 4.45566 19.301C4.45566 19.1026 4.52261 18.9366 4.6565 18.8029C4.79024 18.669 4.95629 18.602 5.15465 18.602H19.6006C19.7989 18.602 19.965 18.669 20.0987 18.8029C20.2326 18.9366 20.2996 19.1026 20.2996 19.301C20.2996 19.4994 20.2326 19.6654 20.0987 19.7992C19.965 19.9331 19.7989 20 19.6006 20H5.15465Z" fill="var(--color-cyan-200)"/></svg>
-          </span>
-          <span class="stage-tab__item" aria-label="비행 중">
-            <!-- IconPlane (순항) -->
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.9101 10.7547L4.83657 8.15353C4.51419 8.0145 4.3198 7.77979 4.25341 7.44942C4.18685 7.11888 4.27789 6.82929 4.52651 6.58067L4.83657 6.26149C4.94616 6.1519 5.076 6.07278 5.22607 6.02415C5.3763 5.97551 5.53205 5.96415 5.69332 5.99007L14.1943 7.47989L17.1883 4.47073C17.5072 4.15203 17.8961 3.99268 18.3551 3.99268C18.8142 3.99268 19.203 4.15203 19.5217 4.47073C19.8406 4.78943 20 5.17836 20 5.63753C20 6.09654 19.8406 6.4854 19.5217 6.8041L16.5274 9.81302L18.0026 18.2994C18.0284 18.4606 18.0194 18.6188 17.9757 18.7738C17.9321 18.9288 17.8554 19.0612 17.7458 19.1707L17.4266 19.4659C17.178 19.7146 16.886 19.8081 16.5507 19.7467C16.2154 19.6851 15.9781 19.4931 15.8389 19.1707L13.2526 13.0879L10.5556 15.7702L11.0743 18.7553C11.1002 18.8846 11.0953 19.0098 11.0596 19.1309C11.0239 19.2522 10.9593 19.3596 10.8657 19.4532L10.5316 19.7779C10.3446 19.9651 10.121 20.0377 9.86065 19.9958C9.60035 19.9541 9.40556 19.8169 9.27629 19.5842L7.57984 16.4275L4.42308 14.731C4.19045 14.6018 4.05326 14.407 4.0115 14.1467C3.96959 13.8864 4.04222 13.6627 4.22941 13.4757L4.55411 13.1416C4.6477 13.048 4.75514 12.9819 4.87641 12.9431C4.99752 12.9044 5.12271 12.8979 5.25198 12.9237L8.22227 13.437L10.9101 10.7547Z" fill="var(--color-cyan-200)"/></svg>
-          </span>
-          <span class="stage-tab__item is-active" aria-current="step" aria-label="비행 후">
-            <!-- IconLand (착륙) -->
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.70588 20C4.50588 20 4.33827 19.9353 4.20306 19.806C4.06769 19.6767 4 19.5165 4 19.3254C4 19.1342 4.06769 18.9741 4.20306 18.845C4.33827 18.7159 4.50588 18.6513 4.70588 18.6513H19.2941C19.4941 18.6513 19.6617 18.7159 19.7969 18.8453C19.9323 18.9746 20 19.1348 20 19.3259C20 19.5171 19.9323 19.6772 19.7969 19.8062C19.6617 19.9354 19.4941 20 19.2941 20H4.70588ZM18.0108 16.5041L5.22894 13.0028C4.85733 12.9001 4.55961 12.7044 4.33576 12.4157C4.11192 12.1269 4 11.8003 4 11.436V7.65623C4 7.41421 4.10133 7.22051 4.304 7.07515C4.50682 6.92994 4.73435 6.88865 4.98659 6.95129L5.42165 7.06391C5.54776 7.10138 5.65608 7.15877 5.74659 7.2361C5.8371 7.31328 5.9029 7.41241 5.944 7.53349L6.90871 10.2258L10.4544 11.1975L9.79553 4.99339C9.75443 4.67285 9.86604 4.41059 10.1304 4.20664C10.3947 4.00253 10.6885 3.94963 11.0118 4.04794L11.4191 4.15831C11.5613 4.19517 11.687 4.26591 11.796 4.37051C11.9049 4.47511 11.9849 4.59514 12.0362 4.73062L14.7965 12.3992L18.8254 13.5095C19.1628 13.6129 19.443 13.8003 19.6659 14.0717C19.8886 14.3432 20 14.6535 20 15.0025C20 15.4549 19.8066 15.8552 19.4198 16.2033C19.0331 16.5514 18.5635 16.6517 18.0108 16.5041Z" fill="var(--color-cyan-500)"/></svg>
-            <span>비행 후</span>
-          </span>
-        </nav>
+      <main class="app__body app__body--center">
+        <section class="home-empty">
+          <div class="home-empty__title-box">
+              <span class="home-empty__title-icon" aria-hidden="true">
+              <span class="svg-icon svg-icon--flight"></span>
+              </span>
+            <h1 class="home-empty__title text-title-1">
+              <!-- [Django] 유저 → {{ request.user.profile.nickname }} -->
+              <span data-user>유저</span>님, 여정을 등록해 주세요.
+            </h1>
+          </div>
 
-      <main class="app__body">
-        <!-- 인사말: 닉네임 / 남은 시간은 서버 주입 -->
-        <h1 class="home-greeting text-title-1">
-          <span data-user>유저</span>님, 회복 루틴 종료까지<br />
-          <span class="home-greeting__accent"
-            ><span data-remaining-hours>68</span>시간</span
-          >
-          남았어요.
-        </h1>
+          <ul class="home-empty__points">
+            <li>
+              <span>1. 예상 컨디션 회복도를 점수로 확인할 수 있어요.</span>
+            </li>
+            <li>
+              <span>2. 어떤 관리가 필요할지 예측할 수 있어요.</span>
+            </li>
+            <li>
+              <span>3. 랜딩의 도움을 받아 장거리 비행 중 컨디션을 최상으로 끌어올릴 수 있어요!</span>
+            </li>
+          </ul>
+
+          <!-- [Django] href="{% url 'trips:create_step1' %}" -->
+          <a class="btn btn--primary btn--block" href="./src/pages/record/trip-register.html">비행 여정 등록</a>
+        </section>
       </main>
 
-      <!-- 하단 탭바: JS 로 mount (active="home") -->
-      <div id="tabbar-mount"></div>
+      <!-- 하단 탭바 (여기서는 상태 고정: 여정이 없으므로 실질적으로 항상 이 페이지가 '메인') -->
+      <nav class="app-tabbar" aria-label="메인 내비게이션">
+        <a class="app-tabbar__item" href="./src/pages/record/record.html" data-key="record">
+          <span class="app-tabbar__icon svg-icon svg-icon--record" aria-hidden="true"></span>
+          <span class="app-tabbar__label">기록</span>
+        </a>
+        <a class="app-tabbar__item is-active" href="./index.html" data-key="home" aria-current="page">
+          <span class="app-tabbar__icon svg-icon svg-icon--home" aria-hidden="true"></span>
+          <span class="app-tabbar__label">메인</span>
+        </a>
+        <a class="app-tabbar__item" href="./src/pages/mypage/profile.html" data-key="mypage">
+          <span class="app-tabbar__icon svg-icon svg-icon--account" aria-hidden="true"></span>
+          <span class="app-tabbar__label">설정</span>
+        </a>
+      </nav>
     </div>
 
-    <!-- 컴포넌트 & 스크립트 -->
-    <script src="src/components/tab-bar.js"></script>
-    <script src="src/scripts/home.js"></script>
-    <script>
-      // 하단 탭바 mount (실제 이동경로는 tab-bar.js 의 TABS 에서 관리)
-      document
-        .getElementById("tabbar-mount")
-        .append(THRIVE.createTabBar({ active: "home" }));
-    </script>
+    <!-- 라우팅 테스트용 임시 스위처 (연동 후 이 두 줄 제거) -->
+    <script>window.THRIVE_ROOT = "./index.html";</script>
+    <script src="./src/components/state-switcher.js"></script>
   </body>
 </html>
