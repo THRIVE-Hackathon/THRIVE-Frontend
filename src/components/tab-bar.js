@@ -11,20 +11,21 @@
  */
 (function () {
   const NS = (window.THRIVE = window.THRIVE || {});
- 
+
   /* 서버에서 hrefs를 넘기지 않았을 때의 폴백
-     (권장: 템플릿에서 {% url %} 로 직접 주입 -> 이 값은 사용되지 않음) */
+     (권장: 템플릿에서 {% url %} 로 직접 주입 -> 이 값은 사용되지 않음)
+     현재는 정적 HTML 데모 단계라 상대경로로 채워 화면 이동이 가능하게 함. */
   const DEFAULT_HREFS = {
-    record: "/trips/",
-    home: "/trips/home/",
-    mypage: "/accounts/profile/",
+    record: "../record/record.html",
+    home: "../../../index.html",
+    mypage: "../mypage/profile.html",
   };
- 
- const TABS = [
-  { key: "record", label: "기록", href: "/src/pages/record/record.html", icon: iconRecord },
-  { key: "home",   label: "메인", href: "/index.html", icon: iconHome },
-  { key: "mypage", label: "설정", href: "/src/pages/mypage/profile.html", icon: iconAccount },
-];
+
+  const TABS = [
+    { key: "record", label: "기록", href: DEFAULT_HREFS.record, icon: iconRecord },
+    { key: "home", label: "메인", href: DEFAULT_HREFS.home, icon: iconHome },
+    { key: "mypage", label: "설정", href: DEFAULT_HREFS.mypage, icon: iconAccount },
+  ];
 
   NS.createTabBar = function createTabBar(opts) {
     opts = opts || {};
