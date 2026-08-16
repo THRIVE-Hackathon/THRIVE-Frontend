@@ -17,7 +17,8 @@ repo/
 │   │   ├── auth/               # 로그인, 회원가입
 │   │   ├── home/               # 홈
 │   │   ├── record/               # 기록
-│   │   └── mypage/               # 마이페이지
+│   │   ├── mypage/               # 마이페이지
+│   │   └── hold/               # 보류 파일(기능하지 않는 페이지)
 │   ├── components/              # 탭바, 입력필드, 점수표시 등 공통 컴포넌트
 │   │   ├── tab-bar.js
 │   │   ├── score-display.js
