@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>THRIVE · 여정 등록</title>
+    <title>THRIVE · 비행 여정 등록</title>
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/variables.css" />
     <link rel="stylesheet" href="../../styles/common.css" />
@@ -13,48 +13,173 @@
     <div class="app" id="app">
       <div id="header-mount"></div>
       <main class="app__body">
-        <h1 class="text-title-1">여정 등록</h1>
-        <p class="text-caption text-muted">1 / 2단계</p>
 
-        <div class="field">
-          <label class="field__label">출발 도시</label>
-          <select class="field__select" required>
-            <option value="" disabled selected>Select...</option>
-          </select>
-        </div>
+        <!-- ===== STEP 1: 출발 ===== -->
+        <section class="trip-step" data-step="1">
+          <div class="step-dots"><span class="is-active"></span><span></span><span></span></div>
+          <h1 class="text-title-1">출발</h1>
 
-        <div class="field">
-          <label class="field__label">도착 도시</label>
-          <select class="field__select" required>
-            <option value="" disabled selected>Select...</option>
-          </select>
-        </div>
+          <div class="field">
+            <label class="field__label">출발</label>
+            <select class="field__select" required>
+              <option value="" disabled selected>Select...</option>
+              <option>ICN 인천국제공항</option>
+              <option>MXP 말펜사공항</option>
+              <option>BKK 수완나품국제공항</option>
+              <option>LAX 로스앤젤레스국제공항</option>
+              <option>DAD 다낭국제공항</option>
+              <option>SIN 창이국제공항</option>
+              <option>DPS 응우라이국제공항</option>
+              <option>TPE 타이완타오위안국제공항</option>
+            </select>
+          </div>
 
-        <div class="field">
-          <label class="field__label">경유 여부</label>
-          <label><input type="radio" name="via" checked /> 경유 없음</label>
-          <label><input type="radio" name="via" /> 경유 있음</label>
-        </div>
+          <div class="field">
+            <label class="field__label">출발일</label>
+            <button type="button" class="field__select" style="text-align:left;">10월 11일(일)</button>
+          </div>
 
-        <div class="field">
-          <label class="field__label">대기 시간 입력</label>
-          <select class="field__select" required>
-            <option value="" disabled selected>Select...</option>
-          </select>
-        </div>
+          <div class="field">
+            <label class="field__label">출발 시각</label>
+            <button type="button" class="field__select" style="text-align:left;">15:30</button>
+          </div>
 
-        <button type="button" class="btn btn--primary btn--block" onclick="location.href='./condition-survey.html'">다음</button>
-        <p class="text-caption text-muted">총 비행시간이 6시간 미만인 여정은 등록 불가</p>
+          <div class="field">
+            <label class="field__label">경유 여부</label>
+            <div style="display:flex; gap: var(--space-2);">
+              <button type="button" class="btn" style="flex:1; background: var(--color-gray-050); color: var(--color-text);" data-via="no">없음</button>
+              <button type="button" class="btn btn--primary" style="flex:1;" data-via="yes">있음</button>
+            </div>
+          </div>
+
+          <div class="field" id="wait-time-field">
+            <label class="field__label">대기 시간</label>
+            <button type="button" class="field__select" style="text-align:left;">8시간 50분</button>
+          </div>
+
+          <button type="button" class="btn btn--primary btn--block" data-next="2">다음</button>
+        </section>
+
+        <!-- ===== STEP 2: 도착 ===== -->
+        <section class="trip-step" data-step="2" hidden>
+          <div class="step-dots"><span></span><span class="is-active"></span><span></span></div>
+          <h1 class="text-title-1">도착</h1>
+
+          <div class="field">
+            <label class="field__label">도착지</label>
+            <select class="field__select" required>
+              <option value="" disabled selected>Select...</option>
+              <option>MXP 말펜사공항</option>
+              <option>ICN 인천국제공항</option>
+            </select>
+            <p class="text-caption text-muted">필수 선택입니다</p>
+          </div>
+
+          <div class="field">
+            <label class="field__label">도착일</label>
+            <button type="button" class="field__select" style="text-align:left;">10월 12일(월)</button>
+          </div>
+
+          <div class="field">
+            <label class="field__label">도착 시각</label>
+            <button type="button" class="field__select" style="text-align:left;">06:30</button>
+          </div>
+
+          <section>
+            <h2 class="text-heading-1">여행 일정</h2>
+            <div class="field">
+              <label class="field__label">예정된 여행 기간</label>
+              <button type="button" class="field__select" style="text-align:left;">14일</button>
+            </div>
+          </section>
+
+          <div style="display:flex; gap: var(--space-3);">
+            <button type="button" class="btn" style="flex:1; background: var(--color-gray-050); color: var(--color-text);" data-prev="1">뒤로</button>
+            <button type="button" class="btn btn--primary" style="flex:1;" data-next="3">다음</button>
+          </div>
+        </section>
+
+        <!-- ===== STEP 3: 장거리 비행 여부 ===== -->
+        <section class="trip-step" data-step="3" hidden>
+          <div class="step-dots"><span></span><span></span><span class="is-active"></span></div>
+          <h1 class="text-title-1">장거리 비행 여부</h1>
+          <p class="text-caption text-muted">최근 1년 사이 6시간 이상의 비행 경험이 있으신가요?</p>
+
+          <div class="field">
+            <div style="display:flex; gap: var(--space-2);">
+              <button type="button" class="btn" style="flex:1; background: var(--color-gray-050); color: var(--color-text);">없음</button>
+              <button type="button" class="btn btn--primary" style="flex:1;">있음</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label">마지막 비행 일자</label>
+            <button type="button" class="field__select" style="text-align:left;">8월 25일(화)</button>
+          </div>
+
+          <div class="field">
+            <label class="field__label">총 비행 시간</label>
+            <button type="button" class="field__select" style="text-align:left;">8시간 50분</button>
+          </div>
+
+          <section>
+            <h2 class="text-heading-1">평소 컨디션</h2>
+            <p class="text-caption text-muted">평소 이동 거리 및 시간이 어느 정도 영향을 미치나요?</p>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-2);">
+              <button type="button" class="btn" style="background: var(--color-gray-050); color: var(--color-text);">어피먼 영향없음</button>
+              <button type="button" class="btn" style="background: var(--color-gray-050); color: var(--color-text);">도착 직후 회복</button>
+              <button type="button" class="btn" style="background: var(--color-gray-050); color: var(--color-text);">살짝 지침</button>
+              <button type="button" class="btn btn--primary">일정에 영향 줌</button>
+            </div>
+          </section>
+
+          <div style="display:flex; gap: var(--space-3);">
+            <button type="button" class="btn" style="flex:1; background: var(--color-gray-050); color: var(--color-text);" data-prev="2">뒤로</button>
+            <button type="button" class="btn btn--primary" style="flex:1;" id="trip-confirm">확인</button>
+          </div>
+        </section>
+
       </main>
     </div>
     <script src="../../components/header.js"></script>
     <script>
       document.getElementById("header-mount").append(
         THRIVE.createHeader({
-          title: "여정 등록",
-          onClose: function () { window.location.href = "./record.html"; },
+          title: "비행 여정 등록",
+          onClose: function () {
+            if (confirm("정말로 닫으실 건가요?\n지금 창을 닫으면 지금까지 입력한 내용이 저장되지 않고 모두 초기화돼요.")) {
+              window.location.href = "./record.html";
+            }
+          },
         })
       );
+
+      document.querySelectorAll("[data-next]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var next = btn.dataset.next;
+          document.querySelectorAll(".trip-step").forEach(function (s) { s.hidden = true; });
+          document.querySelector('.trip-step[data-step="' + next + '"]').hidden = false;
+        });
+      });
+      document.querySelectorAll("[data-prev]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var prev = btn.dataset.prev;
+          document.querySelectorAll(".trip-step").forEach(function (s) { s.hidden = true; });
+          document.querySelector('.trip-step[data-step="' + prev + '"]').hidden = false;
+        });
+      });
+
+      document.querySelectorAll('[data-via]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.getElementById('wait-time-field').style.display =
+            btn.dataset.via === 'yes' ? 'flex' : 'none';
+          document.getElementById('wait-time-field').style.flexDirection = 'column';
+        });
+      });
+
+      document.getElementById("trip-confirm").addEventListener("click", function () {
+        window.location.href = "./record.html";
+      });
     </script>
   </body>
 </html>

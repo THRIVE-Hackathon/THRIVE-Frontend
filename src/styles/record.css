@@ -401,3 +401,21 @@ a.trip-card:active {
   margin-top: 2px;
   color: var(--color-text-muted);
 }
+
+/* ============================================================
+ * 10) 여정 등록 (trip-register) — 단계 표시 점
+ * ============================================================ */
+.step-dots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: var(--space-3);
+}
+.step-dots span {
+  width: 24px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-gray-100);
+}
+.step-dots span.is-active {
+  background: var(--color-primary);
+}
