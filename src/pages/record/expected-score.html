@@ -74,7 +74,20 @@
         </details>
 
         <a class="btn btn--guide btn--block" href="./layover-guide.html">회복 가이드 확인</a>
-        <a class="link--export btn--link" href="#">회복 가이드 캘린더로 내보내기</a>
+        <!--
+          [Django] .ics 내보내기용 데이터 속성.
+          data-ics-start = 도착 일시, data-ics-end = 도착 + 회복 기간(예: 3일) 로 서버에서 계산해 주입.
+          data-ics-description 은 회복 루틴 안내 문구(줄바꿈은 \n 그대로 사용 가능).
+        -->
+        <a
+          class="link--export btn--link js-ics-export"
+          href="#"
+          data-ics-title="THRIVE 회복 가이드"
+          data-ics-start="2026-10-12T06:30:00+09:00"
+          data-ics-end="2026-10-15T06:30:00+09:00"
+          data-ics-description="비행 중 관리를 통해 100점을 달성할 수 있어요.\n피부 보습하기·수분 섭취·스트레칭 등 회복 루틴을 확인하세요."
+          data-ics-location="MXP 말펜사공항"
+        >회복 가이드 캘린더로 내보내기</a>
 
         <section>
           <h2 class="text-heading-1">비행 일정</h2>
@@ -128,6 +141,7 @@
     </div>
 
     <script src="../../components/tab-bar.js"></script>
+    <script src="../../scripts/calendar-export.js"></script>
     <script>
       document.getElementById("tabbar-mount").append(THRIVE.createTabBar({ active: "home" }));
     </script>
