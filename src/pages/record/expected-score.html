@@ -80,6 +80,43 @@
         <a class="btn--link" href="./layover-guide.html">레이오버 가이드 보기</a>
         <button type="button" class="btn btn--dark btn--sm">캘린더에 회복 일정 내보내기 (.ics)</button>
 
+        <section>
+          <h2 class="text-heading-1">비행 일정</h2>
+          <article class="flight-card">
+            <div class="flight-card__route">
+              <div class="flight-card__point">
+                <div class="flight-card__code">ICN</div>
+                <div class="flight-card__airport">인천국제공항</div>
+              </div>
+              <span class="flight-card__plane" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 19h19v2h-19v-2zm19.57-9.36c-.21-.8-1.04-1.28-1.84-1.06L14.92 10 8 3.57 6.09 4.08l4.15 7.19-4.98 1.33-1.97-1.54-1.45.39 2.59 4.49L21 11.49c.81-.23 1.28-1.05 1.07-1.85z"/></svg>
+              </span>
+              <div class="flight-card__point">
+                <div class="flight-card__code">MXP</div>
+                <div class="flight-card__airport">말펜사공항</div>
+              </div>
+            </div>
+          </article>
+
+          <div class="itinerary-list">
+            <div class="itinerary-row">
+              <span class="itinerary-dot"></span>
+              <div class="itinerary-row__body">
+                <p><strong>출발</strong> 10월 11일(일) 15:30</p>
+                <p class="text-caption text-muted">경유 1회(8시간 50분 대기)</p>
+                <p class="itinerary-row__highlight">총 22시간 00분 비행</p>
+              </div>
+            </div>
+            <div class="itinerary-row">
+              <span class="itinerary-dot"></span>
+              <div class="itinerary-row__body">
+                <p><strong>도착</strong> 10월 12일(월) 06:30</p>
+              </div>
+            </div>
+          </div>
+          <a class="btn--link" style="display:block; text-align:center;" href="./trip-register.html">비행 일정 수정하기</a>
+        </section>
+        
         <p class="disclaimer">
           <svg class="disclaimer__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg>
           <span>이 점수는 여정 정보 기반 참고 지표입니다. 의학적 진단이 아니며 개인 건강 상태에 따라 실제 회복 정도는 다를 수 있습니다.</span>

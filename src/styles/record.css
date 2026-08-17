@@ -419,3 +419,33 @@ a.trip-card:active {
 .step-dots span.is-active {
   background: var(--color-primary);
 }
+
+/* ============================================================
+ * 11) 예상 회복 여정 — 비행 일정 타임라인
+ * ============================================================ */
+.itinerary-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+.itinerary-row {
+  display: flex;
+  gap: var(--space-2);
+}
+.itinerary-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  margin-top: 6px;
+  flex: 0 0 auto;
+}
+.itinerary-row__body p {
+  font-size: var(--fs-body-3);
+  color: var(--color-text);
+}
+.itinerary-row__highlight {
+  color: var(--color-primary);
+  font-weight: 700;
+}
