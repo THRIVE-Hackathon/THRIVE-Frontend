@@ -55,7 +55,7 @@
   text-overflow: ellipsis;
 }
 .flight-card__plane {
-  color: var(--color-cyan-400);
+  color: var(--color-cyan-500);
   display: inline-flex;
 }
 .flight-card__plane svg {
@@ -403,7 +403,7 @@ a.trip-card:active {
 }
 
 /* ============================================================
- * 10) 여정 등록 (trip-register) — 단계 표시 점
+ * 10) 여정 등록 — 단계 표시 점
  * ============================================================ */
 .step-dots {
   display: flex;
@@ -418,4 +418,210 @@ a.trip-card:active {
 }
 .step-dots span.is-active {
   background: var(--color-primary);
+}
+
+/* ============================================================
+ * 11) 예상 회복 여정 — 비행 일정 타임라인
+ * ============================================================ */
+.itinerary-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+.itinerary-row {
+  display: flex;
+  gap: var(--space-2);
+}
+.itinerary-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  margin-top: 6px;
+  flex: 0 0 auto;
+}
+.itinerary-row__body p {
+  font-size: var(--fs-body-3);
+  color: var(--color-text);
+}
+.itinerary-row__highlight {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ============================================================
+ * 12) 착륙 점수 확인 — 예상 vs 현재 비교 (박스 없이 나란히)
+ * ============================================================ */
+.landing-score-compare {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+}
+.landing-score-compare__col {
+  text-align: center;
+}
+.landing-score-compare__value {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--color-gray-900);
+  line-height: 1.1;
+}
+.landing-score-compare__label {
+  font-size: var(--fs-caption-1);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+.landing-score-compare__arrow {
+  color: var(--color-cyan-500);
+  font-size: 16px;
+}
+
+/* ============================================================
+ * 13) 여정 등록(trip-register) — 필드/버튼 여백 보강
+ * ============================================================ */
+.trip-step {
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.trip-step:not([hidden]) {
+  display: flex;
+}
+.trip-step .field {
+  gap: var(--space-2);
+}
+.trip-step section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.trip-step > div[style*="display:flex"] {
+  gap: var(--space-3);
+}
+
+/* ============================================================
+ * 14) 여정 등록 — 정보 행(info-row): 라벨 + 값 + 화살표
+ * ============================================================ */
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-3) 0;
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+}
+.info-row__label {
+  flex: 0 0 auto;
+  font-size: var(--fs-body-3);
+  color: var(--color-text);
+}
+.info-row__value {
+  flex: 1 1 auto;
+  text-align: right;
+  font-size: var(--fs-body-3);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-right: var(--space-2);
+}
+.info-row__chevron {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--color-gray-400);
+}
+
+/* ============================================================
+ * 15) 공항/날짜 선택 바텀시트, 리스트
+ * ============================================================ */
+.airport-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 320px;
+  overflow-y: auto;
+  border-top: 1px solid var(--color-border);
+}
+.airport-list__item {
+  text-align: left;
+  padding: var(--space-3) var(--space-2);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--fs-body-3);
+  color: var(--color-text);
+}
+.airport-list__item.is-selected {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+.airport-list__item:last-child {
+  border-bottom: none;
+}
+
+.date-input-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.date-input {
+  text-align: center;
+}
+.date-input--sm {
+  max-width: 60px;
+}
+.date-input-unit {
+  font-size: var(--fs-body-3);
+  color: var(--color-text-muted);
+}
+
+/* ============================================================
+ * 16) 에러 문구, 뒤로/다음 버튼 비율
+ * ============================================================ */
+.field-error {
+  font-size: var(--fs-caption-1);
+  color: var(--color-danger);
+  margin-top: var(--space-1);
+}
+
+.step-nav-row {
+  display: flex;
+  gap: var(--space-2);
+}
+.step-nav-back {
+  flex: 1;
+  background: var(--color-gray-050);
+  color: var(--color-text);
+}
+.step-nav-forward {
+  flex: 3;
+}
+
+/* ============================================================
+ * 17) 선택형 버튼(경유여부/장거리비행여부/평소컨디션) — 선택 시 연보라
+ * ============================================================ */
+.btn--soft-selected {
+  background: var(--color-accent-subtle);
+  color: var(--color-primary);
+}
+.btn--soft-selected:hover {
+  background: var(--color-violet-300);
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+.option-grid .btn {
+  height: 52px;
+  font-size: var(--fs-body-3);
+  padding: 0 var(--space-2);
+}
+
+.trip-step-bottom-space {
+  margin-top: var(--space-6);
 }

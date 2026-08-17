@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THRIVE · 착륙 점수 확인</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/variables.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/home.css" />
+    <link rel="stylesheet" href="../../styles/record.css" />
+    <link rel="stylesheet" href="../../styles/icons.css" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <div id="header-mount"></div>
+      <main class="app__body">
+        <h1 class="text-title-1">컨디션 확인</h1>
+        <p class="text-caption text-muted">
+          기내에서 수분 보충과 보습을 꾸준히 실천한 덕분에
+          <span style="color: var(--color-primary); font-weight: 700;">예상 점수보다 6점 높은 상태에요.</span>
+        </p>
+
+        <div class="landing-score-compare">
+          <div class="landing-score-compare__col">
+            <div class="landing-score-compare__value">68</div>
+            <div class="landing-score-compare__label">예상</div>
+          </div>
+          <span class="landing-score-compare__arrow" aria-hidden="true">▶</span>
+          <div class="landing-score-compare__col">
+            <div class="landing-score-compare__value" style="color: var(--color-primary);">74</div>
+            <div class="landing-score-compare__label">현재</div>
+          </div>
+        </div>
+
+        <div class="factor-box">
+          <div class="factor-row">
+            <div class="factor-row__head"><span>수면·리듬</span><span>+ 2점</span></div>
+            <div class="factor-row__bar"><span class="factor-row__bar-fill" style="width: 62%"></span></div>
+          </div>
+          <div class="factor-row">
+            <div class="factor-row__head"><span>순환</span><span>+ 9점</span></div>
+            <div class="factor-row__bar"><span class="factor-row__bar-fill" style="width: 90%"></span></div>
+          </div>
+          <div class="factor-row">
+            <div class="factor-row__head"><span>수면·리듬</span><span>- 2점</span></div>
+            <div class="factor-row__bar"><span class="factor-row__bar-fill" style="width: 78%"></span></div>
+          </div>
+          <div class="factor-row">
+            <div class="factor-row__head"><span>피부</span><span>+ 0점</span></div>
+            <div class="factor-row__bar"><span class="factor-row__bar-fill" style="width: 84%"></span></div>
+          </div>
+        </div>
+
+        <section class="home-section">
+          <h2 class="home-section__title text-heading-1">목표 점수</h2>
+          <p class="score-summary__value" style="color: var(--color-primary);">84점</p>
+          <p class="text-caption text-muted">앞으로 3일 간 함께 회복 점수를 올려봐요.</p>
+
+         <div class="breakdown-row"><span>예정된 여행 기간</span><span>14일</span></div>
+<div class="breakdown-row"><span>남은 회복 시간</span><span>72시간</span></div>
+
+        </section>
+
+        <p class="disclaimer">
+          <svg class="disclaimer__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg>
+          <span>이 점수는 여정 정보 기반 참고 지표입니다. 의학적 진단이 아니며 개인 건강 상태에 따라 실제 회복 정도는 다를 수 있습니다.</span>
+        </p>
+
+        <button type="button" class="btn btn--primary btn--block" id="routine-start">회복 루틴 실행</button>
+      </main>
+    </div>
+    <script src="../../components/header.js"></script>
+    <script>
+      document.getElementById("header-mount").append(
+        THRIVE.createHeader({
+          title: "착륙 점수 확인",
+          onClose: function () { window.location.href = "./main-done.html"; },
+        })
+      );
+      document.getElementById("routine-start").addEventListener("click", function () {
+        window.location.href = "./main-done.html";
+      });
+    </script>
+  </body>
+</html>
