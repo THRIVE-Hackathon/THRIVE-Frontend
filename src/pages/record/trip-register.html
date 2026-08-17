@@ -110,15 +110,15 @@
             </div>
           </div>
 
-          <button type="button" class="info-row">
+          <button type="button" class="info-row" id="last-flight-trigger">
             <span class="info-row__label">마지막 비행 일자</span>
-            <span class="info-row__value">8월 25일(화)</span>
+            <span class="info-row__value" id="last-flight-value">Select...</span>
             <svg class="info-row__chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
 
-          <button type="button" class="info-row">
+          <button type="button" class="info-row" id="total-flight-time-trigger">
             <span class="info-row__label">총 비행 시간</span>
-            <span class="info-row__value">8시간 50분</span>
+            <span class="info-row__value" id="total-flight-time-value">Select...</span>
             <svg class="info-row__chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
 
@@ -244,6 +244,38 @@
             <span class="date-input-unit">일</span>
           </div>
           <button type="button" class="btn btn--primary btn--block" id="trip-length-confirm">입력</button>
+        </div>
+      </div>
+
+      <!-- 마지막 비행 일자 선택 바텀시트 -->
+      <div id="last-flight-sheet" class="sheet-overlay" hidden>
+        <div class="sheet">
+          <div class="sheet__handle"></div>
+          <h2 class="text-heading-3">마지막 비행 일자</h2>
+          <div class="date-input-row">
+            <input class="field__input date-input" type="text" inputmode="numeric" maxlength="4" placeholder="2000" id="last-flight-year" />
+            <span class="date-input-unit">년</span>
+            <input class="field__input date-input date-input--sm" type="text" inputmode="numeric" maxlength="2" placeholder="00" id="last-flight-month" />
+            <span class="date-input-unit">월</span>
+            <input class="field__input date-input date-input--sm" type="text" inputmode="numeric" maxlength="2" placeholder="00" id="last-flight-day" />
+            <span class="date-input-unit">일</span>
+          </div>
+          <button type="button" class="btn btn--primary btn--block" id="last-flight-confirm">입력</button>
+        </div>
+      </div>
+
+      <!-- 총 비행 시간 선택 바텀시트 -->
+      <div id="total-flight-time-sheet" class="sheet-overlay" hidden>
+        <div class="sheet">
+          <div class="sheet__handle"></div>
+          <h2 class="text-heading-3">총 비행 시간</h2>
+          <div class="date-input-row">
+            <input class="field__input date-input date-input--sm" type="text" inputmode="numeric" maxlength="2" placeholder="00" id="total-flight-hour" />
+            <span class="date-input-unit">시간</span>
+            <input class="field__input date-input date-input--sm" type="text" inputmode="numeric" maxlength="2" placeholder="00" id="total-flight-minute" />
+            <span class="date-input-unit">분</span>
+          </div>
+          <button type="button" class="btn btn--primary btn--block" id="total-flight-time-confirm">입력</button>
         </div>
       </div>
 
@@ -476,6 +508,45 @@
       });
       tripLengthSheet.addEventListener("click", function (e) {
         if (e.target === tripLengthSheet) tripLengthSheet.hidden = true;
+      });
+
+      // 마지막 비행 일자 선택 바텀시트
+      var lastFlightSheet = document.getElementById("last-flight-sheet");
+      var lastFlightValueEl = document.getElementById("last-flight-value");
+
+      document.getElementById("last-flight-trigger").addEventListener("click", function () {
+        lastFlightSheet.hidden = false;
+      });
+      document.getElementById("last-flight-confirm").addEventListener("click", function () {
+        var y3 = document.getElementById("last-flight-year").value;
+        var m3 = document.getElementById("last-flight-month").value;
+        var d3 = document.getElementById("last-flight-day").value;
+        if (y3 && m3 && d3) {
+          lastFlightValueEl.textContent = y3 + "년 " + m3 + "월 " + d3 + "일";
+        }
+        lastFlightSheet.hidden = true;
+      });
+      lastFlightSheet.addEventListener("click", function (e) {
+        if (e.target === lastFlightSheet) lastFlightSheet.hidden = true;
+      });
+
+      // 총 비행 시간 선택 바텀시트
+      var totalFlightTimeSheet = document.getElementById("total-flight-time-sheet");
+      var totalFlightTimeValueEl = document.getElementById("total-flight-time-value");
+
+      document.getElementById("total-flight-time-trigger").addEventListener("click", function () {
+        totalFlightTimeSheet.hidden = false;
+      });
+      document.getElementById("total-flight-time-confirm").addEventListener("click", function () {
+        var th = document.getElementById("total-flight-hour").value;
+        var tm = document.getElementById("total-flight-minute").value;
+        if (th && tm) {
+          totalFlightTimeValueEl.textContent = th + "시간 " + tm + "분";
+        }
+        totalFlightTimeSheet.hidden = true;
+      });
+      totalFlightTimeSheet.addEventListener("click", function (e) {
+        if (e.target === totalFlightTimeSheet) totalFlightTimeSheet.hidden = true;
       });
     </script>
 
