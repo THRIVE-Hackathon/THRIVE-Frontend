@@ -7,15 +7,20 @@
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/variables.css" />
     <link rel="stylesheet" href="../../styles/common.css" />
-    <link rel="stylesheet" href="../../styles/record.css" />
+    <link rel="stylesheet" href="../../styles/home.css" />
     <link rel="stylesheet" href="../../styles/icons.css" />
+
+    <!-- 디자인 시안(main-before-start (1)_2.png) 반영을 위한 추가 스타일 -->
+    <style>
+    </style>
   </head>
   <body>
     <div class="app" id="app">
+      <!-- ============ 여정 단계 탭 (비행 전 활성) — main-done.html 과 동일 패턴 ============ -->
       <nav class="stage-tab" aria-label="여정 단계">
         <span class="stage-tab__item is-active" aria-current="step" aria-label="비행 전">
           <span class="svg-icon svg-icon--flight" aria-hidden="true"></span>
-          <span>탑승 전</span>
+          <span>비행 전</span>
         </span>
         <span class="stage-tab__item" aria-label="비행 중">
           <span class="svg-icon svg-icon--plane" aria-hidden="true"></span>
@@ -29,40 +34,51 @@
         <h1 class="text-title-1">유저님, 예상 회복 여정을<br />확인해 보세요.</h1>
 
         <section>
-          <h2 class="text-heading-1">예상 컨디션 점수</h2>
-          <p class="score-summary__value"><span data-expected-score>68</span>점 <span style="font-size: var(--fs-body-3); color: var(--color-text-muted); font-weight: 400;">/ 100점</span></p>
-          <p class="score-note">비행 중 관리를 통해 100점을 달성할 수 있어요.</p>
+          <h2 class="home-section__title text-heading-1">예상 컨디션 점수</h2>
+          <!-- 기존 태그 구조를 변경하여 점수 표시 크기 확대 -->
+          <div class="score-summary__value">
+            <span class="score-number" data-expected-score>68점</span>
+            <span class="score-total">/ 100점</span>
+          </div>
+          <p class="routine-caption">비행 중 관리를 통해 100점을 달성할 수 있어요.</p>
         </section>
 
+        <!-- 배경색 및 패딩이 적용된 요인 박스 -->
         <div class="factor-box">
           <div class="factor-row">
-            <div class="factor-row__head"><span>수면·리듬</span><span>-21점</span></div>
+            <div class="factor-row__head"><span>수면·리듬</span><span>- 21점</span></div>
             <div class="factor-row__bar"><span class="factor-row__bar-fill" style="width: 84%"></span></div>
           </div>
           <div class="factor-row">
-            <div class="factor-row__head"><span>순환</span><span>-10점</span></div>
+            <div class="factor-row__head"><span>순환</span><span>- 10점</span></div>
             <div class="factor-row__bar"><span class="factor-row__bar-fill" style="width: 40%"></span></div>
           </div>
           <div class="factor-row">
-            <div class="factor-row__head"><span>수면·리듬</span><span>-21점</span></div>
+            <div class="factor-row__head"><span>수면·리듬</span><span>- 21점</span></div>
             <div class="factor-row__bar"><span class="factor-row__bar-fill" style="width: 84%"></span></div>
           </div>
           <div class="factor-row">
-            <div class="factor-row__head"><span>피부</span><span>-21점</span></div>
+            <div class="factor-row__head"><span>피부</span><span>- 21점</span></div>
             <div class="factor-row__bar"><span class="factor-row__bar-fill" style="width: 84%"></span></div>
           </div>
         </div>
 
         <details class="calc-toggle">
-          <summary>이 점수는 어떻게 계산되었나요?</summary>
-          <p class="text-caption text-muted">총 비행시간은 수면·리듬과 순환에 영향을 끼치며, 시차는 수면·리듬 점수에 영향을 끼칩니다. 비행 시간이 증가함에 따라 수분 및 피부 점수가 줄어들며, 경유 여부에 따라 각 수치가 조정될 수 있습니다.</p>
+          <summary class="calc-toggle__summary">
+            <span>이 점수는 어떻게 계산되었나요?</span>
+            <span class="calc-toggle__chevron svg-icon svg-icon--more" aria-hidden="true"></span>
+          </summary>
+          <div class="calc-toggle__body">
+            총 비행시간은 수면·리듬과 순환에 영향을 끼치며, 시차는 수면·리듬 점수에 영향을 끼칩니다. 비행 시간이 증가함에 따라 수분 및 피부 점수가 줄어들며, 경유 여부에 따라 각 수치가 조정될 수 있습니다.
+          </div>
         </details>
 
         <a class="btn btn--guide btn--block" href="./layover-guide.html">회복 가이드 확인</a>
-        <a class="link--export" href="#">회복 가이드 캘린더로 내보내기</a>
+        <a class="link--export btn--link" href="#">회복 가이드 캘린더로 내보내기</a>
 
         <section>
           <h2 class="text-heading-1">비행 일정</h2>
+          <!-- 민트색 배경과 함께 스타일 조정 -->
           <article class="flight-card flight-card--soft">
             <div class="flight-card__route">
               <div class="flight-card__point">
@@ -70,6 +86,7 @@
                 <div class="flight-card__airport">인천국제공항</div>
               </div>
               <span class="flight-card__plane" aria-hidden="true">
+                <!-- 아이콘 크기 및 색상은 CSS에서 제어 -->
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 19h19v2h-19v-2zm19.57-9.36c-.21-.8-1.04-1.28-1.84-1.06L14.92 10 8 3.57 6.09 4.08l4.15 7.19-4.98 1.33-1.97-1.54-1.45.39 2.59 4.49L21 11.49c.81-.23 1.28-1.05 1.07-1.85z"/></svg>
               </span>
               <div class="flight-card__point">
@@ -79,11 +96,14 @@
             </div>
           </article>
 
+          <!-- 점선 타임라인과 강조 텍스트 적용 -->
           <div class="itinerary-list itinerary-list--connected">
             <div class="itinerary-row">
               <span class="itinerary-dot"></span>
               <div class="itinerary-row__body">
                 <p><strong>출발</strong> 10월 11일(일) 15:30</p>
+              </div>
+              <div class="itinerary-row__main">
                 <p class="itinerary-row__meta">경유 1회(8시간 50분 대기)</p>
                 <p class="itinerary-row__highlight">총 22시간 00분 비행</p>
               </div>

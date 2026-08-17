@@ -27,6 +27,7 @@
   overflow: hidden;
   box-shadow: var(--shadow-sm);
 }
+
 .flight-card__route {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -34,10 +35,12 @@
   gap: var(--space-2);
   padding: var(--space-5) var(--space-4) var(--space-4);
 }
+
 .flight-card__point {
   text-align: center;
   min-width: 0;
 }
+
 .flight-card__code {
   font-size: var(--fs-heading-2);
   line-height: var(--lh-heading-1);
@@ -45,6 +48,7 @@
   font-weight: 700;
   color: var(--color-text);
 }
+
 .flight-card__airport {
   margin-top: var(--space-1);
   font-size: var(--fs-body-3);
@@ -54,14 +58,17 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .flight-card__plane {
   color: var(--color-cyan-500);
   display: inline-flex;
 }
+
 .flight-card__plane svg {
   width: 32px;
   height: 32px;
 }
+
 .flight-card__meta {
   display: flex;
   align-items: center;
@@ -78,6 +85,7 @@
   font-weight: 600;
   text-align: center;
 }
+
 .flight-card__sep {
   color: var(--color-violet-300);
   font-weight: 400;
@@ -98,12 +106,15 @@
   text-decoration: none;
   transition: border-color 0.15s ease, background-color 0.15s ease;
 }
+
 a.trip-card:hover {
   border-color: var(--color-accent-subtle);
 }
+
 a.trip-card:active {
   background: var(--color-surface-subtle);
 }
+
 .trip-card__main {
   flex: 1 1 auto;
   min-width: 0;
@@ -112,18 +123,21 @@ a.trip-card:active {
   gap: var(--space-2);
   padding: var(--space-4);
 }
+
 .trip-card__route {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: var(--space-2);
 }
+
 .trip-card__point {
   display: inline-flex;
   align-items: baseline;
   gap: 6px;
   min-width: 0;
 }
+
 .trip-card__code {
   font-size: var(--fs-heading-2);
   line-height: var(--lh-heading-2);
@@ -131,11 +145,13 @@ a.trip-card:active {
   font-weight: 700;
   color: var(--color-text);
 }
+
 .trip-card__city {
   font-size: var(--fs-caption-1);
   color: var(--color-text-muted);
   white-space: nowrap;
 }
+
 .trip-card__arrow {
   flex: 0 0 auto;
   width: 16px;
@@ -143,6 +159,7 @@ a.trip-card:active {
   color: var(--color-primary);
   align-self: center;
 }
+
 .trip-card__meta {
   font-size: var(--fs-caption-1);
   color: var(--color-gray-700);
@@ -150,10 +167,12 @@ a.trip-card:active {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .trip-card__meta-sep {
   margin: 0 6px;
   color: var(--color-gray-300);
 }
+
 .trip-card__score {
   flex: 0 0 auto;
   display: flex;
@@ -166,12 +185,14 @@ a.trip-card:active {
   background: var(--color-surface-subtle);
   border-left: 1px solid var(--color-border);
 }
+
 .trip-card__score-label {
   font-size: var(--fs-caption-1);
   line-height: var(--lh-caption-1);
   letter-spacing: var(--ls-caption-1);
   color: var(--color-text-muted);
 }
+
 .trip-card__score-value {
   font-size: var(--fs-heading-1);
   line-height: 1.1;
@@ -216,14 +237,17 @@ a.trip-card:active {
   padding: var(--space-3) 0;
   border-bottom: 1px solid var(--color-border);
 }
+
 .counter-row:last-child {
   border-bottom: none;
 }
+
 .counter-row__btns {
   display: flex;
   align-items: center;
   gap: var(--space-3);
 }
+
 .counter-row__btns button {
   width: 32px;
   height: 32px;
@@ -233,9 +257,11 @@ a.trip-card:active {
   font-weight: 700;
   color: var(--color-text);
 }
+
 .counter-row__btns button:hover {
   background: var(--color-gray-050);
 }
+
 .counter-row__value {
   min-width: 40px;
   text-align: center;
@@ -253,6 +279,7 @@ a.trip-card:active {
   font-size: var(--fs-body-3);
   color: var(--color-text);
 }
+
 .field input[type="radio"] {
   width: 18px;
   height: 18px;
@@ -276,21 +303,25 @@ a.trip-card:active {
   border-radius: var(--radius-lg);
   padding: var(--space-4);
 }
+
 .score-summary__label {
   font-size: var(--fs-body-3);
   color: var(--color-text-muted);
 }
+
 .score-summary__value {
   font-size: 40px;
   font-weight: 800;
   color: var(--color-accent);
   line-height: 1.2;
 }
+
 .score-summary__meta {
   margin-top: var(--space-1);
   font-size: var(--fs-caption-1);
   color: var(--color-text-muted);
 }
+
 .score-note {
   font-size: var(--fs-body-3);
   color: var(--color-text);
@@ -305,12 +336,14 @@ a.trip-card:active {
   flex-direction: column;
   gap: var(--space-3);
 }
+
 .factor-row {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-3);
 }
+
 .factor-row__head {
   display: flex;
   justify-content: space-between;
@@ -318,12 +351,14 @@ a.trip-card:active {
   color: var(--color-text);
   margin-bottom: var(--space-2);
 }
+
 .factor-row__bar {
   height: 8px;
   background: var(--color-gray-100);
   border-radius: var(--radius-sm);
   overflow: hidden;
 }
+
 .factor-row__bar-fill {
   display: block;
   height: 100%;
@@ -339,11 +374,13 @@ a.trip-card:active {
   flex-direction: column;
   gap: var(--space-2);
 }
+
 .breakdown-box__title {
   font-weight: 700;
   color: var(--color-text);
   margin-bottom: var(--space-1);
 }
+
 .breakdown-row {
   display: flex;
   justify-content: space-between;
@@ -356,6 +393,7 @@ a.trip-card:active {
   display: flex;
   gap: var(--space-4);
 }
+
 .score-compare__col {
   flex: 1;
   text-align: center;
@@ -364,10 +402,12 @@ a.trip-card:active {
   border-radius: var(--radius-lg);
   padding: var(--space-4);
 }
+
 .score-compare__label {
   font-size: var(--fs-body-3);
   color: var(--color-text-muted);
 }
+
 .score-compare__value {
   font-size: 32px;
   font-weight: 800;
@@ -394,6 +434,7 @@ a.trip-card:active {
   line-height: var(--lh-caption-1);
   color: var(--color-text-muted);
 }
+
 .disclaimer__icon {
   flex: 0 0 auto;
   width: 18px;
@@ -410,12 +451,14 @@ a.trip-card:active {
   gap: 6px;
   margin-bottom: var(--space-3);
 }
+
 .step-dots span {
   width: 24px;
   height: 4px;
   border-radius: 2px;
   background: var(--color-gray-100);
 }
+
 .step-dots span.is-active {
   background: var(--color-primary);
 }
@@ -429,10 +472,12 @@ a.trip-card:active {
   gap: var(--space-3);
   margin-top: var(--space-3);
 }
+
 .itinerary-row {
   display: flex;
   gap: var(--space-2);
 }
+
 .itinerary-dot {
   width: 8px;
   height: 8px;
@@ -441,10 +486,12 @@ a.trip-card:active {
   margin-top: 6px;
   flex: 0 0 auto;
 }
+
 .itinerary-row__body p {
   font-size: var(--fs-body-3);
   color: var(--color-text);
 }
+
 .itinerary-row__highlight {
   color: var(--color-primary);
   font-weight: 700;
@@ -460,20 +507,24 @@ a.trip-card:active {
   gap: var(--space-4);
   padding: var(--space-4) 0;
 }
+
 .landing-score-compare__col {
   text-align: center;
 }
+
 .landing-score-compare__value {
   font-size: 40px;
   font-weight: 800;
   color: var(--color-gray-900);
   line-height: 1.1;
 }
+
 .landing-score-compare__label {
   font-size: var(--fs-caption-1);
   color: var(--color-text-muted);
   margin-top: 2px;
 }
+
 .landing-score-compare__arrow {
   color: var(--color-cyan-500);
   font-size: 16px;
@@ -486,18 +537,22 @@ a.trip-card:active {
   flex-direction: column;
   gap: var(--space-5);
 }
+
 .trip-step:not([hidden]) {
   display: flex;
 }
+
 .trip-step .field {
   gap: var(--space-2);
 }
+
 .trip-step section {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
 }
-.trip-step > div[style*="display:flex"] {
+
+.trip-step>div[style*="display:flex"] {
   gap: var(--space-3);
 }
 
@@ -515,11 +570,13 @@ a.trip-card:active {
   font-family: var(--font-sans);
   white-space: nowrap;
 }
+
 .info-row__label {
   flex: 0 0 auto;
   font-size: var(--fs-body-3);
   color: var(--color-text);
 }
+
 .info-row__value {
   flex: 1 1 auto;
   text-align: right;
@@ -528,6 +585,7 @@ a.trip-card:active {
   color: var(--color-primary);
   margin-right: var(--space-2);
 }
+
 .info-row__chevron {
   flex: 0 0 auto;
   width: 18px;
@@ -545,6 +603,7 @@ a.trip-card:active {
   overflow-y: auto;
   border-top: 1px solid var(--color-border);
 }
+
 .airport-list__item {
   text-align: left;
   padding: var(--space-3) var(--space-2);
@@ -554,10 +613,12 @@ a.trip-card:active {
   font-size: var(--fs-body-3);
   color: var(--color-text);
 }
+
 .airport-list__item.is-selected {
   color: var(--color-primary);
   font-weight: 700;
 }
+
 .airport-list__item:last-child {
   border-bottom: none;
 }
@@ -567,12 +628,15 @@ a.trip-card:active {
   align-items: center;
   gap: var(--space-2);
 }
+
 .date-input {
   text-align: center;
 }
+
 .date-input--sm {
   max-width: 60px;
 }
+
 .date-input-unit {
   font-size: var(--fs-body-3);
   color: var(--color-text-muted);
@@ -591,11 +655,13 @@ a.trip-card:active {
   display: flex;
   gap: var(--space-2);
 }
+
 .step-nav-back {
   flex: 1;
   background: var(--color-gray-050);
   color: var(--color-text);
 }
+
 .step-nav-forward {
   flex: 3;
 }
@@ -607,6 +673,7 @@ a.trip-card:active {
   background: var(--color-accent-subtle);
   color: var(--color-primary);
 }
+
 .btn--soft-selected:hover {
   background: var(--color-violet-300);
 }
@@ -616,6 +683,7 @@ a.trip-card:active {
   grid-template-columns: 1fr 1fr;
   gap: var(--space-2);
 }
+
 .option-grid .btn {
   height: 52px;
   font-size: var(--fs-body-3);
@@ -643,6 +711,7 @@ a.trip-card:active {
   margin: 0 auto var(--space-4) auto;
   width: fit-content;
 }
+
 .stage-tab__item {
   display: flex;
   align-items: center;
@@ -655,23 +724,27 @@ a.trip-card:active {
   line-height: 1;
   white-space: nowrap;
 }
+
 .stage-tab__item .svg-icon {
   width: 12px;
   height: 12px;
   flex: 0 0 auto;
 }
+
 .stage-tab__item.is-active {
   background: var(--color-cyan-100);
   color: var(--color-cyan-600);
   font-weight: 700;
   font-size: 11px;
 }
+
 .stage-tab__item:not(.is-active) {
   width: 22px;
   height: 22px;
   padding: 0;
   color: var(--color-cyan-300);
 }
+
 /* 예상 컨디션 점수 아래 공백 */
 .score-note {
   margin-bottom: var(--space-5);
@@ -689,15 +762,18 @@ a.trip-card:active {
   color: var(--color-text);
   padding: var(--space-2) 0;
 }
+
 .calc-toggle summary::-webkit-details-marker {
   display: none;
 }
+
 .calc-toggle summary::after {
   content: "▾";
   color: var(--color-gray-400);
   margin-left: var(--space-2);
   transition: transform 0.15s ease;
 }
+
 .calc-toggle[open] summary::after {
   transform: rotate(180deg);
 }
@@ -707,6 +783,7 @@ a.trip-card:active {
   background: var(--color-accent-subtle);
   color: var(--color-primary);
 }
+
 .btn--guide:hover {
   background: var(--color-violet-300);
 }
@@ -730,11 +807,13 @@ a.trip-card:active {
   flex-direction: column;
   gap: var(--space-4);
 }
+
 .factor-row {
   background: none;
   border: none;
   padding: 0;
 }
+
 .factor-row__head {
   display: flex;
   justify-content: space-between;
@@ -742,12 +821,14 @@ a.trip-card:active {
   color: var(--color-gray-900);
   margin-bottom: var(--space-2);
 }
+
 .factor-row__bar {
   height: 6px;
   background: var(--color-gray-100);
   border-radius: 4px;
   overflow: hidden;
 }
+
 .factor-row__bar-fill {
   display: block;
   height: 100%;
@@ -761,9 +842,11 @@ a.trip-card:active {
   border: none;
   box-shadow: none;
 }
+
 .flight-card--soft .flight-card__route {
   padding: var(--space-4);
 }
+
 .flight-card--soft .flight-card__code,
 .flight-card--soft .flight-card__airport {
   color: var(--color-gray-900);
@@ -775,6 +858,7 @@ a.trip-card:active {
   padding-left: 4px;
   margin-top: var(--space-4);
 }
+
 .itinerary-list--connected::before {
   content: "";
   position: absolute;
@@ -783,19 +867,93 @@ a.trip-card:active {
   bottom: 8px;
   border-left: 1px dashed var(--color-border-strong);
 }
+
 .itinerary-list--connected .itinerary-dot {
   position: relative;
   z-index: 1;
   background: var(--color-primary);
 }
+
 .itinerary-list--connected .itinerary-row {
   margin-bottom: var(--space-4);
 }
+
 .itinerary-list--connected .itinerary-row:last-child {
   margin-bottom: 0;
 }
+
 .itinerary-list--connected .itinerary-row__meta {
   font-size: var(--fs-caption-1);
   color: var(--color-text-muted);
   margin-top: 2px;
+}
+
+/* 레이오버 가이드 */
+.guide-section {
+  margin-bottom: var(--space-7);
+}
+
+.guide-section__desc {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--fs-body-3);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+/* 세로형 리스트 (비행 중 회복) */
+.guide-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* 2x2 그리드 리스트 (경유 대기 중 회복) */
+.guide-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* 카드 공통 스타일 */
+.guide-card {
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* 회색 배경 카드 */
+.guide-card--gray {
+  background-color: var(--color-surface-subtle);
+  /* var(--color-gray-050) */
+}
+
+.guide-card--gray .guide-card__title {
+  font-size: var(--fs-heading-3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 연보라색 배경 카드 */
+.guide-card--violet {
+  background-color: var(--color-violet-050);
+}
+
+.guide-card--violet .guide-card__title {
+  font-size: var(--fs-heading-3);
+  font-weight: 600;
+  color: var(--color-primary);
+  /* var(--color-violet-500) */
+}
+
+/* 카드 설명 텍스트 */
+.guide-card__desc {
+  font-size: var(--fs-body-3);
+  line-height: var(--lh-caption-1);
+  color: var(--color-text-muted);
+  word-break: keep-all;
 }
