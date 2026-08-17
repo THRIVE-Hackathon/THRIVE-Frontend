@@ -535,6 +535,7 @@ a.trip-card:active {
  * ============================================================ */
 .trip-step {
   flex-direction: column;
+  margin-top: 0;
   gap: var(--space-5);
 }
 
