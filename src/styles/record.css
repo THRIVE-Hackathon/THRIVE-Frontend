@@ -573,14 +573,14 @@ a.trip-card:active {
 
 .info-row__label {
   flex: 0 0 auto;
-  font-size: var(--fs-body-3);
+  font-size: var(--fs-body-1);
   color: var(--color-text);
 }
 
 .info-row__value {
   flex: 1 1 auto;
   text-align: right;
-  font-size: var(--fs-body-3);
+  font-size: var(--fs-body-1);
   font-weight: 700;
   color: var(--color-primary);
   margin-right: var(--space-2);
@@ -648,7 +648,7 @@ a.trip-card:active {
 .field-error {
   font-size: var(--fs-caption-1);
   color: var(--color-danger);
-  margin-top: var(--space-1);
+  margin-top: -16px;
 }
 
 .step-nav-row {
@@ -956,4 +956,25 @@ a.trip-card:active {
   line-height: var(--lh-caption-1);
   color: var(--color-text-muted);
   word-break: keep-all;
+}
+
+/* ============================================================
+ * 19) 여정 등록 / 설문 — 하단 고정 액션 버튼
+ *   · 기존 .app__body--push(home.css: 본문을 세로 플렉스로) 를 재사용하고,
+ *     아래 두 규칙만 새로 추가한다. (기존 규칙 수정 없음)
+ *   · trip-register: 보이는 스텝이 남은 높이를 모두 차지 → 내부 액션을 바닥으로.
+ *   · condition-survey: 버튼이 곧바로 본문의 마지막 플렉스 자식이라 auto 마진으로 바닥 고정.
+ * ============================================================ */
+.app__body--push .trip-step:not([hidden]) {
+  flex: 1 1 auto;
+}
+
+.step-action--bottom {
+  margin-top: auto;
+}
+
+.label-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
