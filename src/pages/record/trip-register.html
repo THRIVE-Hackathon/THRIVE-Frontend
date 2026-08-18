@@ -41,14 +41,14 @@
             </svg>
           </button>
 
-          <button type="button" class="info-row">
-            <span class="info-row__label">출발 시각</span>
-            <span class="info-row__value">15:30</span>
-            <svg class="info-row__chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
+      <button type="button" class="info-row" id="depart-time-trigger">
+  <span class="info-row__label">출발 시각</span>
+  <span class="info-row__value" id="depart-time-value">15:30</span>
+  <svg class="info-row__chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round" />
+  </svg>
+</button>
         </div>
 
         <div class="field-box">
@@ -68,7 +68,7 @@
 
           <button type="button" class="info-row" id="wait-time-field" style="display: flex;">
             <span class="info-row__label">대기 시간</span>
-            <span class="info-row__value">8시간 50분</span>
+            <span class="info-row__value" id="wait-time-value">8시간 50분</span>
             <svg class="info-row__chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round" />
@@ -350,6 +350,40 @@
       </div>
     </div>
 
+    <!-- 출발 시각 선택 바텀시트 -->
+    <div id="depart-time-sheet" class="sheet-overlay" hidden>
+      <div class="sheet">
+        <div class="sheet__handle"></div>
+        <h2 class="text-heading-3">출발 시각</h2>
+        <div class="date-input-row">
+          <input class="field__input date-input date-input--sm" type="text" inputmode="numeric" maxlength="2"
+            placeholder="00" id="depart-time-hour" />
+          <span class="date-input-unit">시</span>
+          <input class="field__input date-input date-input--sm" type="text" inputmode="numeric" maxlength="2"
+            placeholder="00" id="depart-time-minute" />
+          <span class="date-input-unit">분</span>
+        </div>
+        <button type="button" class="btn btn--primary btn--block" id="depart-time-confirm">입력</button>
+      </div>
+    </div>
+
+    <!-- 대기 시간 선택 바텀시트 -->
+    <div id="wait-time-sheet" class="sheet-overlay" hidden>
+      <div class="sheet">
+        <div class="sheet__handle"></div>
+        <h2 class="text-heading-3">대기 시간</h2>
+        <div class="date-input-row">
+          <input class="field__input date-input date-input--sm" type="text" inputmode="numeric" maxlength="2"
+            placeholder="00" id="wait-time-hour" />
+          <span class="date-input-unit">시간</span>
+          <input class="field__input date-input date-input--sm" type="text" inputmode="numeric" maxlength="2"
+            placeholder="00" id="wait-time-minute" />
+          <span class="date-input-unit">분</span>
+        </div>
+        <button type="button" class="btn btn--primary btn--block" id="wait-time-confirm">입력</button>
+      </div>
+    </div>
+
     <!-- 닫기 확인 모달 -->
     <div id="close-confirm-modal" class="modal" hidden>
       <div class="modal__box">
@@ -365,6 +399,52 @@
 
   <script src="../../components/header.js"></script>
   <script src="../../scripts/trip-register.js"></script>
+  <script>
+    // [추가] 출발 시각 / 대기 시간 바텀시트 — trip-register.js에 없는 부분만 보강
+    (function () {
+      var departTimeSheet = document.getElementById("depart-time-sheet");
+      var departTimeValueEl = document.getElementById("depart-time-value");
+      var departTimeTrigger = document.getElementById("depart-time-trigger");
+
+      if (departTimeTrigger) {
+        departTimeTrigger.addEventListener("click", function () {
+          departTimeSheet.hidden = false;
+        });
+      }
+      document.getElementById("depart-time-confirm").addEventListener("click", function () {
+        var dh = document.getElementById("depart-time-hour").value;
+        var dm = document.getElementById("depart-time-minute").value;
+        if (dh && dm) {
+          departTimeValueEl.textContent = dh.padStart(2, "0") + ":" + dm.padStart(2, "0");
+        }
+        departTimeSheet.hidden = true;
+      });
+      departTimeSheet.addEventListener("click", function (e) {
+        if (e.target === departTimeSheet) departTimeSheet.hidden = true;
+      });
+
+      var waitTimeSheet = document.getElementById("wait-time-sheet");
+      var waitTimeValueEl = document.getElementById("wait-time-value");
+      var waitTimeField = document.getElementById("wait-time-field");
+
+      if (waitTimeField) {
+        waitTimeField.addEventListener("click", function () {
+          waitTimeSheet.hidden = false;
+        });
+      }
+      document.getElementById("wait-time-confirm").addEventListener("click", function () {
+        var wh = document.getElementById("wait-time-hour").value;
+        var wm = document.getElementById("wait-time-minute").value;
+        if (wh && wm) {
+          waitTimeValueEl.textContent = wh + "시간 " + wm + "분";
+        }
+        waitTimeSheet.hidden = true;
+      });
+      waitTimeSheet.addEventListener("click", function (e) {
+        if (e.target === waitTimeSheet) waitTimeSheet.hidden = true;
+      });
+    })();
+  </script>
 </body>
 
 </html>
