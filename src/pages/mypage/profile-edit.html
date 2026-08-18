@@ -23,13 +23,13 @@
         <div class="profile-row">
           <div class="field">
             <label class="field__label">성별</label>
-            <button type="button" class="field__select field__select--btn" id="gender-trigger" style="text-align:left;">
+            <button type="button" class="field__select field__select--btn profile-row__control" id="gender-trigger" style="text-align:left;">
               <span id="gender-value">여성</span>
             </button>
           </div>
           <div class="field">
             <label class="field__label">나이</label>
-            <input class="field__input" type="text" inputmode="numeric" pattern="[0-9]*" value="28" />
+            <input class="field__input profile-row__control" type="text" inputmode="numeric" pattern="[0-9]*" id="age-input" value="28세" />
           </div>
         </div>
 
@@ -48,6 +48,9 @@
           <button type="button" class="btn btn--primary btn--block" id="gender-confirm">확인</button>
         </div>
       </div>
+
+      <!-- 저장 완료 토스트 -->
+      <div id="save-toast" class="toast" hidden>내용이 저장되었어요.</div>
     </div>
     <script src="../../components/header.js"></script>
     <script>
@@ -86,8 +89,27 @@
         if (e.target === sheet) sheet.hidden = true;
       });
 
+      // 나이 입력창: 숫자만 입력받고 "세" 자동으로 붙이기
+      var ageInput = document.getElementById("age-input");
+      ageInput.addEventListener("focus", function () {
+        ageInput.value = ageInput.value.replace("세", "");
+      });
+      ageInput.addEventListener("blur", function () {
+        var digits = ageInput.value.replace(/[^0-9]/g, "");
+        if (digits) ageInput.value = digits + "세";
+      });
+
+      // 저장 버튼: 토스트 띄우고 5초 뒤 사라짐, 그 후 profile.html로 이동
+      var saveToast = document.getElementById("save-toast");
+      var toastTimer = null;
+
       document.getElementById("profile-save").addEventListener("click", function () {
-        window.location.href = "./profile.html";
+        saveToast.hidden = false;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          saveToast.hidden = true;
+          window.location.href = "./profile.html";
+        }, 5000);
       });
     </script>
   </body>
