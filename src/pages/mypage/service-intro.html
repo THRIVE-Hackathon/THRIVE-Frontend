@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>THRIVE · 서비스 소개</title>
+    <title>THRIVE · 서비스처리방침</title>
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/variables.css" />
     <link rel="stylesheet" href="../../styles/common.css" />
@@ -15,48 +15,29 @@
     <div class="app" id="app">
       <div id="header-mount"></div>
       <main class="app__body">
-        <h1 class="text-title-1">서비스 소개</h1>
-
-        <section class="policy-box">
-          <h2 class="text-heading-3">리커버리란?</h2>
-          <p class="text-caption text-muted">장거리 비행 후 신체 회복을 돕는 참고 도구입니다. 수면·순환·수분·피부 네 가지 요소를 기반으로 회복 점수를 계산하고, 남은 시간에 맞는 행동을 제안합니다.</p>
+        <section>
+          <h2 class="text-heading-1">서비스 소개</h2>
+          <p class="text-caption text-muted">장거리 비행 후 신체 회복을 돕는 참고 서비스입니다. 수면·순환·수분·피부 네 가지 요소를 기반으로 회복 점수를 계산하고, 남은 시간에 맞는 행동을 제안합니다.</p>
         </section>
 
-        <section class="policy-box">
-          <h2 class="text-heading-3">회복 점수란?</h2>
-          <p class="text-caption text-muted">착륙 시점의 신체 상태를 0~100점으로 나타낸 참고 지표입니다. 여행 전 컨디션, 실비행 시간, 기내 행동 기록을 반영해 산출되며, 의학적 진단이 아닙니다.</p>
+        <section>
+          <h2 class="text-heading-1">회복 점수</h2>
+          <p class="text-caption text-muted">착륙 시점의 신체 상태를 0~100점으로 나타낸 참고 지표입니다. 시차 크기와 방향, 실비행 시간, 기내 행동 기록을 반영해 산출되며 의학적 진단이 아닙니다.</p>
         </section>
 
-        <section class="policy-box">
-          <h2 class="text-heading-3">점수 산출 방식</h2>
-          <p class="text-caption text-muted">기준 100점에서 요소별 감점을 차감합니다.</p>
-          <ul class="policy-list" style="margin-top: var(--space-2);">
-            <li style="display:flex; justify-content:space-between;"><span>수면 부족</span><span>최대 -21점</span></li>
-            <li style="display:flex; justify-content:space-between;"><span>순환</span><span>최대 -17점</span></li>
-            <li style="display:flex; justify-content:space-between;"><span>수분</span><span>최대 -17점</span></li>
-            <li style="display:flex; justify-content:space-between;"><span>피부</span><span>최대 -14점</span></li>
-          </ul>
-          <p class="text-caption text-muted" style="margin-top: var(--space-2);">기내 물 섭취·걷기·보습 기록이 있으면 실측 점수에 반영됩니다.</p>
+        <section>
+          <h2 class="text-heading-1">점수 산출 방식</h2>
+          <p class="text-caption text-muted">기준 100점에서 수면·순환·수분·피부의 요소별 감점을 차감합니다. 기내 물 섭취·걷기·보습 기록이 있으면 실측 점수에 반영됩니다. 회복 점수는 수면 과학 및 항공 의학 분야의 공개 연구를 참고한 행동 지표입니다. 특정 의료 기관이나 치료 방법을 추천하지 않습니다.</p>
         </section>
-
-        <section class="policy-box">
-          <h2 class="text-heading-3">참고 자료</h2>
-          <p class="text-caption text-muted">회복 점수는 수면 과학 및 항공 의학 분야의 공개 연구를 참고한 예상 지표입니다. 특정 질환 진단이나 치료 방법을 추천하지 않습니다.</p>
-        </section>
-
-        <p class="disclaimer">
-          <svg class="disclaimer__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg>
-          <span>이 점수는 참고 지표이며 의학적 판단을 대체하지 않습니다.</span>
-        </p>
       </main>
     </div>
     <script src="../../components/header.js"></script>
     <script>
       document.getElementById("header-mount").append(
-        THRIVE.createHeader({
-          title: "서비스 소개",
-          onClose: function () { history.back(); },
-        })
+       THRIVE.createHeader({
+  title: "서비스처리방침",
+  onBack: function () { history.back(); },
+})
       );
     </script>
   </body>
