@@ -53,6 +53,9 @@
   font-weight: 700;
   color: var(--color-text);
 }
+.service-head {
+  margin-bottom: 24px;
+}
 
 /* ---------- 설정 리스트 (계정 설정, 서비스 정보 목록) ---------- */
 .settings-list {
@@ -60,6 +63,7 @@
   flex-direction: column;
   border: none;
   border-radius: 0;
+  margin-top: 24px;
   overflow: visible;
 }
 .settings-list a,
@@ -152,6 +156,7 @@
   background: var(--color-surface-subtle);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
+  margin-top: 24px;
   padding: var(--space-4);
 }
 .policy-box ul {
@@ -168,6 +173,7 @@
 .policy-list {
   display: flex;
   flex-direction: column;
+  margin-top: 24px;
   gap: var(--space-2);
   font-size: var(--fs-body-3);
   color: var(--color-text);
@@ -281,6 +287,7 @@
 .sheet__options {
   display: flex;
   gap: var(--space-3);
+  margin-bottom: 40px;
 }
 .sheet__option {
   flex: 1;
@@ -332,4 +339,9 @@
 #app .field__input[type="text"]:not(.profile-row__control) {
   height: 52px;
   font-size: var(--fs-body-2);
+  border-radius: var(--radius-lg);
+}
+
+.field__input {
+  border-radius: var(--radius-lg);
 }

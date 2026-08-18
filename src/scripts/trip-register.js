@@ -228,3 +228,47 @@
     totalFlightTimeSheet.addEventListener("click", function (e) {
       if (e.target === totalFlightTimeSheet) totalFlightTimeSheet.hidden = true;
     });
+    // 출발 시각 / 대기 시간 바텀시트
+    (function () {
+      var departTimeSheet = document.getElementById("depart-time-sheet");
+      var departTimeValueEl = document.getElementById("depart-time-value");
+      var departTimeTrigger = document.getElementById("depart-time-trigger");
+
+      if (departTimeTrigger) {
+        departTimeTrigger.addEventListener("click", function () {
+          departTimeSheet.hidden = false;
+        });
+      }
+      document.getElementById("depart-time-confirm").addEventListener("click", function () {
+        var dh = document.getElementById("depart-time-hour").value;
+        var dm = document.getElementById("depart-time-minute").value;
+        if (dh && dm) {
+          departTimeValueEl.textContent = dh.padStart(2, "0") + ":" + dm.padStart(2, "0");
+        }
+        departTimeSheet.hidden = true;
+      });
+      departTimeSheet.addEventListener("click", function (e) {
+        if (e.target === departTimeSheet) departTimeSheet.hidden = true;
+      });
+
+      var waitTimeSheet = document.getElementById("wait-time-sheet");
+      var waitTimeValueEl = document.getElementById("wait-time-value");
+      var waitTimeField = document.getElementById("wait-time-field");
+
+      if (waitTimeField) {
+        waitTimeField.addEventListener("click", function () {
+          waitTimeSheet.hidden = false;
+        });
+      }
+      document.getElementById("wait-time-confirm").addEventListener("click", function () {
+        var wh = document.getElementById("wait-time-hour").value;
+        var wm = document.getElementById("wait-time-minute").value;
+        if (wh && wm) {
+          waitTimeValueEl.textContent = wh + "시간 " + wm + "분";
+        }
+        waitTimeSheet.hidden = true;
+      });
+      waitTimeSheet.addEventListener("click", function (e) {
+        if (e.target === waitTimeSheet) waitTimeSheet.hidden = true;
+      });
+    })();
