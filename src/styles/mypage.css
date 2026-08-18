@@ -112,16 +112,18 @@
   display: flex;
 }
 .modal__box {
-  width: min(320px, calc(100% - 48px));
+  width: min(362px, calc(100% - 20px));
   background: var(--color-surface);
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  align-items: center;
+  gap: var(--space-5);
 }
 .modal__box h2 {
-  font-size: var(--fs-heading-2);
+  font-size: var(--fs-heading-1);
+  font-weight: 700;
   color: var(--color-text);
 }
 .modal__box ul {
@@ -131,6 +133,12 @@
   font-size: var(--fs-body-3);
   color: var(--color-text-muted);
 }
+.modal-text {
+  align-items: center;
+  text-align: center;
+  font-size: var(--fs-body-1);
+  color: var(--color-text);
+}
 .modal__actions {
   display: flex;
   gap: var(--space-3);
@@ -138,9 +146,12 @@
 }
 .modal__actions button {
   flex: 1;
-  height: 48px;
-  border-radius: var(--radius-md);
-  font-weight: 600;
+  height: 60px;
+  width: 155px;
+  padding: 16px 32px;
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-heading-2);
+  font-weight: 700;
 }
 .modal__actions .btn--cancel {
   background: var(--color-gray-050);
